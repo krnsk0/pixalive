@@ -48,16 +48,18 @@ io.on(constants.MSG.CONNECTION, socket => {
     state[socketId] = {};
   }
 
+  // send the current state
+  socket.emit(constants.MSG.STATE_UPDATE, state);
+
   // when a cursor moves...
   socket.on(constants.MSG.CURSOR_MOVE, coords => {
     state[socketId].x = coords.x;
     state[socketId].y = coords.y;
     socket.emit(constants.MSG.STATE_UPDATE, state);
   });
-});
 
-io.on(constants.MSG.DISCONNECT, socket => {
-  // delete this cursor from our state
-  const socketId = socket.id;
-  delete state[socketId];
+  socket.on(constants.MSG.DISCONNECT, socket => {
+    // delete this cursor from our state
+    delete state[socketId];
+  });
 });
