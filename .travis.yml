@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+    - 'node_modules'
+dist: trusty
+sudo: false
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+install:
+  - npm ci # installs from package lock
+script:
+  - npm run build-deploy
+  - rm -rf node_modules # delete node_modules before deploying, since we skip cleanup
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  app: pixalive
+  api_key:
+    secure: 'Ws4Aw+a6fzoSBLFs8vZGmej+l8zhPBmev51KnjRuB1rJUUlYJrcXjdq4ATsGrvFbABxdyzNlCQL55Vtav4ShveWQ0r9usZ/sM0t1uByWOBU2HCuO7Q5HRWqT3uDtAAZ7Hx3D36Q1Qj4t7E/jO8Rbh4/0TFxke9wjxeq54Pd2oN5ue+O21PNJHdyddF9Zh1CUJ5IUAxayGPYlqygUSJXSM47kuazcewgmPVf/bvLebodBoRd2zHuFnyIg6s0ELP8S41gm37I5K+gXqqH7uAhYB29HTP+7UC3D62rikRh5sAhgdKr28nUHkwtQQX3e3Vah7sgAsbTGOLLQ1BWV95E1IwiYlMuk88Q+GnwkEaPMpnI4dtCbNHVt+g1iiHPIjxO5QpJuesvmBkmPTiq7fw8HDzypadec27mjAKjnO4GsaVrFYxaOjOlpppVo894DhblhNhbL6WXxDDjYjgKlmc2NSzSfS8JSdYUCTZ/LG0F37WaMhhF2eBeDvvgg1fhlQ0sr1XwW+718XQUfMOHfcemZGNxJ8J11rCISyD89Dw8DJoEE5YbmZG7gJx4B3Oef/OsyNW3FApi1+CZAv8HAEq5bbLQzQBFElkP7fajLk5N5SaC7n1B9qSWU+6emm/TRNzK3Ezg4Q+vimhDdxIG1zYQ4otY+gHgrivkM/2ZCMGDyKvk='
