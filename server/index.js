@@ -57,6 +57,7 @@ io.on(constants.MSG.CONNECTION, socket => {
 });
 
 io.on(constants.MSG.DISCONNECT, socket => {
+  // delete this cursor from our state
   const socketId = socket.id;
   delete state[socketId];
 });
