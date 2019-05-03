@@ -12,7 +12,9 @@
  *
  */
 
-module.exports = Object.freeze({
+const deepFreeze = require('deep-freeze');
+
+module.exports = deepFreeze({
   EXAMPLE_CONSTANT: 'example value',
   MSG: {
     CONNECTION: 'connection',

@@ -32,7 +32,9 @@ module.exports = {
         exclude: /(node_modules)/,
 
         // which loader to use for this rule-set --> check out .babelrc for our specified rules
-        use: ['babel-loader']
+        use: {
+          loader: 'babel-loader'
+        }
       }
     ]
   }
