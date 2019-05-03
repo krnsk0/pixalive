@@ -15,10 +15,14 @@
 const deepFreeze = require('deep-freeze');
 
 module.exports = deepFreeze({
-  EXAMPLE_CONSTANT: 'example value',
   MSG: {
     CONNECTION: 'connection',
     DISCONNECT: 'disconnect',
-    CONNECT: 'connect'
-  }
+    CONNECT: 'connect',
+    CURSOR_MOVE: 'cursor_move',
+    STATE_UPDATE: 'state_update'
+  },
+  CANVAS_HEIGHT: 600,
+  CANVAS_WIDTH: 800,
+  CURSOR_SIZE: 5 // odd numbers only or it'll be off-center
 });

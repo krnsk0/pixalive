@@ -33,3 +33,30 @@ io.on(constants.MSG.CONNECTION, socket => {
     console.log('reason:', reason);
   });
 });
+
+/**************************************
+ *   vv THE FUN STUFF STARTS HERE vv
+ **************************************/
+
+const state = {};
+
+io.on(constants.MSG.CONNECTION, socket => {
+  // create a cursor in our state object
+  // its key will be the socket id
+  const socketId = socket.id;
+  if (!state[socketId]) {
+    state[socketId] = {};
+  }
+
+  // when a cursor moves...
+  socket.on(constants.MSG.CURSOR_MOVE, coords => {
+    state[socketId].x = coords.x;
+    state[socketId].y = coords.y;
+    socket.emit(constants.MSG.STATE_UPDATE, state);
+  });
+});
+
+io.on(constants.MSG.DISCONNECT, socket => {
+  const socketId = socket.id;
+  delete state[socketId];
+});
