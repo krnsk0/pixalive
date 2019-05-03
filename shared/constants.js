@@ -8,7 +8,7 @@
  *
  *    const constants = require('../shared/constants');
  *
- *    Then, to get at a constant, use constants.EXAMPLE_CONSTANT
+ *    Then, to get at a constant, use constants.THING
  *
  */
 

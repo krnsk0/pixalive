@@ -55,9 +55,10 @@ io.on(constants.MSG.CONNECTION, socket => {
   socket.on(constants.MSG.CURSOR_MOVE, coords => {
     state[socketId].x = coords.x;
     state[socketId].y = coords.y;
-    socket.emit(constants.MSG.STATE_UPDATE, state);
+    io.emit(constants.MSG.STATE_UPDATE, state);
   });
 
+  // when this client disconnects
   socket.on(constants.MSG.DISCONNECT, socket => {
     // delete this cursor from our state
     delete state[socketId];
