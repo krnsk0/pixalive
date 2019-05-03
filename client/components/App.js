@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-
 const constants = require('../../shared/constants');
 
 const App = () => {
@@ -14,11 +13,7 @@ const App = () => {
     });
   }, []);
 
-  return (
-    <div>
-      Hello world from the app component! This client's socket id is {socketId}{' '}
-    </div>
-  );
+  return <div>This client's socket id is {socketId} </div>;
 };
 
 export default App;
