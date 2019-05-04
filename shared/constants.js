@@ -20,7 +20,7 @@ module.exports = deepFreeze({
     DISCONNECT: 'disconnect',
     CONNECT: 'connect',
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
-    STATE_UPDATE: 'state_update' // a server-to-client event
+    SEND_SPRITE: 'send_sprite' // a server-to-client event
   },
   CANVAS_HEIGHT: 600,
   CANVAS_WIDTH: 800,

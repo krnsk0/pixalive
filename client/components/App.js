@@ -57,16 +57,13 @@ const App = () => {
     // set up event listener for mouse movements
     canvas.addEventListener('mousemove', onMouseMove);
 
-    // when we get a state update from the server...
-    socket.on(constants.MSG.STATE_UPDATE, state => {
+    // when we get a sprite update from the server...
+    socket.on(constants.MSG.SEND_SPRITE, sprite => {
       // clear the canvas
       ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
-      // sprite hash is namespace without the initial slash
-      const spriteHash = window.location.pathname.slice(1);
-
       // render it!
-      for (const [id, coords] of Object.entries(state[spriteHash].users)) {
+      for (const [id, coords] of Object.entries(sprite.users)) {
         // draw a cursor
         const half = Math.floor(constants.CURSOR_SIZE / 2);
         ctx.fillRect(

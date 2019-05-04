@@ -84,8 +84,8 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
   // make a new user object and add it
   state[spriteHash].users[socketId] = userFactory(socketId);
 
-  // send the current state
-  socket.emit(constants.MSG.STATE_UPDATE, state);
+  // send the current drawing object
+  socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
   // when a cursor moves...
   socket.on(constants.MSG.CURSOR_MOVE, coords => {
@@ -94,7 +94,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     state[spriteHash].users[socketId].y = coords.y;
 
     // send the state tree to everyone editing this sprite
-    nspIo.emit(constants.MSG.STATE_UPDATE, state);
+    nspIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 
   // when this client leaves
@@ -103,7 +103,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     delete state[spriteHash].users[socketId];
 
     // emit it so it updates for everyone still connectd
-    nspIo.emit(constants.MSG.STATE_UPDATE, state);
+    nspIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
     // get the number of users left in this namespace
     const usersLeft = Object.keys(state[spriteHash].users).length;
