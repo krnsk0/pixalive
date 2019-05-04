@@ -10,6 +10,7 @@ const App = () => {
   // state for the current namespace so we can display it
   const [socketId, setSocketId] = useState('');
   const [namespace, setNamespace] = useState('');
+  const [userCount, setUserCount] = useState(0);
 
   // things that happen on component mount!
   useEffect(() => {
@@ -59,6 +60,9 @@ const App = () => {
 
     // when we get a sprite update from the server...
     socket.on(constants.MSG.SEND_SPRITE, sprite => {
+      // store current connected user count
+      setUserCount(Object.keys(sprite.users).length);
+
       // clear the canvas
       ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
@@ -89,6 +93,9 @@ const App = () => {
     <div>
       <div>This client's socket id is {socketId}</div>
       <div>The current socket namespace is {namespace}</div>
+      <div>
+        {userCount - 1} other user{userCount > 2 && 's'} in this namespace
+      </div>
       <canvas id="canvas" ref={canvasRef} />
     </div>
   );
