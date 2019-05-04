@@ -7,7 +7,9 @@ const App = () => {
   const canvasRef = useRef();
 
   // state for the socket id so we can display it
+  // state for the current namespace so we can display it
   const [socketId, setSocketId] = useState('');
+  const [namespace, setNamespace] = useState('');
 
   // things that happen on component mount!
   useEffect(() => {
@@ -22,13 +24,19 @@ const App = () => {
     canvas.style.width = constants.CANVAS_WIDTH;
     canvas.style.height = constants.CANVAS_HEIGHT;
 
-    // set up our websocket
-    const socket = io();
+    // set up our websocket based on the URL's path component
+    const socket = io(window.location.pathname);
     socket.on(constants.MSG.CONNECT, () => {
+      console.log(socket);
       // store our socket id
-      const id = socket.id;
+      // trim the nsp from the start
+      const id = socket.id.slice(socket.nsp.length + 1);
       console.log('connection id:', id);
       setSocketId(id);
+
+      // store our namespace
+      console.log('namespace', socket.nsp);
+      setNamespace(socket.nsp);
     });
 
     // event listener helper
@@ -54,8 +62,11 @@ const App = () => {
       // clear the canvas
       ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
+      // sprite hash is namespace without the initial slash
+      const spriteHash = window.location.pathname.slice(1);
+
       // render it!
-      for (const [id, coords] of Object.entries(state)) {
+      for (const [id, coords] of Object.entries(state[spriteHash].users)) {
         // draw a cursor
         const half = Math.floor(constants.CURSOR_SIZE / 2);
         ctx.fillRect(
@@ -65,7 +76,7 @@ const App = () => {
           constants.CURSOR_SIZE
         );
 
-        // draw the id
+        // draw the socket
         ctx.font = '15px Courier';
         ctx.fillText(id, coords.x + 5, coords.y);
       }
@@ -80,6 +91,7 @@ const App = () => {
   return (
     <div>
       <div>This client's socket id is {socketId}</div>
+      <div>The current socket namespace is {namespace}</div>
       <canvas id="canvas" ref={canvasRef} />
     </div>
   );

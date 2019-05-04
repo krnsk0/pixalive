@@ -26,10 +26,21 @@ const server = app.listen(PORT, () => console.log(`Serving on ${PORT}`));
 const io = socketio(server);
 
 // log connections & disconnections
-io.on(constants.MSG.CONNECTION, socket => {
-  console.log('connection:', socket.id);
+// io.on(constants.MSG.CONNECTION, socket => {
+//   console.log('connection:', socket.id);
+//   socket.on(constants.MSG.DISCONNECT, reason => {
+//     console.log('disconnection:', socket.id);
+//     console.log('reason:', reason);
+//   });
+// });
+
+// dynamic socket namespacing
+const nspIo = io.of(/.+/).on('connect', socket => {
+  const namespace = socket.nsp.name;
+  const socketId = socket.id.slice(socket.nsp.name.length + 1);
+  console.log(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`);
   socket.on(constants.MSG.DISCONNECT, reason => {
-    console.log('disconnection:', socket.id);
+    console.log(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`);
     console.log('reason:', reason);
   });
 });
@@ -38,29 +49,68 @@ io.on(constants.MSG.CONNECTION, socket => {
  *   vv THE FUN STUFF STARTS HERE vv
  **************************************/
 
+// some placeholder object factory functions
+const spriteFactory = hash => {
+  return {
+    hash,
+    users: {},
+    frames: []
+  };
+};
+
+const userFactory = socketId => {
+  return {
+    socketId,
+    x: null,
+    y: null
+  };
+};
+
+// root of our server-side state tree
+// right now this is a hash of namespaces/sprites
 const state = {};
 
-io.on(constants.MSG.CONNECTION, socket => {
-  // create a cursor in our state object
-  // its key will be the socket id
-  const socketId = socket.id;
-  if (!state[socketId]) {
-    state[socketId] = {};
+nspIo.on(constants.MSG.CONNECTION, socket => {
+  // store our sprite hash and socket id
+  const spriteHash = socket.nsp.name.slice(1);
+  const socketId = socket.id.slice(socket.nsp.name.length + 1);
+
+  // does this namespace exist? if not, create it
+  if (!state[spriteHash]) {
+    console.log(`NEW SPRITE -> spriteHash: ${spriteHash}`);
+    state[spriteHash] = spriteFactory(spriteHash);
   }
+
+  // make a new user object and add it
+  state[spriteHash].users[socketId] = userFactory(socketId);
 
   // send the current state
   socket.emit(constants.MSG.STATE_UPDATE, state);
 
   // when a cursor moves...
   socket.on(constants.MSG.CURSOR_MOVE, coords => {
-    state[socketId].x = coords.x;
-    state[socketId].y = coords.y;
-    io.emit(constants.MSG.STATE_UPDATE, state);
+    // update their coords
+    state[spriteHash].users[socketId].x = coords.x;
+    state[spriteHash].users[socketId].y = coords.y;
+
+    // send the state tree to everyone editing this sprite
+    nspIo.emit(constants.MSG.STATE_UPDATE, state);
   });
 
   // when this client disconnects
   socket.on(constants.MSG.DISCONNECT, socket => {
-    // delete this cursor from our state
-    delete state[socketId];
+    // take the user out of the namespace/sprite
+    delete state[spriteHash].users[socketId];
+
+    // emit it so it updates for everyone still connectd
+    nspIo.emit(constants.MSG.STATE_UPDATE, state);
+
+    // is the namespace now empty?
+    const usersLeft = Object.keys(state[spriteHash].users).length;
+
+    // close it
+    if (!usersLeft) {
+      delete state[spriteHash];
+    }
   });
 });
