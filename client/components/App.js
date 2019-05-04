@@ -28,7 +28,6 @@ const App = () => {
     // set up our websocket based on the URL's path component
     const socket = io(window.location.pathname);
     socket.on(constants.MSG.CONNECT, () => {
-      console.log(socket);
       // store our socket id
       // trim the nsp from the start
       const id = socket.id.slice(socket.nsp.length + 1);
