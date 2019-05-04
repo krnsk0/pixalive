@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
 const morgan = require('morgan');
+const chalk = require('chalk');
+
 const constants = require('../shared/constants');
 const PORT = process.env.PORT || 3000;
 
@@ -24,15 +26,6 @@ const server = app.listen(PORT, () => console.log(`Serving on ${PORT}`));
 
 // initialize socket.io
 const io = socketio(server);
-
-// log connections & disconnections
-// io.on(constants.MSG.CONNECTION, socket => {
-//   console.log('connection:', socket.id);
-//   socket.on(constants.MSG.DISCONNECT, reason => {
-//     console.log('disconnection:', socket.id);
-//     console.log('reason:', reason);
-//   });
-// });
 
 // dynamic socket namespacing
 const nspIo = io.of(/.+/).on('connect', socket => {
