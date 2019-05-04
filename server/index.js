@@ -15,8 +15,8 @@ app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, '.', 'static')));
 
 // sends index.html
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'static/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '.', 'static/index.html'));
 });
 
 // serve static files and index.html for anything else
