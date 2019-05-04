@@ -3,7 +3,6 @@ const path = require('path');
 const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
-
 const constants = require('../shared/constants');
 const PORT = process.env.PORT || 3000;
 
@@ -21,20 +20,29 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '.', 'static/index.html'));
 });
 
-// serve static files and index.html for anything else
-const server = app.listen(PORT, () => console.log(`Serving on ${PORT}`));
+// start the server
+const server = app.listen(PORT, () =>
+  console.log(chalk.green(`serving on ${PORT}`))
+);
 
 // initialize socket.io
 const io = socketio(server);
 
-// dynamic socket namespacing
-const nspIo = io.of(/.+/).on('connect', socket => {
+// connection logging for dynamic socket namespacing
+// stor the dynamic namespace IO manager as nspIO
+// regex matches all non-empty strings
+const nspIo = io.of(/.*/).on('connect', socket => {
   const namespace = socket.nsp.name;
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
-  console.log(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`);
+  console.log(
+    chalk.blue(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`)
+  );
   socket.on(constants.MSG.DISCONNECT, reason => {
-    console.log(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`);
-    console.log('reason:', reason);
+    console.log(
+      chalk.red(
+        `DISCONNECTION -> namespace: ${namespace}, socketId: ${socketId}, reason: ${reason}`
+      )
+    );
   });
 });
 
@@ -42,7 +50,7 @@ const nspIo = io.of(/.+/).on('connect', socket => {
  *   vv THE FUN STUFF STARTS HERE vv
  **************************************/
 
-// some placeholder object factory functions
+// some placeholder factory functions
 const spriteFactory = hash => {
   return {
     hash,
@@ -50,7 +58,6 @@ const spriteFactory = hash => {
     frames: []
   };
 };
-
 const userFactory = socketId => {
   return {
     socketId,
@@ -70,7 +77,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
 
   // does this namespace exist? if not, create it
   if (!state[spriteHash]) {
-    console.log(`NEW SPRITE -> spriteHash: ${spriteHash}`);
+    console.log(chalk.blue(`NEW SPRITE -> spriteHash: ${spriteHash}`));
     state[spriteHash] = spriteFactory(spriteHash);
   }
 
@@ -90,7 +97,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     nspIo.emit(constants.MSG.STATE_UPDATE, state);
   });
 
-  // when this client disconnects
+  // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {
     // take the user out of the namespace/sprite
     delete state[spriteHash].users[socketId];
@@ -98,11 +105,12 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     // emit it so it updates for everyone still connectd
     nspIo.emit(constants.MSG.STATE_UPDATE, state);
 
-    // is the namespace now empty?
+    // get the number of users left in this namespace
     const usersLeft = Object.keys(state[spriteHash].users).length;
 
-    // close it
+    // if nobody left, free up the memory
     if (!usersLeft) {
+      console.log(chalk.red(`DELETING SPRITE -> spriteHash: ${spriteHash}`));
       delete state[spriteHash];
     }
   });
