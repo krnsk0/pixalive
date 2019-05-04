@@ -93,9 +93,7 @@ const App = () => {
     <div>
       <div>This client's socket id is {socketId}</div>
       <div>The current socket namespace is {namespace}</div>
-      <div>
-        {userCount - 1} other user{userCount > 2 && 's'} in this namespace
-      </div>
+      <div>Users in this namespace: {userCount}</div>
       <canvas id="canvas" ref={canvasRef} />
     </div>
   );
