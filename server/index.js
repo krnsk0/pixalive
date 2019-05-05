@@ -29,9 +29,9 @@ const server = app.listen(PORT, () =>
 const io = socketio(server);
 
 // connection logging for dynamic socket namespacing
-// stor the dynamic namespace IO manager as nspIO
+// store the dynamic namespace IO manager as namespacedIo
 // regex matches all non-empty strings
-const nspIo = io.of(/.*/).on('connect', socket => {
+const namespacedIo = io.of(/.*/).on('connect', socket => {
   const namespace = socket.nsp.name;
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
   console.log(
@@ -70,7 +70,7 @@ const userFactory = socketId => {
 // right now this is a hash of namespaces/sprites
 const state = {};
 
-nspIo.on(constants.MSG.CONNECTION, socket => {
+namespacedIo.on(constants.MSG.CONNECTION, socket => {
   // store our sprite hash and socket id
   const spriteHash = socket.nsp.name.slice(1);
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
@@ -94,7 +94,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     state[spriteHash].users[socketId].y = coords.y;
 
     // send the state tree to everyone editing this sprite
-    nspIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 
   // when this client leaves
@@ -103,7 +103,7 @@ nspIo.on(constants.MSG.CONNECTION, socket => {
     delete state[spriteHash].users[socketId];
 
     // emit it so it updates for everyone still connectd
-    nspIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
     // get the number of users left in this namespace
     const usersLeft = Object.keys(state[spriteHash].users).length;
