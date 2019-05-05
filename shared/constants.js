@@ -16,9 +16,9 @@ const deepFreeze = require('deep-freeze');
 
 module.exports = deepFreeze({
   MSG: {
-    CONNECTION: 'connection',
-    DISCONNECT: 'disconnect',
-    CONNECT: 'connect',
+    CONNECTION: 'connection', // server-side connection event
+    DISCONNECT: 'disconnect', // server-side connection event
+    CONNECT: 'connect', // client-side connection event
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
     SEND_SPRITE: 'send_sprite' // a server-to-client event
   },

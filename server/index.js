@@ -35,12 +35,14 @@ const namespacedIo = io.of(/.*/).on('connect', socket => {
   const namespace = socket.nsp.name;
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
   console.log(
-    chalk.blue(`CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`)
+    chalk.blue(
+      `index.js -> CONNECTION -> namespace: ${namespace}, socketId: ${socketId}`
+    )
   );
   socket.on(constants.MSG.DISCONNECT, reason => {
     console.log(
       chalk.red(
-        `DISCONNECTION -> namespace: ${namespace}, socketId: ${socketId}, reason: ${reason}`
+        `index.js -> CONNECTION -> namespace: ${namespace}, socketId: ${socketId}, reason: ${reason}`
       )
     );
   });
@@ -77,7 +79,9 @@ namespacedIo.on(constants.MSG.CONNECTION, socket => {
 
   // does this namespace exist? if not, create it
   if (!state[spriteHash]) {
-    console.log(chalk.blue(`NEW SPRITE -> spriteHash: ${spriteHash}`));
+    console.log(
+      chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
+    );
     state[spriteHash] = spriteFactory(spriteHash);
   }
 
@@ -110,7 +114,9 @@ namespacedIo.on(constants.MSG.CONNECTION, socket => {
 
     // if nobody left, free up the memory
     if (!usersLeft) {
-      console.log(chalk.red(`DELETING SPRITE -> spriteHash: ${spriteHash}`));
+      console.log(
+        chalk.red(`index.js -> DELETING SPRITE -> spriteHash: ${spriteHash}`)
+      );
       delete state[spriteHash];
     }
   });
