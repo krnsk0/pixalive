@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
+import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 
 const SingleLayer = props => {
-  const { sprite, socket } = props;
+  const sprite = useContext(SpriteContext);
+  const socket = useContext(SocketContext);
 
   // set up a ref to the canvas element we'll render below
   const canvasRef = useRef();

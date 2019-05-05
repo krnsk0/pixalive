@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { SocketContext, SpriteContext } from '../contexts';
 
 const ConnectionInfo = props => {
-  const { socket, sprite } = props;
+  const sprite = useContext(SpriteContext);
+  const socket = useContext(SocketContext);
 
   // state to store the socket id
   const [socketId, setSocketId] = useState('[loading]');

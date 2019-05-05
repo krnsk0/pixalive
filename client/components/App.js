@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { ConnectionInfo, SingleLayer } from './';
+import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 
 const App = () => {
@@ -11,8 +12,13 @@ const App = () => {
   // things that happen on component mount!
   useEffect(() => {
     // set up our websocket based on the URL's path component
+    // eslint-disable-next-line no-shadow
     const socket = io(window.location.pathname);
-    setSocket(socket);
+
+    // pass up to state and context provider when connected
+    socket.on(constants.MSG.CONNECT, () => {
+      setSocket(socket);
+    });
 
     // when we get a sprite update from the server...
     socket.on(constants.MSG.SEND_SPRITE, newSprite => {
@@ -23,8 +29,12 @@ const App = () => {
 
   return (
     <div>
-      <ConnectionInfo socket={socket} sprite={sprite} />
-      <SingleLayer socket={socket} sprite={sprite} />
+      <SocketContext.Provider value={socket}>
+        <SpriteContext.Provider value={sprite}>
+          <ConnectionInfo />
+          <SingleLayer />
+        </SpriteContext.Provider>
+      </SocketContext.Provider>
     </div>
   );
 };
