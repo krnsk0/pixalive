@@ -1,26 +1,24 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 
-const ConnectionInfo = props => {
-  const sprite = useContext(SpriteContext);
+const ConnectionInfo = () => {
   const socket = useContext(SocketContext);
+  const sprite = useContext(SpriteContext);
 
-  // state to store the socket id
-  const [socketId, setSocketId] = useState('[loading]');
+  let socketId = '[loading]';
+  let namespace = '[loading]';
+  let userCount = '[loading]';
 
-  // when socket changes, try to get the id
-  useEffect(() => {
-    const socketId = socket.id
-      ? socket.id.slice(socket.nsp.length + 1)
-      : '[loading]';
-    setSocketId(socketId);
-  }, [sprite]);
+  // if the socket is connected, get the id and namespace
+  if (socket) {
+    socketId = socket.id.slice(socket.nsp.length + 1);
+    namespace = socket.nsp;
+  }
 
-  // try to get the namespce and usercount from sprite
-  const namespace = sprite.hash || '[loading]';
-  const userCount = sprite.users
-    ? Object.keys(sprite.users).length
-    : '[loading]';
+  // if the sprite has loaded, save the # of users
+  if (sprite) {
+    userCount = Object.keys(sprite.users).length;
+  }
 
   return (
     <div>
