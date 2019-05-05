@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
+import { ConnectionInfo } from './';
 const constants = require('../../shared/constants');
 
 const App = () => {
   // set up a ref to the canvas element we'll render below
   const canvasRef = useRef();
 
-  // state for the socket id so we can display it
-  // state for the current namespace so we can display it
-  const [socketId, setSocketId] = useState('');
-  const [namespace, setNamespace] = useState('');
-  const [userCount, setUserCount] = useState(0);
+  // state for the socket and the sprite
+  const [socket, setSocket] = useState(false);
+  const [sprite, setSprite] = useState(false);
 
   // things that happen on component mount!
   useEffect(() => {
@@ -27,17 +26,7 @@ const App = () => {
 
     // set up our websocket based on the URL's path component
     const socket = io(window.location.pathname);
-    socket.on(constants.MSG.CONNECT, () => {
-      // store our socket id
-      // trim the nsp from the start
-      const id = socket.id.slice(socket.nsp.length + 1);
-      console.log('connection id:', id);
-      setSocketId(id);
-
-      // store our namespace
-      console.log('namespace', socket.nsp);
-      setNamespace(socket.nsp);
-    });
+    setSocket(socket);
 
     // event listener helper
     const onMouseMove = evt => {
@@ -59,8 +48,8 @@ const App = () => {
 
     // when we get a sprite update from the server...
     socket.on(constants.MSG.SEND_SPRITE, sprite => {
-      // store current connected user count
-      setUserCount(Object.keys(sprite.users).length);
+      // store on state
+      setSprite(sprite);
 
       // clear the canvas
       ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
@@ -90,9 +79,7 @@ const App = () => {
 
   return (
     <div>
-      <div>This client's socket id is {socketId}</div>
-      <div>The current socket namespace is {namespace}</div>
-      <div>Users in this namespace: {userCount}</div>
+      <ConnectionInfo socket={socket} sprite={sprite} />
       <canvas id="canvas" ref={canvasRef} />
     </div>
   );
