@@ -20,6 +20,11 @@ const App = () => {
       setSocket(socket);
     });
 
+    // when socket has problems
+    socket.on(constants.MSG.DISCONNECT, reason => {
+      setSocket(false);
+    });
+
     // when we get a sprite update from the server...
     socket.on(constants.MSG.SEND_SPRITE, newSprite => {
       // store on state

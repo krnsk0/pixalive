@@ -1,23 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 
 const ConnectionInfo = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
 
-  let socketId = '[loading]';
-  let namespace = '[loading]';
-  let userCount = '[loading]';
+  let socketId, namespace, userCount;
 
   // if the socket is connected, get the id and namespace
   if (socket) {
     socketId = socket.id.slice(socket.nsp.length + 1);
     namespace = socket.nsp;
+  } else {
+    socketId = '[loading]';
+    namespace = '[loading]';
   }
 
   // if the sprite has loaded, save the # of users
   if (sprite) {
     userCount = Object.keys(sprite.users).length;
+  } else {
+    userCount = '[loading]';
   }
 
   return (

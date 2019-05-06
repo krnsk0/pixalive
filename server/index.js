@@ -31,7 +31,7 @@ const io = socketio(server);
 // connection logging for dynamic socket namespacing
 // store the dynamic namespace IO manager as namespacedIo
 // regex matches all non-empty strings
-const namespacedIo = io.of(/.*/).on('connect', socket => {
+const namespacedIo = io.of(/.*/).on(constants.MSG.CONNECT, socket => {
   const namespace = socket.nsp.name;
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
   console.log(
@@ -72,7 +72,7 @@ const userFactory = socketId => {
 // right now this is a hash of namespaces/sprites
 const state = {};
 
-namespacedIo.on(constants.MSG.CONNECTION, socket => {
+namespacedIo.on(constants.MSG.CONNECT, socket => {
   // store our sprite hash and socket id
   const spriteHash = socket.nsp.name.slice(1);
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
