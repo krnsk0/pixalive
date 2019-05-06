@@ -1,86 +1,57 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker } from './';
+import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
+const { initializeEmprySprite } = require('../../shared/factories');
 
 const App = () => {
-  // set up a ref to the canvas element we'll render below
-  const canvasRef = useRef();
+  // state for the socket
+  const [socket, setSocket] = useState(false);
 
-  // state for the socket id so we can display it
-  const [socketId, setSocketId] = useState('');
+  // initialize sprite state to an empty sprite object
+  const hash = window.location.pathname.slice(1);
+  const [sprite, setSprite] = useState(
+    initializeEmprySprite(
+      hash,
+      constants.NEW_SPRITE_WIDTH,
+      constants.NEW_SPRITE_HEIGHT
+    )
+  );
 
   // things that happen on component mount!
   useEffect(() => {
-    // store a reference to the canvas element itself
-    // as well as a drawing context
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    // set up our websocket based on the URL's path component
+    // eslint-disable-next-line no-shadow
+    const socket = io(window.location.pathname);
 
-    // set its width and height
-    canvas.width = constants.CANVAS_WIDTH;
-    canvas.height = constants.CANVAS_HEIGHT;
-    canvas.style.width = constants.CANVAS_WIDTH;
-    canvas.style.height = constants.CANVAS_HEIGHT;
-
-    // set up our websocket
-    const socket = io();
+    // pass up to state and then context provider when connected
     socket.on(constants.MSG.CONNECT, () => {
-      // store our socket id
-      const id = socket.id;
-      console.log('connection id:', id);
-      setSocketId(id);
+      setSocket(socket);
     });
 
-    // event listener helper
-    const onMouseMove = evt => {
-      // grab a current canvas ref
-      const canvasRect = canvas.getBoundingClientRect();
-
-      // get the relative coords of the mouse
-      const coords = {
-        x: evt.clientX - canvasRect.left,
-        y: evt.clientY - canvasRect.top
-      };
-
-      // send them to the server
-      socket.emit(constants.MSG.CURSOR_MOVE, coords);
-    };
-
-    // set up event listener for mouse movements
-    canvas.addEventListener('mousemove', onMouseMove);
-
-    // when we get a state update from the server...
-    socket.on(constants.MSG.STATE_UPDATE, state => {
-      // clear the canvas
-      ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
-
-      // render it!
-      for (const [id, coords] of Object.entries(state)) {
-        // draw a cursor
-        const half = Math.floor(constants.CURSOR_SIZE / 2);
-        ctx.fillRect(
-          coords.x - half,
-          coords.y - half,
-          constants.CURSOR_SIZE,
-          constants.CURSOR_SIZE
-        );
-
-        // draw the id
-        ctx.font = '15px Courier';
-        ctx.fillText(id, coords.x + 5, coords.y);
-      }
+    // when socket has problems
+    socket.on(constants.MSG.DISCONNECT, () => {
+      setSocket(false);
     });
 
-    // a callback to disable the canvas listener
-    return () => {
-      canvas.removeEventListener('mousemove', onMouseMove);
-    };
+    // when we get a sprite update from the server...
+    socket.on(constants.MSG.SEND_SPRITE, newSprite => {
+      // store on state
+      setSprite(newSprite);
+    });
   }, []);
 
   return (
     <div>
-      <div>This client's socket id is {socketId}</div>
-      <canvas id="canvas" ref={canvasRef} />
+      <SocketContext.Provider value={socket}>
+        <SpriteContext.Provider value={sprite}>
+          <ConnectionInfo />
+          <SingleLayer />
+          <FramePicker />
+          <LayerPicker />
+        </SpriteContext.Provider>
+      </SocketContext.Provider>
     </div>
   );
 };
