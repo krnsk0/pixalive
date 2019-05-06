@@ -5,8 +5,7 @@ const LayerPicker = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
 
-  // sprite.users not immediately available
-  // socket.id not immediately available
+  // when the sprite exists and when there are users listed in the user object
   let selectedFrame = 0;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
