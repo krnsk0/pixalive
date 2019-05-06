@@ -16,11 +16,10 @@ const deepFreeze = require('deep-freeze');
 
 module.exports = deepFreeze({
   MSG: {
-    CONNECTION: 'connection',
-    DISCONNECT: 'disconnect',
-    CONNECT: 'connect',
+    CONNECT: 'connect', // connection event
+    DISCONNECT: 'disconnect', // disconnection event
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
-    STATE_UPDATE: 'state_update' // a server-to-client event
+    SEND_SPRITE: 'send_sprite' // a server-to-client event
   },
   CANVAS_HEIGHT: 600,
   CANVAS_WIDTH: 800,
