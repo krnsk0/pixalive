@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { ConnectionInfo, SingleLayer } from './';
 import { SocketContext, SpriteContext } from '../contexts';
