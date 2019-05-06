@@ -23,5 +23,7 @@ module.exports = deepFreeze({
   },
   CANVAS_HEIGHT: 600,
   CANVAS_WIDTH: 800,
-  CURSOR_SIZE: 5 // odd numbers only or it'll be off-center
+  CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
+  NEW_SPRITE_WIDTH: 32,
+  NEW_SPRITE_HEIGHT: 32
 });
