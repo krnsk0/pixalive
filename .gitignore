@@ -1,5 +1,6 @@
 /node_modules
+node_modules
+package-lock.json
 server/static/bundle.js
 server/static/bundle.js.map
 todo.txt
-node_modules
