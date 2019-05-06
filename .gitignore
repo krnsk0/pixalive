@@ -1,3 +1,4 @@
 server/static/bundle.js
 server/static/bundle.js.map
 todo.txt
+node_modules
