@@ -25,7 +25,7 @@ const App = () => {
     // eslint-disable-next-line no-shadow
     const socket = io(window.location.pathname);
 
-    // pass up to state and context provider when connected
+    // pass up to state and then context provider when connected
     socket.on(constants.MSG.CONNECT, () => {
       setSocket(socket);
     });
