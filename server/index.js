@@ -90,6 +90,14 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 
+  //handle color update on user
+  socket.on(constants.MSG.UPDATE_SELECTED_COLOR, (selectedColor) => {
+
+    state[spriteHash].users[socketId].selectedColor = selectedColor;
+
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  })
+
   // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {
     // take the user out of the namespace/sprite

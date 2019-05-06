@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import ColorPicker from './ColorPicker'
+import Palette from './Palette';
 import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -48,6 +50,7 @@ const App = () => {
         <SpriteContext.Provider value={sprite}>
           <ConnectionInfo />
           <SingleLayer />
+          <ColorPicker />
           <FramePicker />
           <LayerPicker />
         </SpriteContext.Provider>
