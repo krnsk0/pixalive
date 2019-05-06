@@ -1,8 +1,8 @@
 const spriteFactory = hash => {
   return {
     hash,
-    users: [
-      {
+    users: {
+      'asdf2452ASDF': {
         name: 'bob',
         socketId: 'asdf2452ASDF',
         undoHistory: '???',
@@ -14,11 +14,14 @@ const spriteFactory = hash => {
         selectedLayer: 1,
         brushSettings: []
       }
-    ],
+    },
     frames: [
       {
         layers: [
           {
+            name: 'layer 1',
+            opacity: 1.0,
+            visible: true,
             pixels: [
               [
                 { h: 0, s: 0, l: 0, o: 0 },
