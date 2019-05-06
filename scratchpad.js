@@ -19,6 +19,9 @@ const spriteFactory = hash => {
       {
         layers: [
           {
+            name: 'layer 1',
+            opacity: 1.0,
+            visible: true,
             pixels: [
               [
                 { h: 0, s: 0, l: 0, o: 0 },

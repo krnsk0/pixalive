@@ -19,9 +19,12 @@ module.exports = deepFreeze({
     CONNECT: 'connect', // connection event
     DISCONNECT: 'disconnect', // disconnection event
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
-    SEND_SPRITE: 'send_sprite' // a server-to-client event
+    SEND_SPRITE: 'send_sprite', // a server-to-client event
+    UPDATE_SELECTED_COLOR: 'update_selected_color' // a client-to-server event
   },
   CANVAS_HEIGHT: 600,
   CANVAS_WIDTH: 800,
-  CURSOR_SIZE: 5 // odd numbers only or it'll be off-center
+  CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
+  NEW_SPRITE_WIDTH: 32,
+  NEW_SPRITE_HEIGHT: 32
 });

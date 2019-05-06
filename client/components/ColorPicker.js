@@ -1,16 +1,29 @@
-import React, {useState} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
+import { SocketContext, SpriteContext } from '../contexts';
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color'
+const constants = require('../../shared/constants');
 
   function ColorPicker() {
 
+    const sprite = useContext(SpriteContext);
+    const socket = useContext(SocketContext);
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
     const [color, setColor] = useState({
-      h: '0',
-      s: '0',
-      l: '0',
-      o: '1'
+      h: 0,
+      s: 0,
+      l: 0,
+      o: 1
     });
+
+    useEffect(() => {
+      if (socket) {
+        let socketId = socket.id.slice(socket.nsp.length + 1);
+        if (sprite.users[socketId]){
+          setColor(sprite.users[socketId].selectedColor);
+        }
+      }
+    }, [sprite])
 
     const handleClick = () => {
       setDisplayColorPicker(!displayColorPicker)
@@ -21,15 +34,14 @@ import { SketchPicker } from 'react-color'
     };
 
     const handleChange = (changedColor) => {
-      console.log('CURRENT COLOR', changedColor)
-      //console.log('STATE', )
+
       let newColor = {
         h: Number(changedColor.hsl.h).toFixed(0),
         s: changedColor.hsl.s.toFixed(2) * 100,
         l: changedColor.hsl.l.toFixed(2) * 100,
         o: changedColor.hsl.a.toFixed(2)
       }
-      setColor(newColor)
+      socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, newColor )
     };
 
     const convertBack = (convertBackColor) => {

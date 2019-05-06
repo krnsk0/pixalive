@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const { spriteFactory, userFactory } = require('../shared/factories');
+const { initializeEmprySprite, userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
 
 // initialize express
@@ -67,7 +67,11 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     console.log(
       chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
     );
-    state[spriteHash] = spriteFactory(spriteHash);
+    state[spriteHash] = initializeEmprySprite(
+      spriteHash,
+      constants.NEW_SPRITE_WIDTH,
+      constants.NEW_SPRITE_HEIGHT
+    );
   }
 
   // make a new user object and add it
@@ -85,6 +89,14 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     // send the state tree to everyone editing this sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
+
+  //handle color update on user
+  socket.on(constants.MSG.UPDATE_SELECTED_COLOR, (selectedColor) => {
+
+    state[spriteHash].users[socketId].selectedColor = selectedColor;
+
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  })
 
   // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {
