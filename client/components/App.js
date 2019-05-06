@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
+import ColorPicker from './ColorPicker'
+import Palette from './Palette';
 const constants = require('../../shared/constants');
 
 const App = () => {
@@ -81,6 +83,8 @@ const App = () => {
     <div>
       <div>This client's socket id is {socketId}</div>
       <canvas id="canvas" ref={canvasRef} />
+      <ColorPicker />
+      <Palette />
     </div>
   );
 };
