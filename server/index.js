@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const factories = require('../shared/factories');
+const { spriteFactory, userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
 
 // initialize express
@@ -54,7 +54,7 @@ const namespacedIo = io.of(/.*/).on(constants.MSG.CONNECT, socket => {
  **************************************/
 
 // root of our server-side state tree
-// right now this is a hash of namespaces/sprites
+// a hash of namespaces/sprites
 const state = {};
 
 namespacedIo.on(constants.MSG.CONNECT, socket => {
@@ -67,11 +67,11 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     console.log(
       chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
     );
-    state[spriteHash] = factories.spriteFactory(spriteHash);
+    state[spriteHash] = spriteFactory(spriteHash);
   }
 
   // make a new user object and add it
-  state[spriteHash].users[socketId] = factories.userFactory(socketId);
+  state[spriteHash].users[socketId] = userFactory(socketId);
 
   // send the current drawing object
   socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);

@@ -3,11 +3,15 @@ import io from 'socket.io-client';
 import { ConnectionInfo, SingleLayer } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
+const { spriteFactory } = require('../../shared/factories');
 
 const App = () => {
-  // state for the socket and the sprite
+  // state for the socket
   const [socket, setSocket] = useState(false);
-  const [sprite, setSprite] = useState(false);
+
+  // initialize sprite state to an empty sprite object
+  const hash = window.location.pathname.slice(1);
+  const [sprite, setSprite] = useState(spriteFactory(hash));
 
   // things that happen on component mount!
   useEffect(() => {
@@ -21,7 +25,7 @@ const App = () => {
     });
 
     // when socket has problems
-    socket.on(constants.MSG.DISCONNECT, reason => {
+    socket.on(constants.MSG.DISCONNECT, () => {
       setSocket(false);
     });
 

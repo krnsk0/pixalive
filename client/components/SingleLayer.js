@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 
-const SingleLayer = props => {
+const SingleLayer = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
 
@@ -52,34 +52,32 @@ const SingleLayer = props => {
     };
   }, [socket]);
 
-  // when sprite changes
+  // on every render
   useEffect(() => {
-    if (sprite) {
-      // store a reference to the canvas element itself
-      // as well as a drawing context
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
+    // store a reference to the canvas element itself
+    // as well as a drawing context
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
 
-      // clear the canvas
-      ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
+    // clear the canvas
+    ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
-      // render it!
-      for (const [id, coords] of Object.entries(sprite.users)) {
-        // draw a cursor
-        const half = Math.floor(constants.CURSOR_SIZE / 2);
-        ctx.fillRect(
-          coords.x - half,
-          coords.y - half,
-          constants.CURSOR_SIZE,
-          constants.CURSOR_SIZE
-        );
+    // render it!
+    for (const [id, coords] of Object.entries(sprite.users)) {
+      // draw a cursor
+      const half = Math.floor(constants.CURSOR_SIZE / 2);
+      ctx.fillRect(
+        coords.x - half,
+        coords.y - half,
+        constants.CURSOR_SIZE,
+        constants.CURSOR_SIZE
+      );
 
-        // draw the socket
-        ctx.font = '15px Courier';
-        ctx.fillText(id, coords.x + 5, coords.y);
-      }
+      // draw the socket
+      ctx.font = '15px Courier';
+      ctx.fillText(id, coords.x + 5, coords.y);
     }
-  }, [sprite]);
+  });
 
   return (
     <div>
