@@ -1,33 +1,46 @@
-import React from 'react'
+import React, {useState} from 'react'
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color'
 
-class ColorPicker extends React.Component {
-  state = {
-    displayColorPicker: false,
-    color: {
-      r: '190',
-      g: '50',
-      b: '50',
-      a: '1',
-    },
-  };
+  function ColorPicker() {
 
-  handleClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker })
-  };
+    const [displayColorPicker, setDisplayColorPicker] = useState(false);
+    const [color, setColor] = useState({
+      h: '0',
+      s: '0',
+      l: '0',
+      o: '1'
+    });
 
-  handleClose = () => {
-    this.setState({ displayColorPicker: false })
-  };
+    const handleClick = () => {
+      setDisplayColorPicker(!displayColorPicker)
+    };
 
-  handleChange = (color) => {
-    console.log('CURRENT COLOR', color)
-    this.setState({ color: color.rgb })
-  };
+    const handleClose = () => {
+      setDisplayColorPicker(false)
+    };
 
-  render() {
+    const handleChange = (changedColor) => {
+      console.log('CURRENT COLOR', changedColor)
+      //console.log('STATE', )
+      let newColor = {
+        h: Number(changedColor.hsl.h).toFixed(0),
+        s: changedColor.hsl.s.toFixed(2) * 100,
+        l: changedColor.hsl.l.toFixed(2) * 100,
+        o: changedColor.hsl.a.toFixed(2)
+      }
+      setColor(newColor)
+    };
 
+    const convertBack = (convertBackColor) => {
+
+      return {
+        h: convertBackColor.h,
+        s: convertBackColor.s / 100,
+        l: convertBackColor.l / 100,
+        a: convertBackColor.o
+      }
+    }
     const styles = reactCSS({
       // eslint-disable-next-line quote-props
       'default': {
@@ -35,7 +48,7 @@ class ColorPicker extends React.Component {
           width: '40px',
           height: '40px',
           borderRadius: '2px',
-          background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+          background: `hsla(${ color.h }, ${ color.s }%, ${ color.l }%, ${ color.o })`,
         },
         swatch: {
           padding: '5px',
@@ -61,17 +74,16 @@ class ColorPicker extends React.Component {
 
     return (
       <div>
-        <div style={ styles.swatch } onClick={ this.handleClick }>
+        <div style={ styles.swatch } onClick={ handleClick }>
           <div style={ styles.color } />
         </div>
-        { this.state.displayColorPicker ? <div style={ styles.popover }>
-          <div style={ styles.cover } onClick={ this.handleClose } />
-          <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
+        { displayColorPicker ? <div style={ styles.popover }>
+          <div style={ styles.cover } onClick={ handleClose } />
+          <SketchPicker color={ convertBack(color) } onChange={ handleChange } />
         </div> : null }
-
       </div>
     )
   }
-}
+
 
 export default ColorPicker;
