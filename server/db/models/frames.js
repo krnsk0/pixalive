@@ -5,7 +5,7 @@ const Sequelize = require('sequelize')
 const Frames = db.define('frames', {
     frameOrder: {
         type: Sequelize.INTEGER,
-        // allowNull: false
+        allowNull: false
     }
 })
 
