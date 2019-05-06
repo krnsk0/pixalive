@@ -8,10 +8,9 @@ const LayerPicker = () => {
   // sprite.users not immediately available
   // socket.id not immediately available
   let selectedFrame = 0;
-  if (socket && sprite.users.length) {
+  if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
     selectedFrame = sprite.users[socketId].selectedFrame;
-    console.log('selectedFrame: ', selectedFrame);
   }
 
   const layers = sprite.frames[selectedFrame].layers;
