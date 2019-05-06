@@ -11,7 +11,7 @@ notifications:
     on_success: change
     on_failure: always
 install:
-  - npm ci # installs from package lock
+  - npm i # installs from package lock
 script:
   - npm run build-deploy
   - rm -rf node_modules # delete node_modules before deploying, since we skip cleanup
