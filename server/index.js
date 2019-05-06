@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const { spriteFactory, userFactory } = require('../shared/factories');
+const { initializeEmprySprite, userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
 
 // initialize express
@@ -67,7 +67,11 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     console.log(
       chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
     );
-    state[spriteHash] = spriteFactory(spriteHash);
+    state[spriteHash] = initializeEmprySprite(
+      spriteHash,
+      constants.NEW_SPRITE_WIDTH,
+      constants.NEW_SPRITE_HEIGHT
+    );
   }
 
   // make a new user object and add it

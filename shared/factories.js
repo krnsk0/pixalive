@@ -44,10 +44,21 @@ const pixelFactory = (h = 0, s = 0, l = 0, o = 1.0) => {
   };
 };
 
+// make an empty sprite with one layer and one frame
+const initializeEmprySprite = (hash, w, h) => {
+  const sprite = spriteFactory(hash);
+  const layer = layerFactory(w, h);
+  const frame = frameFactory();
+  frame.layers.push(layer);
+  sprite.frames.push(frame);
+  return sprite;
+};
+
 module.exports = {
   spriteFactory,
   userFactory,
   frameFactory,
   layerFactory,
-  pixelFactory
+  pixelFactory,
+  initializeEmprySprite
 };

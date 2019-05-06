@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import { ConnectionInfo, SingleLayer } from './';
+import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
-const { spriteFactory } = require('../../shared/factories');
+const { initializeEmprySprite } = require('../../shared/factories');
 
 const App = () => {
   // state for the socket
@@ -11,7 +11,13 @@ const App = () => {
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
-  const [sprite, setSprite] = useState(spriteFactory(hash));
+  const [sprite, setSprite] = useState(
+    initializeEmprySprite(
+      hash,
+      constants.NEW_SPRITE_WIDTH,
+      constants.NEW_SPRITE_HEIGHT
+    )
+  );
 
   // things that happen on component mount!
   useEffect(() => {
@@ -42,6 +48,8 @@ const App = () => {
         <SpriteContext.Provider value={sprite}>
           <ConnectionInfo />
           <SingleLayer />
+          <FramePicker />
+          <LayerPicker />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
