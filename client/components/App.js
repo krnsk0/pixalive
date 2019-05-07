@@ -35,7 +35,8 @@ const App = () => {
   const initialSprite = initializeEmptySprite(
     hash,
     constants.NEW_SPRITE_WIDTH,
-    constants.NEW_SPRITE_HEIGHT
+    constants.NEW_SPRITE_HEIGHT,
+    true // this overrides the setting in constants file, never generating client-side fake data; fake data is server-side only
   );
 
   // set up reducer
@@ -51,11 +52,6 @@ const App = () => {
     socket.on(constants.MSG.CONNECT, () => {
       setSocket(socket);
     });
-
-    // // when socket has problems
-    // socket.on(constants.MSG.DISCONNECT, () => {
-    //   setSocket(false);
-    // });
 
     // when we get a sprite update from the server dispatch to sprite state
     socket.on(constants.MSG.SEND_SPRITE, newSprite => {

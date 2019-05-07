@@ -26,8 +26,8 @@ module.exports = deepFreeze({
   CANVAS_HEIGHT: 512,
   CANVAS_WIDTH: 512,
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
-  NEW_SPRITE_WIDTH: 32,
-  NEW_SPRITE_HEIGHT: 32,
+  NEW_SPRITE_WIDTH: 16,
+  NEW_SPRITE_HEIGHT: 16,
   FACTORIES_MAKE_FAKE_DATA: true,
   FAKE_FRAME_COUNT: 4,
   FAKE_LAYER_COUNT: 4,

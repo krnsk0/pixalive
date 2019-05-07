@@ -86,10 +86,7 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     state[spriteHash].users[socketId].x = coords.x;
     state[spriteHash].users[socketId].y = coords.y;
 
-    // send the state tree to everyone editing this sprite
-    // namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
-
-    // test
+    // send only the cursor update
     namespacedIo.emit(constants.MSG.CURSOR_UPDATE, {
       x: coords.x,
       y: coords.y,
