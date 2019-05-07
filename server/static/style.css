@@ -119,6 +119,12 @@ body {
   text-align: center;
 }
 
+.add-new-frame-plus {
+  font-size: 40px;
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
 /* main canvas */
 .middle-section-right {
   display: flex;

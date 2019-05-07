@@ -48,7 +48,8 @@ const FramePicker = () => {
         <div
           className="add-new-frame"
           onClick={onAddNewFrameClick}
-        >Add new frame</div>
+        ><div className="add-new-frame-plus">➕</div>
+        </div>
       </div>
     </div>
   );
