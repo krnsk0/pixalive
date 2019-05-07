@@ -87,7 +87,14 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     state[spriteHash].users[socketId].y = coords.y;
 
     // send the state tree to everyone editing this sprite
-    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    // namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+
+    // test
+    namespacedIo.emit(constants.MSG.CURSOR_UPDATE, {
+      x: coords.x,
+      y: coords.y,
+      socketId
+    });
   });
 
   //handle color update on user
