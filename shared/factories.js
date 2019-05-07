@@ -58,6 +58,7 @@ const spriteFactory = hash => {
 const initializeEmptySprite = (hash, w, h, manuallyDisableFakeData = false) => {
   const sprite = spriteFactory(hash);
   if (constants.FACTORIES_MAKE_FAKE_DATA && !manuallyDisableFakeData) {
+    console.log('MAKING FAKE DATA');
     for (let i = 0; i < constants.FAKE_FRAME_COUNT; i += 1) {
       const frame = frameFactory(sprite.frames.length);
       for (let j = 0; j < constants.FAKE_LAYER_COUNT; j += 1) {
