@@ -4,7 +4,7 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const { initializeEmptySprite, userFactory } = require('../shared/factories');
+const { initializeEmptySprite, userFactory, frameFactory, layerFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
 
 // initialize express
@@ -100,6 +100,29 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
 
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
+
+  //handle selected frame
+  socket.on(constants.MSG.UPDATE_SELECTED_FRAME, selectedFrame => {
+    state[spriteHash].users[socketId].selectedFrame = selectedFrame;
+
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  })
+
+  //add new frame
+  socket.on(constants.MSG.ADD_NEW_FRAME, () => {
+    //get new frameOrder value. People can delete a frame so
+    //new frame needs to be higher than current max frame
+    const arrayOfFrameKeys = state[spriteHash].frames.map(frame => frame.frameOrder);
+    const currentMax = Math.max(...arrayOfFrameKeys);
+    const newFrameOrder = currentMax + 1;
+
+    //make a new frame and add to frames
+    const newFrame = frameFactory(newFrameOrder);
+    state[spriteHash].frames.push(newFrame);
+
+    //send updated sprite
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  })
 
   // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {
