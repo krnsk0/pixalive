@@ -15,10 +15,24 @@ const LayerPicker = () => {
   const layers = sprite.frames[selectedFrame].layers;
 
   return (
-    <div style={{ border: '1px solid black' }}>
-      layers for frame {selectedFrame}:
+    <div className="layer-container">
+      <div className="layer-title-row">
+        <div className="layer-title-text">Layers</div>
+        <div className="layer-title-text link" onClick={null}>
+          preview on
+        </div>
+      </div>
+      <div className="layer-title-row">
+        <div className="layer-button">➕</div>
+        <div className="layer-button">️️➖</div>
+        <div className="layer-button">✏️️</div>
+        <div className="layer-button">⬇️</div>
+        <div className="layer-button">⬆️</div>
+      </div>
       {layers.map((layer, i) => (
-        <div key={i}>layer {i}</div>
+        <div key={i} className="layer-row">
+          {layer.name}
+        </div>
       ))}
     </div>
   );
