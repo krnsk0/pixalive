@@ -29,5 +29,6 @@ module.exports = deepFreeze({
   NEW_SPRITE_HEIGHT: 32,
   FACTORIES_MAKE_FAKE_DATA: false,
   FAKE_FRAME_COUNT: 4,
-  FAKE_LAYER_COUNT: 4
+  FAKE_LAYER_COUNT: 4,
+  THROTTLE_MOUSE_SEND: 50 // in milliseconds
 });

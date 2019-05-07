@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
+const throttle = require('../../shared/throttle');
 
 const SingleLayer = () => {
   const sprite = useContext(SpriteContext);
@@ -27,7 +28,7 @@ const SingleLayer = () => {
     const canvas = canvasRef.current;
 
     // event listener helper
-    const onMouseMove = evt => {
+    const throttledOnMouseMove = throttle(evt => {
       // grab a current canvas ref
       const canvasRect = canvas.getBoundingClientRect();
 
@@ -39,16 +40,16 @@ const SingleLayer = () => {
 
       // send them to the server
       socket.emit(constants.MSG.CURSOR_MOVE, coords);
-    };
+    }, constants.THROTTLE_MOUSE_SEND);
 
     // set up event listener for mouse movements
     if (socket) {
-      canvas.addEventListener('mousemove', onMouseMove);
+      canvas.addEventListener('mousemove', throttledOnMouseMove);
     }
 
     // a callback to disable the canvas listener
     return () => {
-      canvas.removeEventListener('mousemove', onMouseMove);
+      canvas.removeEventListener('mousemove', throttledOnMouseMove);
     };
   }, [socket]);
 
