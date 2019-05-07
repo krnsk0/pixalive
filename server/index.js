@@ -61,25 +61,19 @@ const namespacedIo = io.of(/.*/).on(constants.MSG.CONNECT, socket => {
 // a hash of namespaces/sprites
 const state = {};
 
-namespacedIo.on(constants.MSG.CONNECT, socket => {
+namespacedIo.on(constants.MSG.CONNECT, async socket => {
   // store our sprite hash and socket id
   const spriteHash = socket.nsp.name.slice(1);
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
 
-  // Check if hash exists in database
-  state[spriteHash] = loadData(spriteHash)
-
   // does this namespace exist? if not, create it
-  // if (!state[spriteHash]) {
-  //   console.log(
-  //     chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
-  //   );
-  //   state[spriteHash] = initializeEmptySprite(
-  //     spriteHash,
-  //     constants.NEW_SPRITE_WIDTH,
-  //     constants.NEW_SPRITE_HEIGHT
-  //   );
-  // }
+  if (!state[spriteHash]) {
+    console.log(
+      chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
+    );
+    try {state[spriteHash] = await loadData(spriteHash);
+    } catch (err) {console.error(err)}
+  }
 
   // make a new user object and add it
   state[spriteHash].users[socketId] = userFactory(socketId);

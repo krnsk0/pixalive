@@ -3,12 +3,15 @@ const Sequelize = require('sequelize')
 
 
 const Layers = db.define('layers', {
-    images: {
+    name: {
+        type: Sequelize.TEXT
+    },
+    pixels: {
         type: Sequelize.JSON,
         allowNull: false
     },
     layerOrder: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER,
         allowNull: false
     }
 })
