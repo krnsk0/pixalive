@@ -7,6 +7,7 @@ const constants = require('../shared/constants');
 const { userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
 const loadData = require('./db/loadData')
+const saveData = require('./db/saveData')
 
 // initialize express
 const app = express();
@@ -103,7 +104,7 @@ namespacedIo.on(constants.MSG.CONNECT, async socket => {
   });
 
   // when this client leaves
-  socket.on(constants.MSG.DISCONNECT, socket => {
+  socket.on(constants.MSG.DISCONNECT, async socket => {
     // take the user out of the namespace/sprite
     delete state[spriteHash].users[socketId];
 
@@ -115,9 +116,11 @@ namespacedIo.on(constants.MSG.CONNECT, async socket => {
 
     // if nobody left, free up the memory
     if (!usersLeft) {
+
       console.log(
         chalk.red(`index.js -> DELETING SPRITE -> spriteHash: ${spriteHash}`)
       );
+      await saveData(state[spriteHash])
       delete state[spriteHash];
     }
   });
