@@ -4,8 +4,9 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const { initializeEmptySprite, userFactory } = require('../shared/factories');
+const { userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
+const loadData = require('./db/loadData')
 
 // initialize express
 const app = express();
@@ -15,6 +16,9 @@ app.use(morgan('tiny'));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '.', 'static')));
+
+//Express routes for database requests
+// app.use('/api', require('./api'))
 
 // sends index.html
 app.get('*', (req, res) => {
@@ -62,17 +66,20 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
   const spriteHash = socket.nsp.name.slice(1);
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
 
+  // Check if hash exists in database
+  state[spriteHash] = loadData(spriteHash)
+
   // does this namespace exist? if not, create it
-  if (!state[spriteHash]) {
-    console.log(
-      chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
-    );
-    state[spriteHash] = initializeEmptySprite(
-      spriteHash,
-      constants.NEW_SPRITE_WIDTH,
-      constants.NEW_SPRITE_HEIGHT
-    );
-  }
+  // if (!state[spriteHash]) {
+  //   console.log(
+  //     chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
+  //   );
+  //   state[spriteHash] = initializeEmptySprite(
+  //     spriteHash,
+  //     constants.NEW_SPRITE_WIDTH,
+  //     constants.NEW_SPRITE_HEIGHT
+  //   );
+  // }
 
   // make a new user object and add it
   state[spriteHash].users[socketId] = userFactory(socketId);
