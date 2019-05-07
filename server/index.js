@@ -176,6 +176,14 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 
+  //set preview to true or false
+  socket.on(constants.MSG.SET_PREVIEW_LAYER, toggle => {
+
+    state[spriteHash].users[socketId].preview = toggle;
+
+    //send updated sprite
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  })
 
   // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {

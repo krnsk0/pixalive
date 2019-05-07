@@ -23,6 +23,12 @@ const LayerPicker = () => {
     }
   }
 
+  let preview = true;
+  if (socket && Object.keys(sprite.users).length) {
+    const socketId = socket.id.slice(socket.nsp.length + 1);
+    preview = sprite.users[socketId].preview;
+  }
+
   const onSelectLayerClick = (layerOrder) => {
     if (socket){
       socket.emit(constants.MSG.SELECT_LAYER, layerOrder )
@@ -35,12 +41,28 @@ const LayerPicker = () => {
     }
   }
 
+  const onPreviewToggleClick = (evt) => {
+    evt.preventDefault();
+    if (evt.target.checked && socket) {
+        socket.emit(constants.MSG.SET_PREVIEW_LAYER, true)
+    }
+
+    else if (!evt.target.checked && socket) {
+        socket.emit(constants.MSG.SET_PREVIEW_LAYER, false)
+    }
+  }
+
   return (
     <div className="layer-container">
       <div className="layer-title-row">
         <div className="layer-title-text">Layers</div>
-        <div className="layer-title-text link" onClick={null}>
-          preview on
+        <div className="layer-title-text link">
+          preview:<input
+            type="checkbox"
+            name="preview"
+            onChange={onPreviewToggleClick}
+            checked={preview}
+            />
         </div>
       </div>
       <div className="layer-title-row">

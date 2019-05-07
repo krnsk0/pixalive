@@ -3,6 +3,7 @@ const spriteFactory = hash => {
     hash,
     users: {
       'asdf2452ASDF': {
+        preview: true,
         name: 'bob',
         socketId: 'asdf2452ASDF',
         undoHistory: '???',
