@@ -12,16 +12,7 @@ const LayerPicker = () => {
     selectedFrame = sprite.users[socketId].selectedFrame;
   }
 
-  const layers = sprite.frames[selectedFrame].layers;
-
-  return (
-    <div style={{ border: '1px solid black' }}>
-      layers for frame {selectedFrame}:
-      {layers.map((layer, i) => (
-        <div key={i}>layer {i}</div>
-      ))}
-    </div>
-  );
+  return <div style={{ border: '1px solid black' }} />;
 };
 
 export default LayerPicker;

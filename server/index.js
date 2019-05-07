@@ -4,8 +4,10 @@ const socketio = require('socket.io');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const constants = require('../shared/constants');
-const { initializeEmptySprite, userFactory } = require('../shared/factories');
+const { userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
+const loadData = require('./db/loadData');
+const saveData = require('./db/saveData');
 
 // initialize express
 const app = express();
@@ -15,6 +17,9 @@ app.use(morgan('tiny'));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '.', 'static')));
+
+//Express routes for database requests
+// app.use('/api', require('./api'))
 
 // sends index.html
 app.get('*', (req, res) => {
@@ -57,21 +62,18 @@ const namespacedIo = io.of(/.*/).on(constants.MSG.CONNECT, socket => {
 // a hash of namespaces/sprites
 const state = {};
 
-namespacedIo.on(constants.MSG.CONNECT, socket => {
+namespacedIo.on(constants.MSG.CONNECT, async socket => {
   // store our sprite hash and socket id
   const spriteHash = socket.nsp.name.slice(1);
   const socketId = socket.id.slice(socket.nsp.name.length + 1);
 
   // does this namespace exist? if not, create it
   if (!state[spriteHash]) {
-    console.log(
-      chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
-    );
-    state[spriteHash] = initializeEmptySprite(
-      spriteHash,
-      constants.NEW_SPRITE_WIDTH,
-      constants.NEW_SPRITE_HEIGHT
-    );
+    try {
+      state[spriteHash] = await loadData(spriteHash);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // make a new user object and add it
@@ -102,7 +104,7 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
   });
 
   // when this client leaves
-  socket.on(constants.MSG.DISCONNECT, socket => {
+  socket.on(constants.MSG.DISCONNECT, async socket => {
     // take the user out of the namespace/sprite
     delete state[spriteHash].users[socketId];
 
@@ -114,6 +116,7 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
 
     // if nobody left, free up the memory
     if (!usersLeft) {
+      await saveData(state[spriteHash]);
       console.log(
         chalk.red(`index.js -> DELETING SPRITE -> spriteHash: ${spriteHash}`)
       );
