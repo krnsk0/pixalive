@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
+import { renderMice, renderPixels } from '../utils';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
@@ -55,29 +56,17 @@ const SingleLayer = () => {
 
   // on every render
   useEffect(() => {
-    // store a reference to the canvas element itself
-    // as well as a drawing context
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
     // clear the canvas
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
-    // render it!
-    for (const [id, coords] of Object.entries(sprite.users)) {
-      // draw a cursor
-      const half = Math.floor(constants.CURSOR_SIZE / 2);
-      ctx.fillRect(
-        coords.x - half,
-        coords.y - half,
-        constants.CURSOR_SIZE,
-        constants.CURSOR_SIZE
-      );
+    // draw pixels
+    renderPixels(ctx, sprite);
 
-      // draw the socket
-      ctx.font = '15px Courier';
-      ctx.fillText(id, coords.x + 5, coords.y);
-    }
+    // draw cursors
+    renderMice(ctx, sprite);
   });
 
   return (

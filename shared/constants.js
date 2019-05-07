@@ -22,12 +22,12 @@ module.exports = deepFreeze({
     SEND_SPRITE: 'send_sprite', // a server-to-client event
     UPDATE_SELECTED_COLOR: 'update_selected_color' // a client-to-server event
   },
-  CANVAS_HEIGHT: 600,
-  CANVAS_WIDTH: 800,
+  CANVAS_HEIGHT: 512,
+  CANVAS_WIDTH: 512,
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 32,
   NEW_SPRITE_HEIGHT: 32,
-  FACTORIES_MAKE_FAKE_DATA: false,
+  FACTORIES_MAKE_FAKE_DATA: true,
   FAKE_FRAME_COUNT: 4,
   FAKE_LAYER_COUNT: 4,
   THROTTLE_MOUSE_SEND: 50 // in milliseconds
