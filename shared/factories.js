@@ -51,9 +51,9 @@ const spriteFactory = hash => {
 
 // make an empty sprite with one layer and one frame
 // unless we're making fake data, then make more and use fake layer factory
-const initializeEmptySprite = (hash, w, h) => {
+const initializeEmptySprite = (hash, w, h, manuallyDisableFakeData = false) => {
   const sprite = spriteFactory(hash);
-  if (constants.FACTORIES_MAKE_FAKE_DATA) {
+  if (constants.FACTORIES_MAKE_FAKE_DATA && !manuallyDisableFakeData) {
     for (let i = 0; i < constants.FAKE_FRAME_COUNT; i += 1) {
       const frame = frameFactory();
       for (let j = 0; j < constants.FAKE_LAYER_COUNT; j += 1) {
