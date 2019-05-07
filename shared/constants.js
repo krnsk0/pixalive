@@ -19,12 +19,17 @@ module.exports = deepFreeze({
     CONNECT: 'connect', // connection event
     DISCONNECT: 'disconnect', // disconnection event
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
+    CURSOR_UPDATE: 'cursor_update', // a server-to-client event
     SEND_SPRITE: 'send_sprite', // a server-to-client event
     UPDATE_SELECTED_COLOR: 'update_selected_color' // a client-to-server event
   },
-  CANVAS_HEIGHT: 600,
-  CANVAS_WIDTH: 800,
+  CANVAS_HEIGHT: 512,
+  CANVAS_WIDTH: 512,
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
-  NEW_SPRITE_WIDTH: 32,
-  NEW_SPRITE_HEIGHT: 32
+  NEW_SPRITE_WIDTH: 16,
+  NEW_SPRITE_HEIGHT: 16,
+  FACTORIES_MAKE_FAKE_DATA: true,
+  FAKE_FRAME_COUNT: 4,
+  FAKE_LAYER_COUNT: 4,
+  THROTTLE_MOUSE_SEND: 25 // in milliseconds
 });
