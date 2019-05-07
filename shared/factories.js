@@ -1,16 +1,18 @@
 const constants = require('./constants');
 
-const layerFactory = (w, h) => {
+const layerFactory = (w, h, layerOrder) => {
   return {
     name: 'new layer',
+    layerOrder,
     pixels: Array.from({ length: h }, () =>
       Array.from({ length: w }, () => null)
     )
   };
 };
-const fakeLayerFactory = (w, h) => {
+const fakeLayerFactory = (w, h, layerOrder) => {
   return {
     name: 'new layer',
+    layerOrder,
     pixels: Array.from({ length: h }, () =>
       Array.from({ length: w }, () => {
         let h = Math.floor(Math.random() * 360);
@@ -23,8 +25,9 @@ const fakeLayerFactory = (w, h) => {
   };
 };
 
-const frameFactory = () => {
+const frameFactory = frameOrder => {
   return {
+    frameOrder,
     layers: []
   };
 };
@@ -55,15 +58,15 @@ const initializeEmptySprite = (hash, w, h, manuallyDisableFakeData = false) => {
   const sprite = spriteFactory(hash);
   if (constants.FACTORIES_MAKE_FAKE_DATA && !manuallyDisableFakeData) {
     for (let i = 0; i < constants.FAKE_FRAME_COUNT; i += 1) {
-      const frame = frameFactory();
+      const frame = frameFactory(sprite.frames.length);
       for (let j = 0; j < constants.FAKE_LAYER_COUNT; j += 1) {
-        frame.layers.push(fakeLayerFactory(w, h));
+        frame.layers.push(fakeLayerFactory(w, h, frame.layers.length));
       }
       sprite.frames.push(frame);
     }
   } else {
-    const layer = layerFactory(w, h);
-    const frame = frameFactory();
+    const frame = frameFactory(sprite.frames.length);
+    const layer = layerFactory(w, h, frame.layers.length);
     frame.layers.push(layer);
     sprite.frames.push(frame);
   }
