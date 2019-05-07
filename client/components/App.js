@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import ColorPicker from './ColorPicker'
+import ColorPicker from './ColorPicker';
 import Palette from './Palette';
 import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
-const { initializeEmprySprite } = require('../../shared/factories');
+const { initializeEmptySprite } = require('../../shared/factories');
 
 const App = () => {
   // state for the socket
@@ -14,7 +14,7 @@ const App = () => {
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
   const [sprite, setSprite] = useState(
-    initializeEmprySprite(
+    initializeEmptySprite(
       hash,
       constants.NEW_SPRITE_WIDTH,
       constants.NEW_SPRITE_HEIGHT
