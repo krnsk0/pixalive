@@ -80,6 +80,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   background-color: var(--standout-background);
 }
 .middle-section-right {
@@ -118,6 +119,12 @@ body {
   text-align: center;
 }
 
+.add-new-frame-plus {
+  font-size: 40px;
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
 /* main canvas */
 .middle-section-right {
   display: flex;
@@ -133,7 +140,9 @@ body {
 
 /* tools */
 .tool-container {
+  align-self: center;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   width: 140px;
   padding: 5px;
@@ -165,4 +174,42 @@ body {
   border-radius: 5px;
   width: 160px;
   height: 160px;
+}
+
+/* layer picker */
+.layer-container {
+  margin: 10px;
+  border: 4px solid var(--light-emphasis);
+  border-radius: 5px;
+  /* this line is temporary */
+  width: 180px;
+}
+.layer-title-row {
+  background-color: var(--light-emphasis);
+  display: flex;
+  justify-content: space-between;
+}
+.layer-title-text {
+  color: black;
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: 5px;
+}
+.layer-title-text.link {
+  text-decoration: underline;
+}
+.layer-button {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.layer-row {
+  color: var(--light-emphasis);
+  background-color: var(--standout-background);
+  padding-left: 3px;
+  padding-bottom: 3px;
+}
+.layer-row.selected {
+  background-color: var(--highlight-color);
+  color: var(--light-text);
 }

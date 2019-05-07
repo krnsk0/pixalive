@@ -1,17 +1,17 @@
 const constants = require('./constants');
 
-const layerFactory = (w, h, layerOrder) => {
+const layerFactory = (w, h, layerOrder, name = 'new layer') => {
   return {
-    name: 'new layer',
+    name,
     layerOrder,
     pixels: Array.from({ length: h }, () =>
       Array.from({ length: w }, () => null)
     )
   };
 };
-const fakeLayerFactory = (w, h, layerOrder) => {
+const fakeLayerFactory = (w, h, layerOrder, name = 'new layer') => {
   return {
-    name: 'new layer',
+    name,
     layerOrder,
     pixels: Array.from({ length: h }, () =>
       Array.from({ length: w }, () => {
@@ -34,6 +34,7 @@ const frameFactory = frameOrder => {
 
 const userFactory = socketId => {
   return {
+    preview: true,
     socketId,
     selectedFrame: 0,
     selectedLayer: 0,
