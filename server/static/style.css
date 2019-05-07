@@ -1,6 +1,215 @@
-#canvas {
+#test-canvas {
   border: 1px solid black;
 }
 .canvas-wrapper {
   padding: 20px;
+}
+
+/* RESET */
+body {
+  margin: 0px;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+}
+/* colors */
+body {
+  --body-background: #303030;
+  --standout-background: #212121;
+  --light-text: white;
+  --light-emphasis: rgb(164, 164, 164);
+  --highlight-color: rgb(0, 145, 255);
+}
+
+/* top-level containers */
+.app-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.middle-section-container {
+  flex: 2;
+  background-color: var(--body-background);
+}
+.top-section-container,
+.bottom-section-container {
+  background-color: var(--standout-background);
+}
+
+/* top bar */
+.top-section-container {
+  display: flex;
+  justify-content: space-between;
+}
+.top-left {
+  margin: 10px;
+}
+.top-middle {
+  margin: 10px;
+}
+.top-right {
+  display: flex;
+  margin: 10px;
+}
+.app-title {
+  color: var(--light-text);
+  font-size: 20px;
+}
+.sprite-title {
+  color: var(--light-text);
+  font-size: 20px;
+}
+.top-button {
+  background-color: var(--highlight-color);
+  margin: 0px 5px 0px 5px;
+  padding: 2px 7px 0px 7px;
+  border-radius: 5px;
+  color: var(--light-text);
+}
+
+/* middle */
+.middle-section-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.middle-section-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: var(--standout-background);
+}
+.middle-section-right {
+  flex: 2px;
+}
+/* frame container */
+.bottom-section-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.frame-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 4px solid var(--light-emphasis);
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.frame-container.selected {
+  border: 4px solid var(--highlight-color);
+}
+.frame-canvas {
+  background-color: black;
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+}
+.add-new-frame {
+  color: var(--light-emphasis);
+  text-align: center;
+}
+
+.add-new-frame-plus {
+  font-size: 40px;
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
+/* main canvas */
+.middle-section-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.layer-canvas {
+  background-color: black;
+  border-radius: 5px;
+  width: 800px;
+  height: 600px;
+}
+
+/* tools */
+.tool-container {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 140px;
+  padding: 5px;
+}
+.tool-button {
+  width: 40px;
+  height: 40px;
+  margin: 1px;
+  background-color: var(--light-emphasis);
+  border-radius: 4px;
+}
+
+/* animation */
+.animation-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 2px solid var(--light-emphasis);
+  border-radius: 5px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.animation-canvas {
+  background-color: black;
+  border-radius: 5px;
+  width: 160px;
+  height: 160px;
+}
+
+/* layer picker */
+.layer-container {
+  margin: 10px;
+  border: 4px solid var(--light-emphasis);
+  border-radius: 5px;
+  /* this line is temporary */
+  width: 180px;
+}
+.layer-title-row {
+  background-color: var(--light-emphasis);
+  display: flex;
+  justify-content: space-between;
+}
+.layer-title-text {
+  color: black;
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: 5px;
+}
+.layer-title-text.link {
+  text-decoration: underline;
+}
+.layer-button {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.layer-row {
+  color: var(--light-emphasis);
+  background-color: var(--standout-background);
+  padding-left: 3px;
+  padding-bottom: 3px;
+}
+.layer-row.selected {
+  background-color: var(--highlight-color);
+  color: var(--light-text);
 }

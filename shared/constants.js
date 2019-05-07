@@ -21,7 +21,12 @@ module.exports = deepFreeze({
     CURSOR_MOVE: 'cursor_move', // a client-to-server event
     CURSOR_UPDATE: 'cursor_update', // a server-to-client event
     SEND_SPRITE: 'send_sprite', // a server-to-client event
-    UPDATE_SELECTED_COLOR: 'update_selected_color' // a client-to-server event
+    UPDATE_SELECTED_COLOR: 'update_selected_color', // a client-to-server event
+    UPDATE_SELECTED_FRAME: 'update_selected_frame', // a client-to-server event
+    ADD_NEW_FRAME: 'add_new_frame', // a client-to-server event
+    SELECT_LAYER: 'select_layer', // a client-to-server event
+    ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
+    SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
   },
   CANVAS_HEIGHT: 512,
   CANVAS_WIDTH: 512,
