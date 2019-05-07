@@ -7,7 +7,6 @@ const FramePicker = () => {
   const socket = useContext(SocketContext);
   const frames = sprite.frames;
 
-
   // get the selected frame from the sprite
   let selectedFrame = 0;
   if (socket) {
@@ -16,18 +15,19 @@ const FramePicker = () => {
       selectedFrame = sprite.users[socketId].selectedFrame;
     }
   }
-  //select new frame when click frame
-  const onFrameClick = (frameOrder) => {
-    if (socket){
-      socket.emit(constants.MSG.UPDATE_SELECTED_FRAME, frameOrder)
+  // click handler for frame clicks
+  const onFrameClick = frameOrder => {
+    if (socket) {
+      socket.emit(constants.MSG.UPDATE_SELECTED_FRAME, frameOrder);
     }
-  }
+  };
 
+  // click handler for adding frames
   const onAddNewFrameClick = () => {
-    if (socket){
-      socket.emit(constants.MSG.ADD_NEW_FRAME)
+    if (socket) {
+      socket.emit(constants.MSG.ADD_NEW_FRAME);
     }
-  }
+  };
 
   return (
     <div className="bottom-section-container">
@@ -39,16 +39,14 @@ const FramePicker = () => {
               ? 'frame-container selected'
               : 'frame-container'
           }
-          onClick={() => onFrameClick(frame.frameOrder) }
+          onClick={() => onFrameClick(frame.frameOrder)}
         >
           <canvas className="frame-canvas" />
         </div>
       ))}
       <div className="frame-container">
-        <div
-          className="add-new-frame"
-          onClick={onAddNewFrameClick}
-        ><div className="add-new-frame-plus">➕</div>
+        <div className="add-new-frame" onClick={onAddNewFrameClick}>
+          <div className="add-new-frame-plus">➕</div>
         </div>
       </div>
     </div>
