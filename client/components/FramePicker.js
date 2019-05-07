@@ -16,7 +16,7 @@ const FramePicker = () => {
       selectedFrame = sprite.users[socketId].selectedFrame;
     }
   }
-  //slect new frame when click frame
+  //select new frame when click frame
   const onFrameClick = (frameOrder) => {
     if (socket){
       socket.emit(constants.MSG.UPDATE_SELECTED_FRAME, frameOrder)

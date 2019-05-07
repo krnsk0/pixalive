@@ -126,7 +126,7 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     //make a new frame and add to frames
     const newFrame = frameFactory(newFrameOrder);
 
-    // add new layers
+    // add new layers to single frame
     const sampleFrame = state[spriteHash].frames[0];
     sampleFrame.layers.forEach(layer => {
       const h = layer.pixels.length;
@@ -141,6 +141,41 @@ namespacedIo.on(constants.MSG.CONNECT, socket => {
     //send updated sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
+
+   //select layer
+   socket.on(constants.MSG.SELECT_LAYER, selectedLayer => {
+    state[spriteHash].users[socketId].selectedLayer = selectedLayer;
+
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  });
+
+  //add new layer to all frames
+  socket.on(constants.MSG.ADD_NEW_LAYER, () => {
+    //get new frameOrder value. People can delete a frame so
+    //new frame needs to be higher than current max frame
+    const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
+    const arrayOfLayerKeys = state[spriteHash].frames[selectedFrame].layers.map(
+      layer => layer.layerOrder
+    );
+    const currentMax = Math.max(...arrayOfLayerKeys);
+    const newLayerOrder = currentMax + 1;
+
+    //make a new layer and add to frames
+    const w = state[spriteHash].frames[selectedFrame].layers[0].pixels[0].length
+    const h = state[spriteHash].frames[selectedFrame].layers[0].pixels.length
+
+
+    // add new layer to all frames
+
+    state[spriteHash].frames.forEach(frame => {
+      const newLayer = layerFactory(w, h, newLayerOrder);
+      frame.layers.push(newLayer)
+    })
+
+    //send updated sprite
+    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+  });
+
 
   // when this client leaves
   socket.on(constants.MSG.DISCONNECT, socket => {

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
+const constants = require('../../shared/constants');
 
 const LayerPicker = () => {
   const sprite = useContext(SpriteContext);
@@ -13,6 +14,26 @@ const LayerPicker = () => {
   }
 
   const layers = sprite.frames[selectedFrame].layers;
+  let selectedLayer = 0;
+
+  if (socket) {
+    const socketId = socket.id.slice(socket.nsp.length + 1);
+    if (sprite.users[socketId]) {
+      selectedLayer = sprite.users[socketId].selectedLayer;
+    }
+  }
+
+  const onSelectLayerClick = (layerOrder) => {
+    if (socket){
+      socket.emit(constants.MSG.SELECT_LAYER, layerOrder )
+    }
+  }
+
+  const onAddNewLayerClick = () => {
+    if (socket){
+      socket.emit(constants.MSG.ADD_NEW_LAYER)
+    }
+  }
 
   return (
     <div className="layer-container">
@@ -23,14 +44,25 @@ const LayerPicker = () => {
         </div>
       </div>
       <div className="layer-title-row">
-        <div className="layer-button">➕</div>
+        <div
+        className="layer-button"
+        onClick={onAddNewLayerClick}>➕
+        </div>
         <div className="layer-button">️️➖</div>
         <div className="layer-button">✏️️</div>
         <div className="layer-button">⬇️</div>
         <div className="layer-button">⬆️</div>
       </div>
-      {layers.map((layer, i) => (
-        <div key={i} className="layer-row">
+      {layers.map((layer) => (
+        <div
+          key={layer.layerOrder}
+          className={
+          layer.layerOrder === selectedLayer
+            ? 'layer-row selected'
+            : 'layer-row'
+        }
+        onClick={() => onSelectLayerClick(layer.layerOrder)}
+          >
           {layer.name}
         </div>
       ))}
