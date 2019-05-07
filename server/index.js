@@ -6,8 +6,8 @@ const chalk = require('chalk');
 const constants = require('../shared/constants');
 const { userFactory } = require('../shared/factories');
 const PORT = process.env.PORT || 3000;
-const loadData = require('./db/loadData')
-const saveData = require('./db/saveData')
+const loadData = require('./db/loadData');
+const saveData = require('./db/saveData');
 
 // initialize express
 const app = express();
@@ -69,11 +69,11 @@ namespacedIo.on(constants.MSG.CONNECT, async socket => {
 
   // does this namespace exist? if not, create it
   if (!state[spriteHash]) {
-    console.log(
-      chalk.blue(`index.js -> NEW SPRITE -> spriteHash: ${spriteHash}`)
-    );
-    try {state[spriteHash] = await loadData(spriteHash);
-    } catch (err) {console.error(err)}
+    try {
+      state[spriteHash] = await loadData(spriteHash);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // make a new user object and add it
@@ -116,11 +116,10 @@ namespacedIo.on(constants.MSG.CONNECT, async socket => {
 
     // if nobody left, free up the memory
     if (!usersLeft) {
-
+      await saveData(state[spriteHash]);
       console.log(
         chalk.red(`index.js -> DELETING SPRITE -> spriteHash: ${spriteHash}`)
       );
-      await saveData(state[spriteHash])
       delete state[spriteHash];
     }
   });
