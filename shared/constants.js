@@ -28,8 +28,8 @@ module.exports = deepFreeze({
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
     SET_PREVIEW_LAYER: 'set_preview_layer' // a client-to-server event
   },
-  CANVAS_HEIGHT: 512,
-  CANVAS_WIDTH: 512,
+  CANVAS_HEIGHT: 512, // measured in screen pixels
+  CANVAS_WIDTH: 512, // measured in screen pixels
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 16,
   NEW_SPRITE_HEIGHT: 16,

@@ -1,6 +1,12 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
-import { renderCursors, renderPixels, renderBackdrop } from '../rendering';
+import {
+  renderCursors,
+  renderPixels,
+  renderBackdrop,
+  renderSelectedPixel,
+  convertScreenCoordsToPixelCoords
+} from '../rendering';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
@@ -10,6 +16,12 @@ const SingleLayer = () => {
 
   // set up a ref to the canvas element we'll render below
   const canvasRef = useRef();
+
+  // set up component state for which pixel is selected
+  const [selectedPixelCoords, setSelectedPixelCoords] = useState({
+    x: false,
+    y: false
+  });
 
   // set up canvas on load
   useEffect(() => {
@@ -34,13 +46,18 @@ const SingleLayer = () => {
       const canvasRect = canvas.getBoundingClientRect();
 
       // get the relative coords of the mouse
-      const coords = {
+      const screenCoords = {
         x: evt.clientX - canvasRect.left,
         y: evt.clientY - canvasRect.top
       };
 
+      // set selected pixel on local state
+      setSelectedPixelCoords(
+        convertScreenCoordsToPixelCoords(screenCoords, sprite)
+      );
+
       // send them to the server
-      socket.emit(constants.MSG.CURSOR_MOVE, coords);
+      socket.emit(constants.MSG.CURSOR_MOVE, screenCoords);
     }, constants.THROTTLE_MOUSE_SEND);
 
     // set up event listener for mouse movements
@@ -67,6 +84,9 @@ const SingleLayer = () => {
 
     // draw pixels
     renderPixels(ctx, sprite, socket);
+
+    // draw selected pixel
+    renderSelectedPixel(ctx, selectedPixelCoords);
 
     // draw cursors
     renderCursors(ctx, sprite);
