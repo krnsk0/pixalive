@@ -6,6 +6,7 @@ const selectLayer = require('./selectLayer');
 const addNewLayer = require('./addNewLayer');
 const setPreviewLayer = require('./setPreviewLayer');
 const disconnect = require('./disconnect');
+const selectTool = require('./selectTool');
 
 module.exports = {
   cursorMove,
@@ -15,5 +16,6 @@ module.exports = {
   selectLayer,
   addNewLayer,
   setPreviewLayer,
-  disconnect
+  disconnect,
+  selectTool
 };
