@@ -1,6 +1,6 @@
 const constants = require('../../shared/constants');
 
-const renderMice = (ctx, sprite) => {
+const renderCursors = (ctx, sprite) => {
   for (const [id, coords] of Object.entries(sprite.users)) {
     // set color to black
     ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`;
@@ -21,4 +21,4 @@ const renderMice = (ctx, sprite) => {
   }
 };
 
-export default renderMice;
+export default renderCursors;

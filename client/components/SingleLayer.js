@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
-import { renderMice, renderPixels } from '../utils';
+import { renderCursors, renderPixels } from '../utils';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
@@ -66,7 +66,7 @@ const SingleLayer = () => {
     renderPixels(ctx, sprite);
 
     // draw cursors
-    renderMice(ctx, sprite);
+    renderCursors(ctx, sprite);
   });
 
   return (
