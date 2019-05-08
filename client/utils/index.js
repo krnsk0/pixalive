@@ -1,2 +1,2 @@
-export { default as renderMice } from './renderMice';
+export { default as renderCursors } from './renderCursors';
 export { default as renderPixels } from './renderPixels';
