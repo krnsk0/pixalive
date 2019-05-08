@@ -22,12 +22,19 @@ module.exports = deepFreeze({
     CURSOR_UPDATE: 'cursor_update', // a server-to-client event
     SEND_SPRITE: 'send_sprite', // a server-to-client event
     UPDATE_SELECTED_COLOR: 'update_selected_color', // a client-to-server event
+    SELECTED_COLOR_UPDATE: 'selected_color_update', // a server-to-client event
     UPDATE_SELECTED_FRAME: 'update_selected_frame', // a client-to-server event
     ADD_NEW_FRAME: 'add_new_frame', // a client-to-server event
     SELECT_LAYER: 'select_layer', // a client-to-server event
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
     SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
+  },
+  TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
+    PEN: 'pen',
+    ERASER: 'eraser',
+    EYE_DROPPER: 'eye_dropper',
+    PAINT_CAN: 'paint_can'
   },
   CANVAS_HEIGHT: 512,
   CANVAS_WIDTH: 512,

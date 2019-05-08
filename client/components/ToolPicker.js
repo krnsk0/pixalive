@@ -19,7 +19,7 @@ const ToolPicker = () => {
     // click handler for selecting tool
     const onSelectToolClick = (selectedTool) => {
       if (socket) {
-        socket.emit(constants.MSG.SELECT_TOOL, selectedTool);
+        socket.emit(constants.TOOLS.SELECT_TOOL, selectedTool);
       }
     };
 
@@ -27,37 +27,37 @@ const ToolPicker = () => {
         <div className="tool-container">
             <div
             className={
-            selectedTool === 'pen'
+            selectedTool === constants.TOOLS.PEN
               ? 'tool-button selected'
               : 'tool-button'}
-                onClick={() => onSelectToolClick('pen')}
+                onClick={() => onSelectToolClick(constants.TOOLS.PEN)}
             > <GoPencil className="tool-picker-icon" size={28} />
             </div>
 
             <div
             className={
-            selectedTool === 'paint-can'
+            selectedTool === constants.TOOLS.PAINT_CAN
               ? 'tool-button selected'
               : 'tool-button'}
-                onClick={() => onSelectToolClick('paint-can')}
+                onClick={() => onSelectToolClick(constants.TOOLS.PAINT_CAN)}
             > <GoPaintcan className="tool-picker-icon" size={28}  />
             </div>
 
             <div
             className={
-            selectedTool === 'eyedropper'
+            selectedTool === constants.TOOLS.EYE_DROPPER
               ? 'tool-button selected'
               : 'tool-button'}
-                onClick={() => onSelectToolClick('eyedropper')}
+                onClick={() => onSelectToolClick(constants.TOOLS.EYE_DROPPER)}
             > <FaEyeDropper className="tool-picker-icon" size={28} />
             </div>
 
             <div
             className={
-            selectedTool === 'eraser'
+            selectedTool === constants.TOOLS.ERASER
               ? 'tool-button selected'
               : 'tool-button'}
-                onClick={() => onSelectToolClick('eraser')}
+                onClick={() => onSelectToolClick(constants.TOOLS.ERASER)}
             > <FaEraser className="tool-picker-icon" size={28} />
             </div>
 

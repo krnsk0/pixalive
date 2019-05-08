@@ -25,10 +25,22 @@ const App = () => {
             y: action.y
           }
         }
+      }
+      return newState;
+    } else if (action.type === constants.MSG.SELECTED_COLOR_UPDATE) {
+      let newState = {
+        ...state,
+        users: {
+          ...state.users,
+          [action.socketId]: {
+            ...state.users[action.socketId],
+            selectedColor: action.selectedColor
+          }
+        }
       };
       return newState;
-    }
-  };
+  }
+}
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
@@ -58,11 +70,18 @@ const App = () => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE, sprite: newSprite });
     });
 
+    // when we update color in the server dispatch to sprite state
+    socket.on(constants.MSG.SELECTED_COLOR_UPDATE, selectedColor => {
+      spriteDispatch({ type: constants.MSG.SELECTED_COLOR_UPDATE, ...selectedColor });
+    });
+
     // when we get a cursor update, dispatch to sprite state
     socket.on(constants.MSG.CURSOR_UPDATE, update => {
       spriteDispatch({ type: constants.MSG.CURSOR_UPDATE, ...update });
     });
   }, []);
+
+
 
   return (
     <div>
