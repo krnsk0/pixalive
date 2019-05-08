@@ -26,7 +26,8 @@ module.exports = deepFreeze({
     ADD_NEW_FRAME: 'add_new_frame', // a client-to-server event
     SELECT_LAYER: 'select_layer', // a client-to-server event
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
-    SET_PREVIEW_LAYER: 'set_preview_layer' // a client-to-server event
+    SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
+    CANVAS_CLICK: 'canvas_click'
   },
   CANVAS_HEIGHT: 512, // measured in screen pixels
   CANVAS_WIDTH: 512, // measured in screen pixels
