@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import { SocketContext, SpriteContext } from '../contexts';
 import reactCSS from 'reactcss'
-import { SketchPicker } from 'react-color'
+import { PhotoshopPicker } from 'react-color'
 const constants = require('../../shared/constants');
 
   function ColorPicker() {
@@ -20,8 +20,11 @@ const constants = require('../../shared/constants');
       if (socket) {
         let socketId = socket.id.slice(socket.nsp.length + 1);
         if (sprite.users[socketId]){
+          //console.log('XXX', sprite.users[socketId].selectedColor)
           setColor(sprite.users[socketId].selectedColor);
+
         }
+        console.log('THIS ONE', color)
       }
     }, [sprite])
 
@@ -34,18 +37,19 @@ const constants = require('../../shared/constants');
     };
 
     const handleChange = (changedColor) => {
-
+      //console.log(changedColor)
       let newColor = {
         h: Number(changedColor.hsl.h).toFixed(0),
         s: changedColor.hsl.s.toFixed(2) * 100,
         l: changedColor.hsl.l.toFixed(2) * 100,
         o: changedColor.hsl.a.toFixed(2)
       }
+      setColor(newColor)
       socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, newColor )
     };
 
     const convertBack = (convertBackColor) => {
-
+      console.log(convertBackColor)
       return {
         h: convertBackColor.h,
         s: convertBackColor.s / 100,
@@ -91,7 +95,7 @@ const constants = require('../../shared/constants');
         </div>
         { displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ handleClose } />
-          <SketchPicker color={ convertBack(color) } onChange={ handleChange } />
+          <PhotoshopPicker color={ convertBack(color) } onChange={ handleChange } />
         </div> : null }
       </div>
     )
