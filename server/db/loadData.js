@@ -3,47 +3,69 @@ const { initializeEmptySprite } = require('../../shared/factories');
 const constants = require('../../shared/constants');
 const chalk = require('chalk');
 
-let loadData = async spriteHash => {
+let loadData = async (spriteHash) => {
   try {
-    const data = await Sprites.findOne({
+    let loadedSprite = await Sprites.findOne({
       where: { hash: spriteHash },
-      include: [{
-          model: Frames,
-          include: [{
-            model: Layers
-          }]
-      }],
       raw: true
     });
-    console.log(data)
+
+    let loadedFrames = await Frames.findAll({
+      where: {spriteId: loadedSprite.id},
+      order: [['frameOrder', 'ASC']],
+      raw: true
+
+    })
+    let framesArray = []
+    for (let i = 0; i < loadedFrames.length; i++){
+      let currentFrame = loadedFrames[i]
+      let loadedLayers = await Layers.findAll({
+        where: {frameId: currentFrame.id},
+        order: [['layerOrder', 'ASC']],
+        raw: true
+      })
+      for (let j = 0; j < loadedLayers.length; j++) {
+        loadedLayers[j].pixels = JSON.parse(loadedLayers[j].pixels)
+      }
+      console.log(loadedLayers)
+      currentFrame.layers = loadedLayers
+      framesArray.push(currentFrame)
+      }
+
+
+    //loadedSprite = JSON.stringify(loadedSprite, false, 2)
+
+    //Taking away Sequelize's extra information
+    //loadedFrames = JSON.stringify(loadedFrames, false, 2)
+
 
     //, order: [[{Layers}, 'layerOrder', 'ASC']]
     //, order: [[{Frames}, 'frameOrder', 'ASC']]
     let newState = {};
 
     //If we get data from the database, we must convert it so we can use it on state
-    if (data) {
+    if (loadedSprite && loadedFrames) {
       //Parse layers from the database
       //Run through each frame
 
-      //data.frames.sort((a, b) => a.frameOrder - b.frameOrder)
+      // for (let i = 0; i < loadedFrames; i++) {
+      //   //loadedFrames[i].layers.sort((a, b) => a.layerOrder - b.layerOrder)
 
-      // for (let i = 0; i < data.frames.length; i++) {
-        //data.frames[i].layers.sort((a, b) => a.layerOrder - b.layerOrder)
-
-        //Run through each layer on frame i
-        // for (let j = 0; j < data.frames[i].layers.length; j++) {
-          //Set the pixels to parsed JSON data
-          // data.frames[i].layers[j].pixels = JSON.parse(
-          //   data.frames[i].layers[j].pixels
-          //)
-        //}
-      //}
+      //   //Run through each layer on frame i
+      //   for (let j = 0; j < loadedFrames[i].layers.length; j++) {
+      //     //Set the pixels to parsed JSON data
+      //     loadedFrames[i].layers[j].pixels = JSON.parse(
+      //       loadedFrames[i].layers[j].pixels
+      //     )
+      //   }
+      // }
+      //console.log("LOADED FRAMES", loadedFrames)
       newState = {
-        hash: data.hash,
+        hash: loadedSprite.hash,
         users: {},
-        frames: data.frames
+        frames: loadedFrames
       };
+      console.log('New State', newState.frames[0].layers)
 
 
       console.log(
