@@ -79,8 +79,6 @@ const SingleLayer = () => {
     // draw the background
     renderBackdrop(ctx);
 
-    console.log('sprite inside singlelayer', sprite);
-
     // draw pixels
     renderPixels(ctx, sprite, socket);
 
