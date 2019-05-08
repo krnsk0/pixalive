@@ -4,7 +4,7 @@ import {
   renderCursors,
   renderPixels,
   renderBackdrop,
-  renderSelectedPixel, 
+  renderSelectedPixel,
   convertScreenCoordsToPixelCoords
 } from '../rendering';
 const constants = require('../../shared/constants');
@@ -40,26 +40,18 @@ const SingleLayer = () => {
     // store a reference to the canvas element itself
     const canvas = canvasRef.current;
 
-    const onCanvasClick = () => {
-      pixelCoords = convertScreenCoordsToPixelCoords(screenCoords)
-      socket.emit(constants.MSG.CANVAS_CLICK, pixelCoords)
-    }
-
     // event listener helper
     const throttledOnMouseMove = throttle(evt => {
-      // grab a current canvas ref
-      const canvasRect = canvas.getBoundingClientRect();
-
       // get the relative coords of the mouse
-
+      const canvasRect = canvas.getBoundingClientRect();
       const screenCoords = {
         x: evt.clientX - canvasRect.left,
         y: evt.clientY - canvasRect.top
       };
-      
+
       // set selected pixel on local state
       setScreenCoords(screenCoords);
-      
+
       // send them to the server
       socket.emit(constants.MSG.CURSOR_MOVE, screenCoords);
     }, constants.THROTTLE_MOUSE_SEND);
@@ -67,13 +59,13 @@ const SingleLayer = () => {
     // set up event listener for mouse movements
     if (socket) {
       canvas.addEventListener('mousemove', throttledOnMouseMove);
-      canvas.addEventListener('onClick', onCanvasClick)
+      // canvas.addEventListener('click', onCanvasClick);
     }
 
     // a callback to disable the canvas listener
     return () => {
       canvas.removeEventListener('mousemove', throttledOnMouseMove);
-      canvas.removeEventListener('onClick', onCanvasClick)
+      // canvas.removeEventListener('click', onCanvasClick);
     };
   }, [socket]);
 
@@ -98,9 +90,29 @@ const SingleLayer = () => {
     renderCursors(ctx, sprite);
   });
 
+  const onCanvasClick = evt => {
+    // grab a current canvas ref
+    // get the relative coords of the mouse
+    const canvasRect = canvas.getBoundingClientRect();
+    const screenCoords = {
+      x: evt.clientX - canvasRect.left,
+      y: evt.clientY - canvasRect.top
+    };
+    console.log('screenCoords: ', screenCoords);
+    const pixelCoords = convertScreenCoordsToPixelCoords(screenCoords, sprite);
+
+    if (socket) {
+      socket.emit(constants.MSG.CANVAS_CLICK, pixelCoords);
+    }
+  };
+
   return (
     <div>
-      <canvas id="canvas" ref={canvasRef} />
+      <canvas
+        id="canvas"
+        ref={canvasRef}
+        onClick={evt => onCanvasClick(evt, sprite)}
+      />
     </div>
   );
 };

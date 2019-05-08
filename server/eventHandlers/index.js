@@ -7,6 +7,7 @@ const addNewLayer = require('./addNewLayer');
 const setPreviewLayer = require('./setPreviewLayer');
 const disconnect = require('./disconnect');
 const selectTool = require('./selectTool');
+const canvasClick = require('./canvasClick');
 
 module.exports = {
   cursorMove,
@@ -17,5 +18,6 @@ module.exports = {
   addNewLayer,
   setPreviewLayer,
   disconnect,
+  canvasClick,
   selectTool
 };
