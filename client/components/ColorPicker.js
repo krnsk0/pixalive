@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import { SocketContext, SpriteContext } from '../contexts';
 import reactCSS from 'reactcss'
-import { SketchPicker } from 'react-color'
+import { PhotoshopPicker } from 'react-color'
 const constants = require('../../shared/constants');
 
   function ColorPicker() {
@@ -91,7 +91,7 @@ const constants = require('../../shared/constants');
         </div>
         { displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ handleClose } />
-          <SketchPicker color={ convertBack(color) } onChange={ handleChange } />
+          <PhotoshopPicker color={ convertBack(color) } onChange={ handleChange } />
         </div> : null }
       </div>
     )
