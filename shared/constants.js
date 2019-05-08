@@ -26,7 +26,7 @@ module.exports = deepFreeze({
     ADD_NEW_FRAME: 'add_new_frame', // a client-to-server event
     SELECT_LAYER: 'select_layer', // a client-to-server event
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
-    SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
+    SET_PREVIEW_LAYER: 'set_preview_layer' // a client-to-server event
   },
   CANVAS_HEIGHT: 512,
   CANVAS_WIDTH: 512,
@@ -36,5 +36,6 @@ module.exports = deepFreeze({
   FACTORIES_MAKE_FAKE_DATA: true,
   FAKE_FRAME_COUNT: 4,
   FAKE_LAYER_COUNT: 4,
-  THROTTLE_MOUSE_SEND: 25 // in milliseconds
+  THROTTLE_MOUSE_SEND: 25, // in milliseconds
+  BACKDROP_PIXEL_SIZE: 10 // in screen pixels
 });

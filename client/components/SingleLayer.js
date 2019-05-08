@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
-import { renderCursors, renderPixels } from '../utils';
+import { renderCursors, renderPixels, renderBackdrop } from '../rendering';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
@@ -61,6 +61,9 @@ const SingleLayer = () => {
 
     // clear the canvas
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
+
+    // draw the background
+    renderBackdrop(ctx);
 
     // draw pixels
     renderPixels(ctx, sprite, socket);
