@@ -63,7 +63,7 @@ const SingleLayer = () => {
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
 
     // draw pixels
-    renderPixels(ctx, sprite);
+    renderPixels(ctx, sprite, socket);
 
     // draw cursors
     renderCursors(ctx, sprite);
