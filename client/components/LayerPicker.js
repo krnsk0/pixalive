@@ -60,13 +60,14 @@ const LayerPicker = () => {
     <div className="layer-container">
       <div className="layer-title-row">
         <div className="layer-title-text">Layers</div>
-        <div className="layer-title-text link">
-          preview:
+        <div className="layer-title-text">
+          Preview:
           <input
             type="checkbox"
             name="preview"
             onChange={onPreviewToggleClick}
             checked={preview}
+            className="layer-picker-checkbox"
           />
         </div>
       </div>

@@ -195,14 +195,14 @@ body {
   margin-bottom: 3px;
   margin-right: 5px;
 }
-.layer-title-text.link {
-  text-decoration: underline;
-}
 .layer-button {
   margin-left: 3px;
   margin-right: 3px;
 }
-
+.layer-picker-checkbox {
+  color: red;
+  background-color: red;
+}
 .layer-row {
   color: var(--light-emphasis);
   background-color: var(--standout-background);
