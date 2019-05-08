@@ -4,8 +4,7 @@ import {
   renderCursors,
   renderPixels,
   renderBackdrop,
-  renderSelectedPixel,
-  convertScreenCoordsToPixelCoords
+  renderSelectedPixel
 } from '../rendering';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
@@ -18,7 +17,7 @@ const SingleLayer = () => {
   const canvasRef = useRef();
 
   // set up component state for which pixel is selected
-  const [selectedPixelCoords, setSelectedPixelCoords] = useState({
+  const [screenCoords, setScreenCoords] = useState({
     x: false,
     y: false
   });
@@ -52,9 +51,7 @@ const SingleLayer = () => {
       };
 
       // set selected pixel on local state
-      setSelectedPixelCoords(
-        convertScreenCoordsToPixelCoords(screenCoords, sprite)
-      );
+      setScreenCoords(screenCoords);
 
       // send them to the server
       socket.emit(constants.MSG.CURSOR_MOVE, screenCoords);
@@ -82,11 +79,13 @@ const SingleLayer = () => {
     // draw the background
     renderBackdrop(ctx);
 
+    console.log('sprite inside singlelayer', sprite);
+
     // draw pixels
     renderPixels(ctx, sprite, socket);
 
     // draw selected pixel
-    renderSelectedPixel(ctx, selectedPixelCoords);
+    renderSelectedPixel(ctx, screenCoords, sprite);
 
     // draw cursors
     renderCursors(ctx, sprite);
