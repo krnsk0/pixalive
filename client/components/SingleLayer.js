@@ -42,9 +42,8 @@ const SingleLayer = () => {
 
   // set up event listeners when socket connects
   useEffect(() => {
-    const onWindowMouseDown = () => setMouseClicked(true);
-    const onWindowMouseUp = () => setMouseClicked(false);
-    const onWindowMouseMove = evt => {
+    // helper functions for event handlers
+    const moveOnlyHanlder = evt => {
       const inCanvas = isMouseInsideCanvas(
         canvasRef.current,
         evt.clientX,
@@ -61,7 +60,14 @@ const SingleLayer = () => {
         setCanvasMouseCoords(coords);
         socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
       }
-
+    };
+    const moveOrClickHandler = evt => {
+      // are we in canvas?
+      const inCanvas = isMouseInsideCanvas(
+        canvasRef.current,
+        evt.clientX,
+        evt.clientY
+      );
       // if in canvas and clicked, send click to server
       if (inCanvas && mouseClickedRef.current) {
         const pixelCoords = convertCanvasToPixelCoords(
@@ -70,6 +76,17 @@ const SingleLayer = () => {
         );
         socket && socket.emit(constants.MSG.CANVAS_CLICK, pixelCoords);
       }
+    };
+
+    // event handler callbacks
+    const onWindowMouseDown = evt => {
+      setMouseClicked(true); // set the state to clicked
+      moveOrClickHandler(evt); // fire event to server if in canvas
+    };
+    const onWindowMouseUp = () => setMouseClicked(false);
+    const onWindowMouseMove = evt => {
+      moveOnlyHanlder(evt); // fire move events to server if in canvas
+      moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
     };
     const throttledOnWindowMouseMove = throttle(
       onWindowMouseMove,
