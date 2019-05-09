@@ -47,11 +47,11 @@ const namespacedIo = io.of(/.*/).on(constants.MSG.CONNECT, socket => {
   socket.on(constants.MSG.DISCONNECT, reason => {
     console.log(
       chalk.red(
-        `index.js -> CONNECTION -> namespace: ${namespace}, socketId: ${socketId}, reason: ${reason}`
+        `index.js -> DISCONNECTION -> namespace: ${namespace}, socketId: ${socketId}, reason: ${reason}`
       )
     );
   });
 });
 
 // initialize the app
-pixalive(namespacedIo);
+pixalive(namespacedIo, io);

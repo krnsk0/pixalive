@@ -64,6 +64,7 @@ async function seed() {
         layerOrder: 2
       });
     }
+    console.log('seeding sprites...');
   } catch (error) {
     console.log(error);
   }

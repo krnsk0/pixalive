@@ -9,7 +9,7 @@ const loadData = require('./db/loadData');
 const saveData = require('./db/saveData');
 const eventHandlers = require('./eventHandlers');
 
-module.exports = namespacedIo => {
+module.exports = (namespacedIo, io) => {
   // root of our server-side state tree
   // a hash of namespaces/sprites
   const state = {};
@@ -31,12 +31,14 @@ module.exports = namespacedIo => {
     // make a new user object and add it
     state[spriteHash].users[socketId] = userFactory(socketId);
 
+    console.log('ON CONNECTION:', state);
+
     // send the current drawing object
     socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
     // load and register event handlers
     Object.values(eventHandlers).forEach(handler =>
-      handler(socket, namespacedIo, state, spriteHash, socketId)
+      handler(socket, io.of(`/${spriteHash}`), state, spriteHash, socketId)
     );
   });
 };
