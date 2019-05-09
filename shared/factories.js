@@ -34,7 +34,7 @@ const frameFactory = frameOrder => {
 
 const userFactory = socketId => {
   return {
-    preview: true,
+    preview: false,
     socketId,
     selectedFrame: 0,
     selectedLayer: 0,
