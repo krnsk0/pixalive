@@ -47,8 +47,7 @@ const App = () => {
   const initialSprite = initializeEmptySprite(
     hash,
     constants.NEW_SPRITE_WIDTH,
-    constants.NEW_SPRITE_HEIGHT,
-    true // this overrides the setting in constants file, never generating client-side fake data; fake data is server-side only
+    constants.NEW_SPRITE_HEIGHT
   );
 
   // set up reducer
