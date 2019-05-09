@@ -18,7 +18,7 @@ const LayerPicker = () => {
   }
 
   // get the layers array
-  let layers;
+  let layers = [];
   if (sprite.frames[selectedFrame]) {
     layers = sprite.frames[selectedFrame].layers;
   }
@@ -35,9 +35,11 @@ const LayerPicker = () => {
   // get selected layer name
   let selectedLayerName = '';
   if (socket) {
-    if (sprite.frames[selectedFrame].layers[selectedLayer]) {
-      selectedLayerName =
-        sprite.frames[selectedFrame].layers[selectedLayer].name;
+    if (sprite.frames[selectedFrame]) {
+      if (sprite.frames[selectedFrame].layers[selectedLayer]) {
+        selectedLayerName =
+          sprite.frames[selectedFrame].layers[selectedLayer].name;
+      }
     }
   }
 
