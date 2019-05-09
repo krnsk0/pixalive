@@ -1,6 +1,7 @@
 const constants = require('../../shared/constants');
 const saveData = require('../db/saveData');
 const chalk = require('chalk');
+const { printState } = require('../utils');
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when this client leaves
@@ -22,5 +23,8 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       );
       delete state[spriteHash];
     }
+    // log the room state
+    console.log(chalk.yellow('LOGGING ROOMS AFTER USER DISCONNECT'));
+    printState(state);
   });
 };

@@ -36,6 +36,7 @@ module.exports = (namespacedIo, io) => {
     socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
     // print state for debugging
+    console.log(chalk.yellow('LOGGING ROOMS AFTER USER CONNECT'));
     printState(state);
 
     // load and register event handlers
