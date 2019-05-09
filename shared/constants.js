@@ -28,7 +28,11 @@ module.exports = deepFreeze({
     SELECT_LAYER: 'select_layer', // a client-to-server event
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
     SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
-    CANVAS_CLICK: 'canvas_click' // a server-to-client event
+    CANVAS_CLICK: 'canvas_click', // a server-to-client event
+    DELETE_SELECTED_LAYER: 'delete_selected_layer', // a client-to-server event
+    EDIT_SELECTED_LAYER_NAME: 'edit_selected_layer_name', // a client-to-server event
+    MOVE_SELECTED_LAYER_UP: 'move_selected_layer_up', // a client-to-server event
+    MOVE_SELECTED_LAYER_DOWN: 'move_selected_layer_down' // a client-to-server event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -42,16 +46,7 @@ module.exports = deepFreeze({
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 16,
   NEW_SPRITE_HEIGHT: 16,
-  FACTORIES_MAKE_FAKE_DATA: false,
-  FAKE_FRAME_COUNT: 4,
-  FAKE_LAYER_COUNT: 4,
   THROTTLE_MOUSE_SEND: 100, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
-  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
-  NEW_SPRITE_WIDTH: 4,
-  NEW_SPRITE_HEIGHT: 4,
-  FACTORIES_MAKE_FAKE_DATA: true,
-  FAKE_FRAME_COUNT: 2,
-  FAKE_LAYER_COUNT: 2,
-  THROTTLE_MOUSE_SEND: 25 // in milliseconds
+  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
 });

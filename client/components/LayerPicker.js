@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
@@ -31,6 +32,15 @@ const LayerPicker = () => {
     }
   }
 
+  // get selected layer name
+  let selectedLayerName = '';
+  if (socket) {
+    if (sprite.frames[selectedFrame].layers[selectedLayer]) {
+      selectedLayerName =
+        sprite.frames[selectedFrame].layers[selectedLayer].name;
+    }
+  }
+
   // get the value of preview
   let preview = true;
   if (socket && Object.keys(sprite.users).length) {
@@ -52,6 +62,27 @@ const LayerPicker = () => {
     if (socket) {
       socket.emit(constants.MSG.ADD_NEW_LAYER);
     }
+  };
+
+  const onDeleteLayerClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.DELETE_SELECTED_LAYER);
+    }
+  };
+
+  const onLayerNameEditClick = () => {
+    if (socket) {
+      const newName = prompt('Enter layer name', selectedLayerName);
+      socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME, newName);
+    }
+  };
+
+  const onLayerMoveUpClick = () => {
+    socket.emit(constants.MSG.MOVE_SELECTED_LAYER_UP);
+  };
+
+  const onLayerMoveDownClick = () => {
+    socket.emit(constants.MSG.MOVE_SELECTED_LAYER_DOWN);
   };
 
   // click handler for toggling preview
@@ -83,10 +114,18 @@ const LayerPicker = () => {
         <div className="layer-button" onClick={onAddNewLayerClick}>
           ➕
         </div>
-        <div className="layer-button">️️➖</div>
-        <div className="layer-button">✏️️</div>
-        <div className="layer-button">⬇️</div>
-        <div className="layer-button">⬆️</div>
+        <div className="layer-button" onClick={onDeleteLayerClick}>
+          ️️➖
+        </div>
+        <div className="layer-button" onClick={onLayerNameEditClick}>
+          ✏️️
+        </div>
+        <div className="layer-button" onClick={onLayerMoveDownClick}>
+          ⬇️
+        </div>
+        <div className="layer-button" onClick={onLayerMoveUpClick}>
+          ⬆️
+        </div>
       </div>
       {layers.map(layer => (
         <div
