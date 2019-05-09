@@ -94,7 +94,6 @@ const LayerPicker = () => {
       socket.emit(constants.MSG.SET_PREVIEW_LAYER, false);
     }
   };
-  console.log('layers', layers);
 
   return (
     <div className="layer-container">
