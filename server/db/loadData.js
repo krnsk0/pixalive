@@ -3,40 +3,45 @@ const { initializeEmptySprite } = require('../../shared/factories');
 const constants = require('../../shared/constants');
 const chalk = require('chalk');
 
-const loadData = async spriteHash => {
+let loadData = async (spriteHash) => {
   try {
-    const data = await Sprites.findOne({
+    let loadedSprite = await Sprites.findOne({
       where: { hash: spriteHash },
-      include: [
-        {
-          model: Frames,
-          include: [{ model: Layers, order: [['layerOrder', 'ASC']] }],
-          order: [['frameOrder', 'ASC']]
-        }
-      ]
+      raw: true
     });
 
     let newState = {};
 
     //If we get data from the database, we must convert it so we can use it on state
-    if (data) {
-      //Parse layers from the database
-      //Run through each frame
-      for (let i = 0; i < data.frames.length; i++) {
-        //Run through each layer on frame i
-        for (let j = 0; j < data.frames[i].layers.length; j++) {
-          //Set the pixels to parsed JSON data
-          data.frames[i].layers[j].pixels = JSON.parse(
-            data.frames[i].layers[j].pixels
-          );
+    if (loadedSprite) {
+      let loadedFrames = await Frames.findAll({
+        where: { spriteId: loadedSprite.id },
+        order: [['frameOrder', 'ASC']],
+        raw: true
+
+      })
+      let framesArray = []
+      for (let i = 0; i < loadedFrames.length; i++) {
+        let currentFrame = loadedFrames[i]
+        let loadedLayers = await Layers.findAll({
+          where: { frameId: currentFrame.id },
+          order: [['layerOrder', 'ASC']],
+          raw: true
+        })
+        console.log(loadedFrames)
+        for (let j = 0; j < loadedLayers.length; j++) {
+          let newLayer = loadedLayers[j]
+
+          newLayer.pixels = JSON.parse(newLayer.pixels)
         }
+        currentFrame.layers = loadedLayers
+        framesArray.push(currentFrame)
       }
       newState = {
-        hash: data.hash,
+        hash: loadedSprite.hash,
         users: {},
-        frames: data.frames
+        frames: loadedFrames
       };
-
       console.log(
         chalk.blue(
           `loadData.js -> LOADED NEW SPRITE -> spriteHash: ${spriteHash}`

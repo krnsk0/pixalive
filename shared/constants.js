@@ -47,5 +47,11 @@ module.exports = deepFreeze({
   FAKE_LAYER_COUNT: 4,
   THROTTLE_MOUSE_SEND: 100, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
-  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
+  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
+  NEW_SPRITE_WIDTH: 4,
+  NEW_SPRITE_HEIGHT: 4,
+  FACTORIES_MAKE_FAKE_DATA: true,
+  FAKE_FRAME_COUNT: 2,
+  FAKE_LAYER_COUNT: 2,
+  THROTTLE_MOUSE_SEND: 25 // in milliseconds
 });
