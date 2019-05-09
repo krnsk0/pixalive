@@ -14,9 +14,7 @@ const renderPixels = (ctx, sprite) => {
 
     // iterate rows / cols
     for (let [y, row] of pixels.entries()) {
-      console.log("y, row", y, row)
       for (let [x, pixel] of row.entries()) {
-        console.log("x, pixel", x, pixel)
         // if pixel is null, should be transparent
         if (pixel) {
           ctx.fillStyle = `hsl(${pixel.h}, ${pixel.s}%, ${pixel.l}%, ${

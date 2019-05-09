@@ -3,7 +3,7 @@ const { initializeEmptySprite } = require('../../shared/factories');
 const constants = require('../../shared/constants');
 const chalk = require('chalk');
 
-let loadData = async (spriteHash) => {
+let loadData = async spriteHash => {
   try {
     let loadedSprite = await Sprites.findOne({
       where: { hash: spriteHash },
@@ -18,24 +18,22 @@ let loadData = async (spriteHash) => {
         where: { spriteId: loadedSprite.id },
         order: [['frameOrder', 'ASC']],
         raw: true
-
-      })
-      let framesArray = []
+      });
+      let framesArray = [];
       for (let i = 0; i < loadedFrames.length; i++) {
-        let currentFrame = loadedFrames[i]
+        let currentFrame = loadedFrames[i];
         let loadedLayers = await Layers.findAll({
           where: { frameId: currentFrame.id },
           order: [['layerOrder', 'ASC']],
           raw: true
-        })
-        console.log(loadedFrames)
+        });
         for (let j = 0; j < loadedLayers.length; j++) {
-          let newLayer = loadedLayers[j]
+          let newLayer = loadedLayers[j];
 
-          newLayer.pixels = JSON.parse(newLayer.pixels)
+          newLayer.pixels = JSON.parse(newLayer.pixels);
         }
-        currentFrame.layers = loadedLayers
-        framesArray.push(currentFrame)
+        currentFrame.layers = loadedLayers;
+        framesArray.push(currentFrame);
       }
       newState = {
         hash: loadedSprite.hash,
