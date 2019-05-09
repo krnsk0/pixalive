@@ -46,5 +46,6 @@ module.exports = deepFreeze({
   FAKE_FRAME_COUNT: 4,
   FAKE_LAYER_COUNT: 4,
   THROTTLE_MOUSE_SEND: 25, // in milliseconds
-  BACKDROP_PIXEL_SIZE: 10 // in screen pixels
+  BACKDROP_PIXEL_SIZE: 10, // in screen pixels
+  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
 });

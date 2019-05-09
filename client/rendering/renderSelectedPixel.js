@@ -1,11 +1,8 @@
-import { convertCanvasMouseCoordsToPixelCoords } from './';
+import { convertCanvasToPixelCoords } from './';
 const constants = require('../../shared/constants');
 
 const renderSelectedPixel = (ctx, screenCoords, sprite) => {
-  const pixelCoords = convertCanvasMouseCoordsToPixelCoords(
-    screenCoords,
-    sprite
-  );
+  const pixelCoords = convertCanvasToPixelCoords(screenCoords, sprite);
 
   const pixelWidth = Math.floor(
     constants.CANVAS_WIDTH / sprite.frames[0].layers[0].pixels[0].length
@@ -15,7 +12,7 @@ const renderSelectedPixel = (ctx, screenCoords, sprite) => {
   );
 
   if (screenCoords.x !== false && screenCoords.y !== false) {
-    ctx.fillStyle = `hsl(${100}, ${50}%, ${0}%, ${0.5}`;
+    ctx.fillStyle = constants.PIXEL_HIGHLIGHT_COLOR;
     //
     ctx.fillRect(
       pixelCoords.x * pixelWidth,

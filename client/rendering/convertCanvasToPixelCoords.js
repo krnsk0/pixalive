@@ -1,7 +1,7 @@
 const constants = require('../../shared/constants');
 
 // take screen coordinates and convert them to pixel coordinates
-const convertCanvasMouseCoordsToPixelCoords = (canvasMouseCoords, sprite) => {
+const convertCanvasToPixelCoords = (canvasMouseCoords, sprite) => {
   const canvasWidth = constants.CANVAS_WIDTH;
   const canvasHeight = constants.CANVAS_HEIGHT;
   const pixelWidth = sprite.frames[0].layers[0].pixels[0].length;
@@ -14,4 +14,4 @@ const convertCanvasMouseCoordsToPixelCoords = (canvasMouseCoords, sprite) => {
 
   return { x: mouseXpixels, y: mouseYpixels };
 };
-export default convertCanvasMouseCoordsToPixelCoords;
+export default convertCanvasToPixelCoords;

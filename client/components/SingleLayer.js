@@ -5,8 +5,8 @@ import {
   renderPixels,
   renderBackdrop,
   renderSelectedPixel,
-  convertCanvasMouseCoordsToPixelCoords,
-  convertWindowMouseCoordsToCanvasMouseCoords,
+  convertCanvasToPixelCoords,
+  convertWindowToCanvasCoords,
   isMouseInsideCanvas
 } from '../rendering';
 const constants = require('../../shared/constants');
@@ -53,7 +53,7 @@ const SingleLayer = () => {
 
       // if in canvas, send move to server
       if (inCanvas) {
-        const coords = convertWindowMouseCoordsToCanvasMouseCoords(
+        const coords = convertWindowToCanvasCoords(
           canvasRef.current,
           evt.clientX,
           evt.clientY
@@ -64,7 +64,7 @@ const SingleLayer = () => {
 
       // if in canvas and clicked, send click to server
       if (inCanvas && mouseClickedRef.current) {
-        const pixelCoords = convertCanvasMouseCoordsToPixelCoords(
+        const pixelCoords = convertCanvasToPixelCoords(
           canvasMouseCoordsRef.current,
           spriteRef.current
         );

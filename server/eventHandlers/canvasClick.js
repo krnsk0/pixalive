@@ -3,7 +3,6 @@ const constants = require('../../shared/constants');
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
   socket.on(constants.MSG.CANVAS_CLICK, coords => {
-    console.log('got the event');
     // update their coords
     const selectedColor = state[spriteHash].users[socketId].selectedColor;
     const selectedTool = state[spriteHash].users[socketId].selectedTool;
@@ -22,8 +21,6 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         color: selectedColor
       });
     }
-
-    console.log('changeList: ', changeList);
 
     //takes list of changes, changes pixels
     changeList.forEach(c => {
