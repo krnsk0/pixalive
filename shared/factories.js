@@ -40,8 +40,8 @@ const userFactory = socketId => {
     selectedLayer: 0,
     selectedColor: { h: 0, s: 0, l: 0, o: 1.0 },
     selectedTool: 'pen',
-    x: null,
-    y: null
+    x: false,
+    y: false
   };
 };
 
