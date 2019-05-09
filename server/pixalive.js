@@ -31,7 +31,7 @@ module.exports = (namespacedIo, io) => {
     // make a new user object and add it
     state[spriteHash].users[socketId] = userFactory(socketId);
 
-    console.log(state);
+    console.log('ON CONNECTION:', state);
 
     // send the current drawing object
     socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
