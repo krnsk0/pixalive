@@ -22,7 +22,5 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       );
       delete state[spriteHash];
     }
-
-    console.log('ON DISCONNECTION:', state);
   });
 };

@@ -14,8 +14,10 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       // delete layer
       state[spriteHash].frames[selectedFrame].layers.splice(selectedLayer, 1);
 
-      // decrement selected layer
-      state[spriteHash].users[socketId].selectedLayer = selectedLayer - 1;
+      // if selected layer is bigger than 0 then decrement selected layer
+      if (selectedLayer > 0) {
+        state[spriteHash].users[socketId].selectedLayer = selectedLayer - 1;
+      }
 
       // re-index layers
       state[spriteHash].frames[selectedFrame].layers.forEach((layer, index) => {

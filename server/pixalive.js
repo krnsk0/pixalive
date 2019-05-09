@@ -8,6 +8,7 @@ const {
 const loadData = require('./db/loadData');
 const saveData = require('./db/saveData');
 const eventHandlers = require('./eventHandlers');
+const { printState } = require('./utils');
 
 module.exports = (namespacedIo, io) => {
   // root of our server-side state tree
@@ -31,10 +32,11 @@ module.exports = (namespacedIo, io) => {
     // make a new user object and add it
     state[spriteHash].users[socketId] = userFactory(socketId);
 
-    console.log('ON CONNECTION:', state);
-
     // send the current drawing object
     socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+
+    // print state for debugging
+    printState(state);
 
     // load and register event handlers
     Object.values(eventHandlers).forEach(handler =>
