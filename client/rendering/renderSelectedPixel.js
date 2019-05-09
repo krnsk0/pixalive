@@ -1,18 +1,26 @@
-import { convertScreenCoordsToPixelCoords } from './';
-const constants = require('../../shared/constants')
+import { convertCanvasToPixelCoords } from './';
+const constants = require('../../shared/constants');
 
-const renderSelectedPixel = (ctx, screenCoords, sprite) => {
-  const pixelCoords = convertScreenCoordsToPixelCoords(screenCoords, sprite);
-  console.log(screenCoords)
-  const pixelWidth = Math.floor(constants.CANVAS_WIDTH / sprite.frames[0].layers[0].pixels[0].length);
-  const pixelHeight = Math.floor(constants.CANVAS_HEIGHT / sprite.frames[0].layers[0].pixels.length);
+const renderSelectedPixel = (ctx, canvasCoords, sprite) => {
+  const pixelCoords = convertCanvasToPixelCoords(canvasCoords, sprite);
 
-  if (screenCoords.x !== false && screenCoords.y !== false){
-    ctx.fillStyle = `hsl(${100}, ${50}%, ${0}%, ${.5}`
-    // console.log(pixelCoords)
-    ctx.fillRect(pixelCoords.x * pixelWidth, pixelCoords.y * pixelHeight, pixelWidth, pixelHeight)
-  }  
+  const pixelWidth = Math.floor(
+    constants.CANVAS_WIDTH / sprite.frames[0].layers[0].pixels[0].length
+  );
+  const pixelHeight = Math.floor(
+    constants.CANVAS_HEIGHT / sprite.frames[0].layers[0].pixels.length
+  );
+
+  if (canvasCoords.x !== false && canvasCoords.y !== false) {
+    ctx.fillStyle = constants.PIXEL_HIGHLIGHT_COLOR;
+    //
+    ctx.fillRect(
+      pixelCoords.x * pixelWidth,
+      pixelCoords.y * pixelHeight,
+      pixelWidth,
+      pixelHeight
+    );
+  }
 };
 
 export default renderSelectedPixel;
-

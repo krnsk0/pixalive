@@ -34,14 +34,14 @@ const frameFactory = frameOrder => {
 
 const userFactory = socketId => {
   return {
-    preview: true,
+    preview: false,
     socketId,
     selectedFrame: 0,
     selectedLayer: 0,
     selectedColor: { h: 0, s: 0, l: 0, o: 1.0 },
     selectedTool: 'pen',
-    x: null,
-    y: null
+    x: false,
+    y: false
   };
 };
 

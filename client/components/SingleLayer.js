@@ -4,97 +4,120 @@ import {
   renderCursors,
   renderPixels,
   renderBackdrop,
-  renderSelectedPixel, 
-  convertScreenCoordsToPixelCoords
+  renderSelectedPixel,
+  convertCanvasToPixelCoords,
+  convertWindowToCanvasCoords,
+  isMouseInsideCanvas
 } from '../rendering';
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
 const SingleLayer = () => {
+  // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
-
-  // set up a ref to the canvas element we'll render below
-  const canvasRef = useRef();
-
-  // set up component state for which pixel is selected
-  const [screenCoords, setScreenCoords] = useState({
+  const [canvasMouseCoords, setCanvasMouseCoords] = useState({
     x: false,
     y: false
   });
+  const [mouseClicked, setMouseClicked] = useState(false);
 
-  // set up canvas on load
+  // refs
+  const canvasRef = useRef();
+  const canvasMouseCoordsRef = useRef();
+  canvasMouseCoordsRef.current = canvasMouseCoords;
+  const spriteRef = useRef();
+  spriteRef.current = sprite;
+  const mouseClickedRef = useRef();
+  mouseClickedRef.current = mouseClicked;
+
+  // set up canvas width & height after first mount
   useEffect(() => {
-    // store a reference to the canvas element itself
     const canvas = canvasRef.current;
-
-    // set its width and height
     canvas.width = constants.CANVAS_WIDTH;
     canvas.height = constants.CANVAS_HEIGHT;
     canvas.style.width = constants.CANVAS_WIDTH;
     canvas.style.height = constants.CANVAS_HEIGHT;
   }, []);
 
-  // set up event listener on socket change
+  // set up event listeners when socket connects
   useEffect(() => {
-    // store a reference to the canvas element itself
-    const canvas = canvasRef.current;
+    // helper functions for event handlers
+    const moveOnlyHanlder = evt => {
+      const inCanvas = isMouseInsideCanvas(
+        canvasRef.current,
+        evt.clientX,
+        evt.clientY
+      );
 
-    const onCanvasClick = () => {
-      pixelCoords = convertScreenCoordsToPixelCoords(screenCoords)
-      socket.emit(constants.MSG.CANVAS_CLICK, pixelCoords)
-    }
+      // if in canvas, send move to server
+      if (inCanvas) {
+        const coords = convertWindowToCanvasCoords(
+          canvasRef.current,
+          evt.clientX,
+          evt.clientY
+        );
+        setCanvasMouseCoords(coords);
+        socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
+      } else {
+        socket && socket.emit(constants.MSG.CURSOR_MOVE, false);
+        setCanvasMouseCoords({
+          x: false,
+          y: false
+        });
+      }
+    };
+    const moveOrClickHandler = evt => {
+      // are we in canvas?
+      const inCanvas = isMouseInsideCanvas(
+        canvasRef.current,
+        evt.clientX,
+        evt.clientY
+      );
+      // if in canvas and clicked, send click to server
+      if (inCanvas && mouseClickedRef.current) {
+        const pixelCoords = convertCanvasToPixelCoords(
+          canvasMouseCoordsRef.current,
+          spriteRef.current
+        );
+        socket && socket.emit(constants.MSG.CANVAS_CLICK, pixelCoords);
+      }
+    };
 
-    // event listener helper
-    const throttledOnMouseMove = throttle(evt => {
-      // grab a current canvas ref
-      const canvasRect = canvas.getBoundingClientRect();
+    // event handler callbacks
+    const onWindowMouseDown = evt => {
+      setMouseClicked(true); // set the state to clicked
+      moveOrClickHandler(evt); // fire event to server if in canvas
+    };
+    const onWindowMouseUp = () => setMouseClicked(false);
+    const onWindowMouseMove = evt => {
+      moveOnlyHanlder(evt); // fire move events to server if in canvas
+      moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
+    };
+    const throttledOnWindowMouseMove = throttle(
+      onWindowMouseMove,
+      constants.MSG.THROTTLE_MOUSE_SEND
+    );
 
-      // get the relative coords of the mouse
-
-      const screenCoords = {
-        x: evt.clientX - canvasRect.left,
-        y: evt.clientY - canvasRect.top
-      };
-      
-      // set selected pixel on local state
-      setScreenCoords(screenCoords);
-      
-      // send them to the server
-      socket.emit(constants.MSG.CURSOR_MOVE, screenCoords);
-    }, constants.THROTTLE_MOUSE_SEND);
-
-    // set up event listener for mouse movements
-    if (socket) {
-      canvas.addEventListener('mousemove', throttledOnMouseMove);
-      canvas.addEventListener('onClick', onCanvasClick)
-    }
-
-    // a callback to disable the canvas listener
+    // add + remove event listeners
+    socket && window.addEventListener('mousedown', onWindowMouseDown);
+    socket && window.addEventListener('mouseup', onWindowMouseUp);
+    socket && window.addEventListener('mousemove', throttledOnWindowMouseMove);
     return () => {
-      canvas.removeEventListener('mousemove', throttledOnMouseMove);
-      canvas.removeEventListener('onClick', onCanvasClick)
+      window.removeEventListener('mousedown', onWindowMouseDown);
+      window.removeEventListener('mouseup', onWindowMouseUp);
+      window.removeEventListener('mousemove', throttledOnWindowMouseMove);
     };
   }, [socket]);
 
-  // on every render
+  // on every render, call rendering functions
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-
-    // clear the canvas
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
-
-    // draw the background
     renderBackdrop(ctx);
-
-    // draw pixels
     renderPixels(ctx, sprite, socket);
-
-    // draw selected pixel
-    renderSelectedPixel(ctx, screenCoords, sprite);
-
-    // draw cursors
+    renderSelectedPixel(ctx, canvasMouseCoords, sprite);
     renderCursors(ctx, sprite);
   });
 
