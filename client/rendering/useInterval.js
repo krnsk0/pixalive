@@ -5,12 +5,15 @@ function useInterval(callback, delay) {
 
   // Remember the latest callback.
   useEffect(() => {
+      console.log('callback changed');
     savedCallback.current = callback;
   }, [callback]);
 
   // Set up the interval.
   useEffect(() => {
+      console.log('delayed changed');
     function tick() {
+        console.log('tick');
       savedCallback.current();
     }
     if (delay !== null) {
