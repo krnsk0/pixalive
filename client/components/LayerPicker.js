@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -10,11 +11,16 @@ const LayerPicker = () => {
   let selectedFrame = 0;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    selectedFrame = sprite.users[socketId].selectedFrame;
+    if (sprite.users[socketId]) {
+      selectedFrame = sprite.users[socketId].selectedFrame;
+    }
   }
 
   // get the layers array
-  const layers = sprite.frames[selectedFrame].layers;
+  let layers;
+  if (sprite.frames[selectedFrame]) {
+    layers = sprite.frames[selectedFrame].layers;
+  }
 
   // get the selected layer
   let selectedLayer = 0;
@@ -29,7 +35,9 @@ const LayerPicker = () => {
   let preview = true;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    preview = sprite.users[socketId].preview;
+    if (sprite.users[socketId]) {
+      preview = sprite.users[socketId].preview;
+    }
   }
 
   // click handler for selecting layers
@@ -61,7 +69,7 @@ const LayerPicker = () => {
       <div className="layer-title-row">
         <div className="layer-title-text">Layers</div>
         <div className="layer-title-text">
-          Preview:
+          Preview:{' '}
           <input
             type="checkbox"
             name="preview"

@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
+import { SmallCanvas } from './';
 
 const FramePicker = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
   const frames = sprite.frames;
+  const canvasWidth = 80;
+  const canvasHeight = 80;
 
   // get the selected frame from the sprite
   let selectedFrame = 0;
@@ -41,7 +44,11 @@ const FramePicker = () => {
           }
           onClick={() => onFrameClick(frame.frameOrder)}
         >
-          <canvas className="frame-canvas" />
+          <SmallCanvas
+            canvasWidth={canvasWidth}
+            canvasHeight={canvasHeight}
+            layers={frame.layers}
+          />
         </div>
       ))}
       <div className="frame-container">
