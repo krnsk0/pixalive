@@ -1,8 +1,11 @@
-import { convertScreenCoordsToPixelCoords } from './';
+import { convertCanvasMouseCoordsToPixelCoords } from './';
 const constants = require('../../shared/constants');
 
 const renderSelectedPixel = (ctx, screenCoords, sprite) => {
-  const pixelCoords = convertScreenCoordsToPixelCoords(screenCoords, sprite);
+  const pixelCoords = convertCanvasMouseCoordsToPixelCoords(
+    screenCoords,
+    sprite
+  );
 
   const pixelWidth = Math.floor(
     constants.CANVAS_WIDTH / sprite.frames[0].layers[0].pixels[0].length
