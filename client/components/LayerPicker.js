@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
@@ -28,6 +29,15 @@ const LayerPicker = () => {
     const socketId = socket.id.slice(socket.nsp.length + 1);
     if (sprite.users[socketId]) {
       selectedLayer = sprite.users[socketId].selectedLayer;
+    }
+  }
+
+  // get selected layer name
+  let selectedLayerName = '';
+  if (socket) {
+    if (sprite.frames[selectedFrame].layers[selectedLayer]) {
+      selectedLayerName =
+        sprite.frames[selectedFrame].layers[selectedLayer].name;
     }
   }
 
@@ -62,7 +72,8 @@ const LayerPicker = () => {
 
   const onLayerNameEditClick = () => {
     if (socket) {
-      socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME);
+      const newName = prompt('Enter layer name', selectedLayerName);
+      socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME, newName);
     }
   };
 
@@ -103,10 +114,10 @@ const LayerPicker = () => {
         <div className="layer-button" onClick={onAddNewLayerClick}>
           ➕
         </div>
-        <div className="layer-button" onClick={onAddNewLayerClick}>
+        <div className="layer-button" onClick={onDeleteLayerClick}>
           ️️➖
         </div>
-        <div className="layer-button" onClick={onDeleteLayerClick}>
+        <div className="layer-button" onClick={onLayerNameEditClick}>
           ✏️️
         </div>
         <div className="layer-button" onClick={onLayerMoveDownClick}>

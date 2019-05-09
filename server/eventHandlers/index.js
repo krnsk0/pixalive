@@ -8,6 +8,7 @@ const setPreviewLayer = require('./setPreviewLayer');
 const disconnect = require('./disconnect');
 const selectTool = require('./selectTool');
 const canvasClick = require('./canvasClick');
+const layerNameChange = require('./layerNameChange');
 
 module.exports = {
   cursorMove,
@@ -19,5 +20,6 @@ module.exports = {
   setPreviewLayer,
   disconnect,
   canvasClick,
-  selectTool
+  selectTool,
+  layerNameChange
 };
