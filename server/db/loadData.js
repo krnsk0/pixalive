@@ -25,7 +25,9 @@ let loadData = async (spriteHash) => {
         raw: true
       })
       for (let j = 0; j < loadedLayers.length; j++) {
-        loadedLayers[j].pixels = JSON.parse(loadedLayers[j].pixels)
+        let newLayer = loadedLayers[j]
+
+        newLayer.pixels = JSON.parse(newLayer.pixels)
       }
       console.log(loadedLayers)
       currentFrame.layers = loadedLayers
@@ -65,7 +67,7 @@ let loadData = async (spriteHash) => {
         users: {},
         frames: loadedFrames
       };
-      console.log('New State', newState.frames[0].layers)
+      console.log('New State', newState.frames[0])
 
 
       console.log(
