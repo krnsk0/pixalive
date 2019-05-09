@@ -129,7 +129,7 @@ const SingleLayer = () => {
 
   return (
     <div>
-      <canvas id="canvas" ref={canvasRef} />
+      <canvas ref={canvasRef} />
     </div>
   );
 };

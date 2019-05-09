@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -10,7 +11,9 @@ const LayerPicker = () => {
   let selectedFrame = 0;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    selectedFrame = sprite.users[socketId].selectedFrame;
+    if (sprite.users[socketId]) {
+      selectedFrame = sprite.users[socketId].selectedFrame;
+    }
   }
 
   // get the layers array
@@ -29,7 +32,9 @@ const LayerPicker = () => {
   let preview = true;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    preview = sprite.users[socketId].preview;
+    if (sprite.users[socketId]) {
+      preview = sprite.users[socketId].preview;
+    }
   }
 
   // click handler for selecting layers

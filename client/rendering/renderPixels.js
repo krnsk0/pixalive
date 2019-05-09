@@ -69,7 +69,9 @@ const renderPixels = (ctx, sprite, socket) => {
   let preview = true;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    preview = sprite.users[socketId].preview;
+    if (sprite.users[socketId]) {
+      preview = sprite.users[socketId].preview;
+    }
   }
 
   // if preview is true, render all layers
