@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 // import { SpriteContext, SocketContext } from '../contexts';
 // const constants = require('../../shared/constants');
-import { renderPixels, renderBackdrop } from '../rendering';
+import { renderSmallCanvas, renderBackdrop } from '../rendering';
 
 const SmallCanvas = props => {
-  const { canvasWidth, canvasHeight } = props;
+  const { canvasWidth, canvasHeight, layers } = props;
+
   const canvasRef = useRef();
 
   // set up canvas width & height after first mount
@@ -22,7 +23,7 @@ const SmallCanvas = props => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     renderBackdrop(ctx);
-    // renderPixels(ctx, sprite, socket);
+    renderSmallCanvas(ctx, layers, canvasWidth, canvasHeight);
   });
 
   return <canvas className="frame-canvas" ref={canvasRef} />;

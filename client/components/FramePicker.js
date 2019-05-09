@@ -44,7 +44,11 @@ const FramePicker = () => {
           }
           onClick={() => onFrameClick(frame.frameOrder)}
         >
-          <SmallCanvas canvasWidth={canvasWidth} canvasHeight={canvasHeight} />
+          <SmallCanvas
+            canvasWidth={canvasWidth}
+            canvasHeight={canvasHeight}
+            layers={frame.layers}
+          />
         </div>
       ))}
       <div className="frame-container">

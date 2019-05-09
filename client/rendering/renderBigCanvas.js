@@ -36,7 +36,7 @@ const renderSingleLayer = (
         }
 
         // set color
-        ctx.fillStyle = `hsl(${pixel.h}, ${pixel.s}%, ${pixel.l}%, ${opacity}`;
+        ctx.fillStyle = `hsl(${pixel.h}, ${pixel.s}%, ${pixel.l}%, ${opacity})`;
       }
 
       // fill it in
@@ -45,7 +45,7 @@ const renderSingleLayer = (
   }
 };
 
-const renderPixels = (ctx, sprite, socket) => {
+const renderBigCanvas = (ctx, sprite, socket) => {
   // get the selected frame from the sprite
   let selectedFrame = 0;
   if (socket) {
@@ -94,4 +94,4 @@ const renderPixels = (ctx, sprite, socket) => {
   }
 };
 
-export default renderPixels;
+export default renderBigCanvas;

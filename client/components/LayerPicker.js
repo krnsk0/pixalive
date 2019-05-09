@@ -17,7 +17,10 @@ const LayerPicker = () => {
   }
 
   // get the layers array
-  const layers = sprite.frames[selectedFrame].layers;
+  let layers;
+  if (sprite.frames[selectedFrame]) {
+    layers = sprite.frames[selectedFrame].layers;
+  }
 
   // get the selected layer
   let selectedLayer = 0;
@@ -66,7 +69,7 @@ const LayerPicker = () => {
       <div className="layer-title-row">
         <div className="layer-title-text">Layers</div>
         <div className="layer-title-text">
-          Preview:
+          Preview:{' '}
           <input
             type="checkbox"
             name="preview"

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 import {
   renderCursors,
-  renderPixels,
+  renderBigCanvas,
   renderBackdrop,
   renderSelectedPixel,
   convertCanvasToPixelCoords,
@@ -122,7 +122,7 @@ const SingleLayer = () => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
     renderBackdrop(ctx);
-    renderPixels(ctx, sprite, socket);
+    renderBigCanvas(ctx, sprite, socket);
     renderSelectedPixel(ctx, canvasMouseCoords, sprite);
     renderCursors(ctx, sprite);
   });
