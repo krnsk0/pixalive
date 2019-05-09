@@ -9,6 +9,9 @@ const disconnect = require('./disconnect');
 const selectTool = require('./selectTool');
 const canvasClick = require('./canvasClick');
 const layerNameChange = require('./layerNameChange');
+const deleteSelectedLayer = require('./deleteSelectedLayer');
+const moveSelectedLayerUp = require('./moveSelectedLayerUp');
+const moveSelectedLayerDown = require('./moveSelectedLayerDown');
 
 module.exports = {
   cursorMove,
@@ -21,5 +24,8 @@ module.exports = {
   disconnect,
   canvasClick,
   selectTool,
-  layerNameChange
+  layerNameChange,
+  deleteSelectedLayer,
+  moveSelectedLayerUp,
+  moveSelectedLayerDown
 };
