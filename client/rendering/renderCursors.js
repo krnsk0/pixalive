@@ -17,7 +17,6 @@ const renderCursors = (ctx, sprite) => {
 
       // draw the cursor
       ctx.font = '15px Courier';
-
       ctx.fillText(id, coords.x + 5, coords.y);
     }
   }
