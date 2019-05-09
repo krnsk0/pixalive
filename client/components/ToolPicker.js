@@ -16,6 +16,7 @@ const ToolPicker = () => {
     if (sprite.users[socketId]) {
       selectedTool = sprite.users[socketId].selectedTool;
     }
+  }
 
   // click handler for selecting tool
   const onSelectToolClick = selectedTool => {
