@@ -86,10 +86,16 @@ const SingleLayer = () => {
 
     // event handler callbacks
     const onWindowMouseDown = evt => {
-      setMouseClicked(true); // set the state to clicked
-      moveOrClickHandler(evt); // fire event to server if in canvas
+      if (evt.which === 1) {
+        setMouseClicked(true); // set the state to clicked
+        moveOrClickHandler(evt); // fire event to server if in canvas
+      }
     };
-    const onWindowMouseUp = () => setMouseClicked(false);
+    const onWindowMouseUp = evt => {
+      if (evt.which === 1) {
+        setMouseClicked(false);
+      }
+    };
     const onWindowMouseMove = evt => {
       moveOnlyHanlder(evt); // fire move events to server if in canvas
       moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
