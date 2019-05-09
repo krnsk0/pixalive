@@ -5,25 +5,6 @@ const saveData = async stateSprite => {
   console.log(stateSprite)
   const spriteHash = stateSprite.hash;
   try {
-    //Destroy the old sprite and all associated frames and layers
-    // await Sprites.destroy({
-    //   where: { hash: spriteHash },
-    //   include: [
-    //     {
-    //       model: Frames,
-    //       include: [
-    //         {
-    //           model: Layers
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // });
-    // console.log(
-    //   chalk.red(
-    //     `saveData.js -> DESTROYED OLD SPRITE -> spriteHash: ${spriteHash}`
-    //   )
-    // );
     let spriteToDelete = await Sprites.findOne({where: {hash: spriteHash}})
     if(spriteToDelete){
       let framesToDelete = await Frames.findAll({where: {spriteId: spriteToDelete.id}})
@@ -32,8 +13,6 @@ const saveData = async stateSprite => {
       await Frames.destroy({where: {id: layersToDelete}})
       await Sprites.destroy({where: {hash: spriteHash}})
     }
-
-    // let frameIds = framesToDelete.map()
 
     //Create a new sprite with the information from the sprite on state
     let newSprite = await Sprites.create({
