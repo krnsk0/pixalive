@@ -21,6 +21,15 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         color: selectedColor
       });
     }
+    else if (selectedTool === constants.TOOLS.ERASER){
+      changeList.push({
+        x: coords.x,
+        y: coords.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: null
+      })
+    }
 
     //takes list of changes, changes pixels
     changeList.forEach(c => {
