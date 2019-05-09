@@ -173,17 +173,18 @@ body {
   margin-right: 5px;
   border: 2px solid var(--light-emphasis);
   border-radius: 5px;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .animation-canvas {
   background-color: black;
   border-radius: 5px;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
 }
 
 /* layer picker */

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
 import ColorPicker from './ColorPicker';
-import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker, ToolPicker } from './';
+import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker, ToolPicker, AnimationPreviewBox } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -89,6 +89,7 @@ const App = () => {
         <SpriteContext.Provider value={sprite}>
           <ConnectionInfo />
           <ToolPicker />
+          <AnimationPreviewBox />
           <SingleLayer />
           <ColorPicker />
           <FramePicker />

@@ -9,3 +9,4 @@ export { default as isMouseInsideCanvas } from './isMouseInsideCanvas';
 export {
   default as convertWindowToCanvasCoords
 } from './convertWindowToCanvasCoords';
+export { default as useInterval } from './useInterval';
