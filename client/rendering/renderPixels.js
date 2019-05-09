@@ -3,7 +3,13 @@ const constants = require('../../shared/constants');
 
 // renders a single layer. when preview is true
 // this decreases all opacity proprtionate to the number of layers
-const renderSingleLayer = (layer, ctx, preview, layerCount) => {
+const renderSingleLayer = (
+  layer,
+  ctx,
+  preview,
+  layerCount,
+  isLayerSelected
+) => {
   const pixels = layer.pixels;
 
   // calculate pixel dims
@@ -20,12 +26,13 @@ const renderSingleLayer = (layer, ctx, preview, layerCount) => {
 
       // if pixel is not null, set the color
       else {
-        // if preview mode is on, adjust the opacity
+        // if preview mode is on, adjust the opacity of each layer proportionate to the # of layers
+        // if it's the selected layer, render with zero opacity
         let opacity;
-        if (preview) {
-          opacity = pixel.o * (1 / layerCount);
+        if (preview && !isLayerSelected) {
+          opacity = 1 / layerCount;
         } else {
-          opacity = pixel.o;
+          opacity = 1.0;
         }
 
         // set color
@@ -68,8 +75,14 @@ const renderPixels = (ctx, sprite, socket) => {
   // if preview is true, render all layers
   if (preview) {
     const layerCount = frame.layers.length;
-    frame.layers.forEach(layer => {
-      renderSingleLayer(layer, ctx, preview, layerCount);
+    frame.layers.forEach((currentLayer, layerIndex) => {
+      renderSingleLayer(
+        currentLayer,
+        ctx,
+        preview,
+        layerCount,
+        layerIndex === selectedLayer
+      );
     });
   }
   // if preview is false, render only selected layer
