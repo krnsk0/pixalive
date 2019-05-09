@@ -28,6 +28,7 @@ module.exports = deepFreeze({
     SELECT_LAYER: 'select_layer', // a client-to-server event
     ADD_NEW_LAYER: 'add_new_layer', // a client-to-server event
     SET_PREVIEW_LAYER: 'set_preview_layer', // a client-to-server event
+    CANVAS_CLICK: 'canvas_click' // a server-to-client event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -36,14 +37,15 @@ module.exports = deepFreeze({
     EYE_DROPPER: 'eye_dropper',
     PAINT_CAN: 'paint_can'
   },
-  CANVAS_HEIGHT: 512,
-  CANVAS_WIDTH: 512,
+  CANVAS_HEIGHT: 512, // measured in screen pixels
+  CANVAS_WIDTH: 512, // measured in screen pixels
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 16,
   NEW_SPRITE_HEIGHT: 16,
-  FACTORIES_MAKE_FAKE_DATA: true,
+  FACTORIES_MAKE_FAKE_DATA: false,
   FAKE_FRAME_COUNT: 4,
   FAKE_LAYER_COUNT: 4,
-  THROTTLE_MOUSE_SEND: 25, // in milliseconds
-  BACKDROP_PIXEL_SIZE: 10 // in screen pixels
+  THROTTLE_MOUSE_SEND: 100, // in milliseconds
+  BACKDROP_PIXEL_SIZE: 10, // in screen pixels
+  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
 });

@@ -10,7 +10,7 @@ const spriteFactory = hash => {
         x: 100,
         y: 50,
         selectedTool: 'pen',
-        selectedcolor: { h: 200, s: 50, l: 50, o: 74 },
+        selectedColor: { h: 200, s: 50, l: 50, o: 74 },
         selectedFrame: 1,
         selectedLayer: 1,
         brushSettings: []
@@ -68,3 +68,14 @@ for (let y = 0; y < pixels.length; y += 1) {
     // do stuff
   }
 }
+
+
+[
+  {
+    x
+    y
+    frame
+    layer
+    color
+  }
+]
