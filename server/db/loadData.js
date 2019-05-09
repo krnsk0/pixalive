@@ -10,66 +10,37 @@ let loadData = async (spriteHash) => {
       raw: true
     });
 
-    let loadedFrames = await Frames.findAll({
-      where: {spriteId: loadedSprite.id},
-      order: [['frameOrder', 'ASC']],
-      raw: true
-
-    })
-    let framesArray = []
-    for (let i = 0; i < loadedFrames.length; i++){
-      let currentFrame = loadedFrames[i]
-      let loadedLayers = await Layers.findAll({
-        where: {frameId: currentFrame.id},
-        order: [['layerOrder', 'ASC']],
-        raw: true
-      })
-      for (let j = 0; j < loadedLayers.length; j++) {
-        let newLayer = loadedLayers[j]
-
-        newLayer.pixels = JSON.parse(newLayer.pixels)
-      }
-      console.log(loadedLayers)
-      currentFrame.layers = loadedLayers
-      framesArray.push(currentFrame)
-      }
-
-
-    //loadedSprite = JSON.stringify(loadedSprite, false, 2)
-
-    //Taking away Sequelize's extra information
-    //loadedFrames = JSON.stringify(loadedFrames, false, 2)
-
-
-    //, order: [[{Layers}, 'layerOrder', 'ASC']]
-    //, order: [[{Frames}, 'frameOrder', 'ASC']]
     let newState = {};
 
     //If we get data from the database, we must convert it so we can use it on state
-    if (loadedSprite && loadedFrames) {
-      //Parse layers from the database
-      //Run through each frame
+    if (loadedSprite) {
+      let loadedFrames = await Frames.findAll({
+        where: { spriteId: loadedSprite.id },
+        order: [['frameOrder', 'ASC']],
+        raw: true
 
-      // for (let i = 0; i < loadedFrames; i++) {
-      //   //loadedFrames[i].layers.sort((a, b) => a.layerOrder - b.layerOrder)
+      })
+      let framesArray = []
+      for (let i = 0; i < loadedFrames.length; i++) {
+        let currentFrame = loadedFrames[i]
+        let loadedLayers = await Layers.findAll({
+          where: { frameId: currentFrame.id },
+          order: [['layerOrder', 'ASC']],
+          raw: true
+        })
+        for (let j = 0; j < loadedLayers.length; j++) {
+          let newLayer = loadedLayers[j]
 
-      //   //Run through each layer on frame i
-      //   for (let j = 0; j < loadedFrames[i].layers.length; j++) {
-      //     //Set the pixels to parsed JSON data
-      //     loadedFrames[i].layers[j].pixels = JSON.parse(
-      //       loadedFrames[i].layers[j].pixels
-      //     )
-      //   }
-      // }
-      //console.log("LOADED FRAMES", loadedFrames)
+          newLayer.pixels = JSON.parse(newLayer.pixels)
+        }
+        currentFrame.layers = loadedLayers
+        framesArray.push(currentFrame)
+      }
       newState = {
         hash: loadedSprite.hash,
         users: {},
         frames: loadedFrames
       };
-      console.log('New State', newState.frames[0])
-
-
       console.log(
         chalk.blue(
           `loadData.js -> LOADED NEW SPRITE -> spriteHash: ${spriteHash}`
