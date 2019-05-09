@@ -54,6 +54,26 @@ const LayerPicker = () => {
     }
   };
 
+  const onDeleteLayerClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.DELETE_SELECTED_LAYER);
+    }
+  };
+
+  const onLayerNameEditClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME);
+    }
+  };
+
+  const onLayerMoveUpClick = () => {
+    socket.emit(constants.MSG.MOVE_SELECTED_LAYER_UP);
+  };
+
+  const onLayerMoveDownClick = () => {
+    socket.emit(constants.MSG.MOVE_SELECTED_LAYER_DOWN);
+  };
+
   // click handler for toggling preview
   const onPreviewToggleClick = evt => {
     evt.preventDefault();
@@ -83,10 +103,18 @@ const LayerPicker = () => {
         <div className="layer-button" onClick={onAddNewLayerClick}>
           ➕
         </div>
-        <div className="layer-button">️️➖</div>
-        <div className="layer-button">✏️️</div>
-        <div className="layer-button">⬇️</div>
-        <div className="layer-button">⬆️</div>
+        <div className="layer-button" onClick={onAddNewLayerClick}>
+          ️️➖
+        </div>
+        <div className="layer-button" onClick={onDeleteLayerClick}>
+          ✏️️
+        </div>
+        <div className="layer-button" onClick={onLayerMoveDownClick}>
+          ⬇️
+        </div>
+        <div className="layer-button" onClick={onLayerMoveUpClick}>
+          ⬆️
+        </div>
       </div>
       {layers.map(layer => (
         <div
