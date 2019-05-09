@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 import {
   renderCursors,
-  renderPixels,
+  renderBigCanvas,
   renderBackdrop,
   renderSelectedPixel,
   convertCanvasToPixelCoords,
@@ -86,10 +86,16 @@ const SingleLayer = () => {
 
     // event handler callbacks
     const onWindowMouseDown = evt => {
-      setMouseClicked(true); // set the state to clicked
-      moveOrClickHandler(evt); // fire event to server if in canvas
+      if (evt.which === 1) {
+        setMouseClicked(true); // set the state to clicked
+        moveOrClickHandler(evt); // fire event to server if in canvas
+      }
     };
-    const onWindowMouseUp = () => setMouseClicked(false);
+    const onWindowMouseUp = evt => {
+      if (evt.which === 1) {
+        setMouseClicked(false);
+      }
+    };
     const onWindowMouseMove = evt => {
       moveOnlyHanlder(evt); // fire move events to server if in canvas
       moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
@@ -116,14 +122,14 @@ const SingleLayer = () => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT);
     renderBackdrop(ctx);
-    renderPixels(ctx, sprite, socket);
+    renderBigCanvas(ctx, sprite, socket);
     renderSelectedPixel(ctx, canvasMouseCoords, sprite);
     renderCursors(ctx, sprite);
   });
 
   return (
     <div>
-      <canvas id="canvas" ref={canvasRef} />
+      <canvas ref={canvasRef} />
     </div>
   );
 };

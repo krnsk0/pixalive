@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
 import ColorPicker from './ColorPicker';
-import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker, ToolPicker } from './';
+import {
+  ConnectionInfo,
+  SingleLayer,
+  FramePicker,
+  LayerPicker,
+  ToolPicker
+} from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -25,7 +31,7 @@ const App = () => {
             y: action.y
           }
         }
-      }
+      };
       return newState;
     } else if (action.type === constants.MSG.SELECTED_COLOR_UPDATE) {
       let newState = {
@@ -39,8 +45,8 @@ const App = () => {
         }
       };
       return newState;
-  }
-}
+    }
+  };
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
@@ -65,6 +71,11 @@ const App = () => {
       setSocket(socket);
     });
 
+    // on disconnect, unmount
+    socket.on(constants.MSG.DISCONNECT, () => {
+      setSocket(false);
+    });
+
     // when we get a sprite update from the server dispatch to sprite state
     socket.on(constants.MSG.SEND_SPRITE, newSprite => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE, sprite: newSprite });
@@ -72,7 +83,10 @@ const App = () => {
 
     // when we update color in the server dispatch to sprite state
     socket.on(constants.MSG.SELECTED_COLOR_UPDATE, selectedColor => {
-      spriteDispatch({ type: constants.MSG.SELECTED_COLOR_UPDATE, ...selectedColor });
+      spriteDispatch({
+        type: constants.MSG.SELECTED_COLOR_UPDATE,
+        ...selectedColor
+      });
     });
 
     // when we get a cursor update, dispatch to sprite state
@@ -81,20 +95,24 @@ const App = () => {
     });
   }, []);
 
-
-
   return (
     <div>
-      <SocketContext.Provider value={socket}>
-        <SpriteContext.Provider value={sprite}>
-          <ConnectionInfo />
-          <ToolPicker />
-          <SingleLayer />
-          <ColorPicker />
-          <FramePicker />
-          <LayerPicker />
-        </SpriteContext.Provider>
-      </SocketContext.Provider>
+      {socket ? (
+        <div>
+          <SocketContext.Provider value={socket}>
+            <SpriteContext.Provider value={sprite}>
+              <ConnectionInfo />
+              <ToolPicker />
+              <SingleLayer />
+              <ColorPicker />
+              <FramePicker />
+              <LayerPicker />
+            </SpriteContext.Provider>
+          </SocketContext.Provider>
+        </div>
+      ) : (
+        <div>LOADING</div>
+      )}
     </div>
   );
 };
