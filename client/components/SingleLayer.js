@@ -61,6 +61,10 @@ const SingleLayer = () => {
         socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
       } else {
         socket && socket.emit(constants.MSG.CURSOR_MOVE, false);
+        setCanvasMouseCoords({
+          x: false,
+          y: false
+        });
       }
     };
     const moveOrClickHandler = evt => {
