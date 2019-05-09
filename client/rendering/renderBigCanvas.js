@@ -36,7 +36,7 @@ const renderSingleLayer = (
         }
 
         // set color
-        ctx.fillStyle = `hsl(${pixel.h}, ${pixel.s}%, ${pixel.l}%, ${opacity}`;
+        ctx.fillStyle = `hsl(${pixel.h}, ${pixel.s}%, ${pixel.l}%, ${opacity})`;
       }
 
       // fill it in
@@ -45,7 +45,7 @@ const renderSingleLayer = (
   }
 };
 
-const renderPixels = (ctx, sprite, socket) => {
+const renderBigCanvas = (ctx, sprite, socket) => {
   // get the selected frame from the sprite
   let selectedFrame = 0;
   if (socket) {
@@ -69,7 +69,9 @@ const renderPixels = (ctx, sprite, socket) => {
   let preview = true;
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    preview = sprite.users[socketId].preview;
+    if (sprite.users[socketId]) {
+      preview = sprite.users[socketId].preview;
+    }
   }
 
   // if preview is true, render all layers
@@ -92,4 +94,4 @@ const renderPixels = (ctx, sprite, socket) => {
   }
 };
 
-export default renderPixels;
+export default renderBigCanvas;

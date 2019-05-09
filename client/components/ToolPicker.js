@@ -10,9 +10,12 @@ const ToolPicker = () => {
 
   // // get the selected tool
   let selectedTool = 'pen';
-  if (socket && sprite.users && Object.keys(sprite.users).length) {
+
+  if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
-    selectedTool = sprite.users[socketId].selectedTool;
+    if (sprite.users[socketId]) {
+      selectedTool = sprite.users[socketId].selectedTool;
+    }
   }
 
   // click handler for selecting tool
