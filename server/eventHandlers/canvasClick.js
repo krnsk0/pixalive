@@ -31,12 +31,42 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     }
 
     //takes list of changes, changes pixels
+    let madeChange = false;
     changeList.forEach(c => {
-      state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][c.x] =
-        c.color;
+      // get old value
+      const oldColor =
+        state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
+          c.x
+        ];
+      console.log('oldColor: ', oldColor);
+
+      // see if there's a change
+      let different = false;
+      // are either (but not both) null?
+      if ((oldColor && !c.color) || (!oldColor && c.color)) {
+        different = true;
+      } else {
+        // loop keys and look for changes
+        for (let k of Object.keys(oldColor)) {
+          if (oldColor[k] !== c.color[k]) {
+            different = true;
+            break;
+          }
+        }
+      }
+
+      // if different, make a change and set the change flag to true
+      if (different) {
+        state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
+          c.x
+        ] = c.color;
+        madeChange = true;
+      }
     });
 
-    // send change list
-    namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
+    // send change list only if we actually made changes
+    if (madeChange) {
+      namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
+    }
   });
 };
