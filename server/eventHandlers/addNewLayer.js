@@ -4,13 +4,8 @@ const { layerFactory } = require('../../shared/factories');
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new layer to all frames
   socket.on(constants.MSG.ADD_NEW_LAYER, () => {
-    // get new frameOrder value, one higher than max
     const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
-    const arrayOfLayerKeys = state[spriteHash].frames[selectedFrame].layers.map(
-      layer => layer.layerOrder
-    );
-    const currentMax = Math.max(...arrayOfLayerKeys);
-    const newLayerOrder = currentMax + 1;
+    const newLayerOrder = state[spriteHash].frames[selectedFrame].layers.length;
 
     // make a new layer and add to frames
     const w =
@@ -22,6 +17,9 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       const newLayer = layerFactory(w, h, newLayerOrder);
       frame.layers.push(newLayer);
     });
+
+    // increment selected frame
+    state[spriteHash].users[socketId].selectedLayer += 1;
 
     //send updated sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
