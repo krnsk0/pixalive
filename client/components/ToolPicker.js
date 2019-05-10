@@ -10,6 +10,7 @@ const ToolPicker = () => {
 
   // // get the selected tool
   let selectedTool = 'pen';
+  console.log(sprite)
 
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
