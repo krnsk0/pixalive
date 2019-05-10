@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import ColorPicker from './ColorPicker';
 import {
   ConnectionInfo,
-  SingleLayer,
+  BigCanvas,
   FramePicker,
   LayerPicker,
   ToolPicker,
@@ -140,7 +140,7 @@ const App = () => {
           <ConnectionInfo />
           <ToolPicker />
           <AnimationPreviewBox />
-          <SingleLayer />
+          <BigCanvas />
           <ColorPicker />
           <FramePicker />
           <LayerPicker />

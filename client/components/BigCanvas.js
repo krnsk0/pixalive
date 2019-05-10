@@ -12,7 +12,7 @@ import {
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
-const SingleLayer = () => {
+const BigCanvas = () => {
   // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
@@ -134,4 +134,4 @@ const SingleLayer = () => {
   );
 };
 
-export default SingleLayer;
+export default BigCanvas;
