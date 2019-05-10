@@ -19,6 +19,7 @@ const App = () => {
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
+    console.log('action: ', action);
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
