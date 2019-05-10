@@ -4,9 +4,6 @@ const os = require('os');
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
   socket.on(constants.MSG.CURSOR_MOVE, coords => {
-    console.log('os.freemem()', os.freemem());
-    console.log('os.loadavg(): ', os.loadavg());
-
     // store an old coord to allow checking for truthiness
     const oldX = state[spriteHash].users[socketId].x;
 
