@@ -91,6 +91,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  overflow-x: auto;
 }
 .frame-container {
   margin-top: 10px;
@@ -115,11 +116,13 @@ body {
 .add-new-frame {
   color: var(--light-emphasis);
   text-align: center;
+  width: 80px;
+  height: 80px;
 }
 
 .add-new-frame-plus {
   font-size: 40px;
-  margin-top: 5px;
+  margin-top: 18px;
   margin-left: 2px;
 }
 
