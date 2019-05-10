@@ -46,7 +46,6 @@ const BigCanvas = () => {
   useEffect(() => {
     // helper functions for event handlers
     const throttledSendCursorToServer = throttle((socket, coords) => {
-      console.log('emitting mouse to server');
       socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
     }, constants.MSG.THROTTLE_MOUSE_SEND);
 
