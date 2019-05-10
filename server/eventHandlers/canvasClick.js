@@ -6,7 +6,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   socket.on(constants.MSG.CANVAS_CLICK, coords => {
     // update their coords
     const selectedColor = state[spriteHash].users[socketId].selectedColor;
-    const selectedTool = state[spriteHash].users[socketId].selectedTool;
+    let selectedTool = state[spriteHash].users[socketId].selectedTool;
     const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
     const selectedLayer = state[spriteHash].users[socketId].selectedLayer;
 
@@ -36,11 +36,14 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       let y = coords.y
       let selectedColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][x]
       //reset users selected color on state to that color
+      //reset selected tool to pen
       if (selectedColor){
         state[spriteHash].users[socketId].selectedColor = selectedColor
         state[spriteHash].users[socketId].selectedTool = constants.TOOLS.PEN
-        //broadcast new selected color 
+        selectedTool = constants.TOOLS.PEN
+        //broadcast new selected color / tool
         namespacedIo.emit(constants.MSG.SELECTED_COLOR_UPDATE, {selectedColor, socketId})
+        namespacedIo.emit(constants.MSG.SELECTED_TOOL_UPDATE, {selectedTool, socketId})
       }
     }
 

@@ -46,6 +46,19 @@ const App = () => {
         }
       };
       return newState;
+    } else if (action.type === constants.MSG.SELECTED_TOOL_UPDATE) {
+      let newState = {
+        ...state,
+        users: {
+          ...state.users,
+          [action.socketId]: {
+            ...state.users[action.socketId],
+            selectedTool: action.selectedTool
+          }
+        }
+      };
+      console.log('FROM APP>JS', newState)
+      return newState  
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
       let newState = {
@@ -121,6 +134,15 @@ const App = () => {
         ...selectedColor
       });
     });
+
+    //when we update selected tool in the server dispatch to sprite state
+    socket.on(constants.MSG.SELECTED_TOOL_UPDATE, selectedTool => {
+      console.log(selectedTool)
+      spriteDispatch({
+        type: constants.MSG.SELECTED_TOOL_UPDATE,
+        ...selectedTool
+      })
+    })
 
     // when we get a cursor update, dispatch to sprite state
     socket.on(constants.MSG.CURSOR_UPDATE, update => {
