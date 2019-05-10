@@ -4,12 +4,8 @@ const { frameFactory, layerFactory } = require('../../shared/factories');
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new frame
   socket.on(constants.MSG.ADD_NEW_FRAME, () => {
-    //get new frameOrder value
-    const arrayOfFrameKeys = state[spriteHash].frames.map(
-      frame => frame.frameOrder
-    );
-    const currentMax = Math.max(...arrayOfFrameKeys);
-    const newFrameOrder = currentMax + 1;
+    // derive index for new frame from length of frames array
+    const newFrameOrder = state[spriteHash].frames.length;
 
     //make a new frame and add to frames
     const newFrame = frameFactory(newFrameOrder);
