@@ -5,7 +5,7 @@ const ConnectionInfo = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
 
-  let socketId, namespace, userCount;
+  let socketId, namespace, userCount, userName;
 
   // if the socket is connected, get the id and namespace
   if (socket) {
@@ -19,13 +19,17 @@ const ConnectionInfo = () => {
   // if the sprite has loaded, save the # of users
   if (sprite) {
     userCount = Object.keys(sprite.users).length;
+    //Find current userName by socketId
+    let currentUser = sprite.users.filter(user => user.socketId === socketId)
+    userName = currentUser[0].name
+
   } else {
     userCount = '[loading]';
   }
 
   return (
     <div>
-      <div>This client's socket id is: {socketId}</div>
+      <div>Your username is: {userName}</div>
       <div>The current socket namespace is: {namespace}</div>
       <div>Users in this namespace: {userCount}</div>
     </div>
