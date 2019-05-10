@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { SmallCanvas } from './';
-
+import { GoTrashcan, GoTriangleLeft, GoTriangleRight } from 'react-icons/go';
 
 const FramePicker = () => {
   const sprite = useContext(SpriteContext);
@@ -34,30 +34,42 @@ const FramePicker = () => {
   };
 
   return (
-      <div className="bottom-section-container">
-        {frames.map(frame => (
-          <div
-            key={frame.frameOrder}
-            className={
-              frame.frameOrder === selectedFrame
-                ? 'frame-container selected'
-                : 'frame-container'
-            }
-            onClick={() => onFrameClick(frame.frameOrder)}
-          >
-            <SmallCanvas
-              canvasWidth={canvasWidth}
-              canvasHeight={canvasHeight}
-              layers={frame.layers}
-            />
-          </div>
-        ))}
-        <div className="frame-container">
-          <div className="add-new-frame" onClick={onAddNewFrameClick}>
-            <div className="add-new-frame-plus">➕</div>
+    <div className="bottom-section-container">
+      {frames.map(frame => (
+        <div
+          key={frame.frameOrder}
+          className={
+            frame.frameOrder === selectedFrame
+              ? 'frame-container selected'
+              : 'frame-container'
+          }
+          onClick={() => onFrameClick(frame.frameOrder)}
+        >
+          <SmallCanvas
+            canvasWidth={canvasWidth}
+            canvasHeight={canvasHeight}
+            layers={frame.layers}
+          />
+          <div className="frame-button-container">
+            <div className="frame-button">
+              <GoTriangleLeft className="frame-button-icon " size={16} />
+            </div>
+            <div className="frame-button">
+              <GoTrashcan className="frame-button-icon " size={16} />
+            </div>
+
+            <div className="frame-button">
+              <GoTriangleRight className="frame-button-icon " size={16} />
+            </div>
           </div>
         </div>
+      ))}
+      <div className="frame-container">
+        <div className="add-new-frame" onClick={onAddNewFrameClick}>
+          <div className="add-new-frame-plus">➕</div>
+        </div>
       </div>
+    </div>
   );
 };
 

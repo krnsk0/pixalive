@@ -101,16 +101,33 @@ body {
   border: 4px solid var(--light-emphasis);
   border-radius: 5px;
   width: 80px;
-  height: 80px;
+  height: 105px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  z-index: 1;
+  background-color: var(--light-emphasis);
 }
 .frame-container.selected {
   border: 4px solid var(--highlight-color);
 }
 .small-canvas {
   background-color: white;
+  z-index: 0;
+}
+.frame-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.frame-button {
+}
+.frame-button-icon {
+  margin-top: 5px;
+  color: black;
 }
 
 .add-new-frame {
