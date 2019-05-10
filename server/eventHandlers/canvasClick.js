@@ -20,15 +20,14 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: selectedColor
       });
-    }
-    else if (selectedTool === constants.TOOLS.ERASER){
+    } else if (selectedTool === constants.TOOLS.ERASER) {
       changeList.push({
         x: coords.x,
         y: coords.y,
         frameIdx: selectedFrame,
         layerIdx: selectedLayer,
         color: null
-      })
+      });
     }
 
     //takes list of changes, changes pixels
@@ -37,7 +36,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         c.color;
     });
 
-    // send only the cursor update
-    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    // send change list
+    namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
   });
 };
