@@ -19,7 +19,6 @@ function ColorPicker() {
     if (socket) {
       let socketId = socket.id.slice(socket.nsp.length + 1);
       if (sprite.users[socketId]) {
-        //
         setColor(sprite.users[socketId].selectedColor);
       }
     }

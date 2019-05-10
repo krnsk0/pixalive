@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
 import ColorPicker from './ColorPicker';
-import { ConnectionInfo, SingleLayer, FramePicker, LayerPicker, ToolPicker, AnimationPreviewBox } from './';
+import {
+  ConnectionInfo,
+  BigCanvas,
+  FramePicker,
+  LayerPicker,
+  ToolPicker,
+  AnimationPreviewBox
+} from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -39,6 +46,39 @@ const App = () => {
         }
       };
       return newState;
+    } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
+      // shallow copy so we can loop over a var hre
+      let newState = {
+        ...state
+      };
+      action.changeList.forEach(c => {
+        newState = {
+          ...newState,
+          frames: newState.frames.map((frame, frameIdx) => {
+            if (frameIdx !== c.frameIdx) return frame;
+            else {
+              frame.layers = frame.layers.map((layer, layerIdx) => {
+                if (layerIdx !== c.layerIdx) return layer;
+                else {
+                  layer.pixels = layer.pixels.map((row, rowIdx) => {
+                    if (rowIdx !== c.y) return row;
+                    else {
+                      row = row.map((cell, cellIdx) => {
+                        if (cellIdx !== c.x) return cell;
+                        else return c.color;
+                      });
+                      return row;
+                    }
+                  });
+                  return layer;
+                }
+              });
+              return frame;
+            }
+          })
+        };
+      });
+      return newState;
     }
   };
 
@@ -53,7 +93,7 @@ const App = () => {
   // set up reducer
   const [sprite, spriteDispatch] = useReducer(spriteReducer, initialSprite);
 
-  // things that happen on component mount!
+  // things that happen on component mount
   useEffect(() => {
     // set up our websocket based on the URL's path component
     // eslint-disable-next-line no-shadow
@@ -86,6 +126,11 @@ const App = () => {
     socket.on(constants.MSG.CURSOR_UPDATE, update => {
       spriteDispatch({ type: constants.MSG.CURSOR_UPDATE, ...update });
     });
+
+    // when we get a changelist update, dispatch to sprite state
+    socket.on(constants.MSG.SEND_CHANGE_LIST, changeList => {
+      spriteDispatch({ type: constants.MSG.SEND_CHANGE_LIST, changeList });
+    });
   }, []);
 
   return (
@@ -95,7 +140,7 @@ const App = () => {
           <ConnectionInfo />
           <ToolPicker />
           <AnimationPreviewBox />
-          <SingleLayer />
+          <BigCanvas />
           <ColorPicker />
           <FramePicker />
           <LayerPicker />

@@ -32,7 +32,8 @@ module.exports = deepFreeze({
     DELETE_SELECTED_LAYER: 'delete_selected_layer', // a client-to-server event
     EDIT_SELECTED_LAYER_NAME: 'edit_selected_layer_name', // a client-to-server event
     MOVE_SELECTED_LAYER_UP: 'move_selected_layer_up', // a client-to-server event
-    MOVE_SELECTED_LAYER_DOWN: 'move_selected_layer_down' // a client-to-server event
+    MOVE_SELECTED_LAYER_DOWN: 'move_selected_layer_down', // a client-to-server event
+    SEND_CHANGE_LIST: 'send_change_list' // a server-to-client event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -46,7 +47,7 @@ module.exports = deepFreeze({
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 16,
   NEW_SPRITE_HEIGHT: 16,
-  THROTTLE_MOUSE_SEND: 100, // in milliseconds
+  THROTTLE_MOUSE_SEND: 50, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
   PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
 });

@@ -20,24 +20,52 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: selectedColor
       });
-    }
-    else if (selectedTool === constants.TOOLS.ERASER){
+    } else if (selectedTool === constants.TOOLS.ERASER) {
       changeList.push({
         x: coords.x,
         y: coords.y,
         frameIdx: selectedFrame,
         layerIdx: selectedLayer,
         color: null
-      })
+      });
     }
 
     //takes list of changes, changes pixels
+    let madeChange = false;
     changeList.forEach(c => {
-      state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][c.x] =
-        c.color;
+      // get old value
+      const oldColor =
+        state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
+          c.x
+        ];
+
+      // see if there's a change
+      let different = false;
+      // are either (but not both) null?
+      if ((oldColor && !c.color) || (!oldColor && c.color)) {
+        different = true;
+      } else {
+        // loop keys and look for changes
+        for (let k of Object.keys(oldColor)) {
+          if (oldColor[k] !== c.color[k]) {
+            different = true;
+            break;
+          }
+        }
+      }
+
+      // if different, make a change and set the change flag to true
+      if (different) {
+        state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
+          c.x
+        ] = c.color;
+        madeChange = true;
+      }
     });
 
-    // send only the cursor update
-    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    // send change list only if we actually made changes
+    if (madeChange) {
+      namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
+    }
   });
 };

@@ -1,7 +1,18 @@
 const constants = require('../../shared/constants');
 
-const renderCursors = (ctx, sprite) => {
+const renderCursors = (ctx, sprite, socket) => {
+  // get current socketId
+  let socketId;
+  if (socket) {
+    socketId = socket.id.slice(socket.nsp.length + 1);
+  }
+
   for (const [id, coords] of Object.entries(sprite.users)) {
+    // skip if the user's own mouse
+    if (id === socketId) {
+      break;
+    }
+
     if (coords.x !== false) {
       // set color to black
       ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`;

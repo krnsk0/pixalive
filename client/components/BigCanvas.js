@@ -12,7 +12,7 @@ import {
 const constants = require('../../shared/constants');
 const throttle = require('../../shared/throttle');
 
-const SingleLayer = () => {
+const BigCanvas = () => {
   // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
@@ -30,6 +30,8 @@ const SingleLayer = () => {
   spriteRef.current = sprite;
   const mouseClickedRef = useRef();
   mouseClickedRef.current = mouseClicked;
+  const socketRef = useRef();
+  socketRef.current = socket;
 
   // set up canvas width & height after first mount
   useEffect(() => {
@@ -50,6 +52,16 @@ const SingleLayer = () => {
         evt.clientY
       );
 
+      // get the previous X coord
+      let prevX = '';
+      if (socketRef.current) {
+        const socketId = socketRef.current.id.slice(socket.nsp.length + 1);
+        const users = spriteRef.current.users;
+        if (users[socketId]) {
+          prevX = users[socketId].x;
+        }
+      }
+
       // if in canvas, send move to server
       if (inCanvas) {
         const coords = convertWindowToCanvasCoords(
@@ -58,8 +70,10 @@ const SingleLayer = () => {
           evt.clientY
         );
         setCanvasMouseCoords(coords);
+
         socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
-      } else {
+        // if not in canvas, and if current cursor in our own state isn't already false, send false
+      } else if (!inCanvas && prevX) {
         socket && socket.emit(constants.MSG.CURSOR_MOVE, false);
         setCanvasMouseCoords({
           x: false,
@@ -124,7 +138,7 @@ const SingleLayer = () => {
     renderBackdrop(ctx);
     renderBigCanvas(ctx, sprite, socket);
     renderSelectedPixel(ctx, canvasMouseCoords, sprite);
-    renderCursors(ctx, sprite);
+    renderCursors(ctx, sprite, socket);
   });
 
   return (
@@ -134,4 +148,4 @@ const SingleLayer = () => {
   );
 };
 
-export default SingleLayer;
+export default BigCanvas;
