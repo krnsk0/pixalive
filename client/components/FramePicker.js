@@ -33,6 +33,27 @@ const FramePicker = () => {
     }
   };
 
+  // click handler for shifting frames left
+  const onShiftFrameLeftClick = frameOrder => {
+    if (socket) {
+      socket.emit(constants.MSG.SHIFT_FRAME_LEFT, frameOrder);
+    }
+  };
+
+  // click handler for shifting frames right
+  const onShiftFrameRightClick = frameOrder => {
+    if (socket) {
+      socket.emit(constants.MSG.SHIFT_FRAME_RIGHT, frameOrder);
+    }
+  };
+
+  // click handler for shifting frames right
+  const onDeleteFrameClick = frameOrder => {
+    if (socket) {
+      socket.emit(constants.MSG.DELETE_FRAME, frameOrder);
+    }
+  };
+
   return (
     <div className="bottom-section-container">
       {frames.map(frame => (
@@ -43,22 +64,31 @@ const FramePicker = () => {
               ? 'frame-container selected'
               : 'frame-container'
           }
-          onClick={() => onFrameClick(frame.frameOrder)}
         >
-          <SmallCanvas
-            canvasWidth={canvasWidth}
-            canvasHeight={canvasHeight}
-            layers={frame.layers}
-          />
+          <div onClick={() => onFrameClick(frame.frameOrder)}>
+            <SmallCanvas
+              canvasWidth={canvasWidth}
+              canvasHeight={canvasHeight}
+              layers={frame.layers}
+            />
+          </div>
           <div className="frame-button-container">
-            <div className="frame-button">
+            <div
+              className="frame-button"
+              onClick={() => onShiftFrameLeftClick(frame.frameOrder)}
+            >
               <GoTriangleLeft className="frame-button-icon " size={16} />
             </div>
-            <div className="frame-button">
+            <div
+              className="frame-button"
+              onClick={() => onDeleteFrameClick(frame.frameOrder)}
+            >
               <GoTrashcan className="frame-button-icon " size={16} />
             </div>
-
-            <div className="frame-button">
+            <div
+              className="frame-button"
+              onClick={() => onShiftFrameRightClick(frame.frameOrder)}
+            >
               <GoTriangleRight className="frame-button-icon " size={16} />
             </div>
           </div>

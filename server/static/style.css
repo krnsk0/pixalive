@@ -101,7 +101,7 @@ body {
   border: 4px solid var(--light-emphasis);
   border-radius: 5px;
   width: 80px;
-  height: 105px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   justify-content: center;
