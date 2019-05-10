@@ -1,4 +1,5 @@
 const constants = require('../../shared/constants');
+const updateSelectedColor = require('./updateSelectedColor')
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
@@ -28,6 +29,19 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: null
       });
+    }
+    else if (selectedTool === constants.TOOLS.EYE_DROPPER){
+      //get the cell color at coords
+      let x = coords.x
+      let y = coords.y
+      let selectedColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][x]
+      //reset users selected color on state to that color
+      if (selectedColor){
+        state[spriteHash].users[socketId].selectedColor = selectedColor
+        state[spriteHash].users[socketId].selectedTool = constants.TOOLS.PEN
+        //broadcast new selected color 
+        namespacedIo.emit(constants.MSG.SELECTED_COLOR_UPDATE, {selectedColor, socketId})
+      }
     }
 
     //takes list of changes, changes pixels
