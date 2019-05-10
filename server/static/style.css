@@ -1,10 +1,3 @@
-#test-canvas {
-  border: 1px solid black;
-}
-.canvas-wrapper {
-  padding: 20px;
-}
-
 /* RESET */
 body {
   margin: 0px;
@@ -86,11 +79,19 @@ body {
 .middle-section-right {
   flex: 2px;
 }
+.big-canvas {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  background-color: white;
+}
+
 /* frame container */
 .bottom-section-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  overflow-x: auto;
 }
 .frame-container {
   margin-top: 10px;
@@ -108,18 +109,20 @@ body {
 .frame-container.selected {
   border: 4px solid var(--highlight-color);
 }
-.frame-canvas {
-  width: 80px;
-  height: 80px;
+.small-canvas {
+  background-color: white;
 }
+
 .add-new-frame {
   color: var(--light-emphasis);
   text-align: center;
+  width: 80px;
+  height: 80px;
 }
 
 .add-new-frame-plus {
   font-size: 40px;
-  margin-top: 5px;
+  margin-top: 18px;
   margin-left: 2px;
 }
 
@@ -138,7 +141,9 @@ body {
 
 /* tools */
 .tool-container {
+  margin-top: 10px;
   align-self: center;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -165,7 +170,7 @@ body {
 
 /* animation */
 .animation-container {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   margin-left: 5px;
   margin-right: 5px;
@@ -179,8 +184,9 @@ body {
   flex-direction: column;
   background-color: var(--standout-background);
 }
-.animation-canvas {
+.animation-canvas-container {
   margin-top: 5px;
+  background-color: white;
 }
 
 .fps-range-selector {

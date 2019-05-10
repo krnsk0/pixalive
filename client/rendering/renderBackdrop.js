@@ -11,31 +11,25 @@ const renderBackdrop = ctx => {
 
   for (let y = 0; y < rowCount; y += 1) {
     for (let x = 0; x < colCount; x += 1) {
-      let color;
-
-      let darkColor = `hsl(0, 0%, 100%, 1.0)`;
-      let lightColor = `hsl(0, 0%, 90%, 1.0)`;
+      ctx.fillStyle = `hsl(0, 0%, 0%, .10)`;
 
       if (y % 2) {
         if (x % 2) {
-          color = darkColor;
-        } else {
-          color = lightColor;
+          ctx.fillRect(
+            x * constants.BACKDROP_PIXEL_SIZE,
+            y * constants.BACKDROP_PIXEL_SIZE,
+            constants.BACKDROP_PIXEL_SIZE,
+            constants.BACKDROP_PIXEL_SIZE
+          );
         }
-      } else {
-        if (x % 2) {
-          color = lightColor;
-        } else {
-          color = darkColor;
-        }
+      } else if (!(x % 2)) {
+        ctx.fillRect(
+          x * constants.BACKDROP_PIXEL_SIZE,
+          y * constants.BACKDROP_PIXEL_SIZE,
+          constants.BACKDROP_PIXEL_SIZE,
+          constants.BACKDROP_PIXEL_SIZE
+        );
       }
-      ctx.fillStyle = color;
-      ctx.fillRect(
-        x * constants.BACKDROP_PIXEL_SIZE,
-        y * constants.BACKDROP_PIXEL_SIZE,
-        constants.BACKDROP_PIXEL_SIZE,
-        constants.BACKDROP_PIXEL_SIZE
-      );
     }
   }
 };

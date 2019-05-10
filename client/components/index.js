@@ -6,3 +6,5 @@ export { default as LayerPicker } from './LayerPicker';
 export { default as ToolPicker } from './ToolPicker';
 export { default as AnimationPreviewBox } from './AnimationPreviewBox';
 export { default as SmallCanvas } from './SmallCanvas';
+export { default as ColorPicker } from './ColorPicker';
+export { default as StyleEditorPage } from './StyleEditorPage';

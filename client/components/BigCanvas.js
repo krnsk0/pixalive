@@ -45,6 +45,10 @@ const BigCanvas = () => {
   // set up event listeners when socket connects
   useEffect(() => {
     // helper functions for event handlers
+    const throttledSendCursorToServer = throttle((socket, coords) => {
+      socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
+    }, constants.MSG.THROTTLE_MOUSE_SEND);
+
     const moveOnlyHanlder = evt => {
       const inCanvas = isMouseInsideCanvas(
         canvasRef.current,
@@ -71,10 +75,11 @@ const BigCanvas = () => {
         );
         setCanvasMouseCoords(coords);
 
-        socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
+        throttledSendCursorToServer(socket, coords);
+
         // if not in canvas, and if current cursor in our own state isn't already false, send false
       } else if (!inCanvas && prevX) {
-        socket && socket.emit(constants.MSG.CURSOR_MOVE, false);
+        throttledSendCursorToServer(socket, false);
         setCanvasMouseCoords({
           x: false,
           y: false
@@ -114,19 +119,15 @@ const BigCanvas = () => {
       moveOnlyHanlder(evt); // fire move events to server if in canvas
       moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
     };
-    const throttledOnWindowMouseMove = throttle(
-      onWindowMouseMove,
-      constants.MSG.THROTTLE_MOUSE_SEND
-    );
 
     // add + remove event listeners
     socket && window.addEventListener('mousedown', onWindowMouseDown);
     socket && window.addEventListener('mouseup', onWindowMouseUp);
-    socket && window.addEventListener('mousemove', throttledOnWindowMouseMove);
+    socket && window.addEventListener('mousemove', onWindowMouseMove);
     return () => {
       window.removeEventListener('mousedown', onWindowMouseDown);
       window.removeEventListener('mouseup', onWindowMouseUp);
-      window.removeEventListener('mousemove', throttledOnWindowMouseMove);
+      window.removeEventListener('mousemove', onWindowMouseMove);
     };
   }, [socket]);
 
@@ -143,7 +144,7 @@ const BigCanvas = () => {
 
   return (
     <div>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className="big-canvas" />
     </div>
   );
 };

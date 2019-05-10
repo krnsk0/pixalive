@@ -25,7 +25,7 @@ const SmallCanvas = props => {
     renderSmallCanvas(ctx, layers, canvasWidth, canvasHeight);
   });
 
-  return <canvas ref={canvasRef} />;
+  return <canvas ref={canvasRef} className="small-canvas" />;
 };
 
 export default SmallCanvas;
