@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
-import ColorPicker from './ColorPicker';
 import {
   ConnectionInfo,
-  BigCanvas,
+  StyleEditorPage,
   FramePicker,
-  LayerPicker,
-  ToolPicker,
-  AnimationPreviewBox
 } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -138,12 +134,8 @@ const App = () => {
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <ConnectionInfo />
-          <ToolPicker />
-          <AnimationPreviewBox />
-          <BigCanvas />
-          <ColorPicker />
+          <StyleEditorPage />
           <FramePicker />
-          <LayerPicker />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>

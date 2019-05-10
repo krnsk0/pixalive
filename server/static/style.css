@@ -139,6 +139,7 @@ body {
 /* tools */
 .tool-container {
   align-self: center;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
