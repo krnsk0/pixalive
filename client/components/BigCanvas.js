@@ -138,7 +138,7 @@ const BigCanvas = () => {
     renderBackdrop(ctx);
     renderBigCanvas(ctx, sprite, socket);
     renderSelectedPixel(ctx, canvasMouseCoords, sprite);
-    renderCursors(ctx, sprite);
+    renderCursors(ctx, sprite, socket);
   });
 
   return (

@@ -38,7 +38,6 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
           c.x
         ];
-      console.log('oldColor: ', oldColor);
 
       // see if there's a change
       let different = false;
