@@ -47,7 +47,7 @@ module.exports = deepFreeze({
   CURSOR_SIZE: 5, // odd numbers only or it'll be off-center
   NEW_SPRITE_WIDTH: 16,
   NEW_SPRITE_HEIGHT: 16,
-  THROTTLE_MOUSE_SEND: 50, // in milliseconds
+  THROTTLE_MOUSE_SEND: 3, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
   PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
 });
