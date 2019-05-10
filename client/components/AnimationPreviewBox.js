@@ -8,7 +8,10 @@ const AnimationPreviewBox = () => {
   const [fps, setFps] = useState(10);
   let [frameIndex, setFrameIndex] = useState(0);
 
-  const layers = sprite.frames[frameIndex].layers;
+  let layers;
+  if (sprite.frames[frameIndex]) {
+    layers = sprite.frames[frameIndex].layers;
+  }
 
   useInterval(
     () => {
@@ -27,7 +30,7 @@ const AnimationPreviewBox = () => {
 
   return (
     <div className="animation-container">
-      <div className="animation-canvas">
+      <div className="animation-canvas-container">
         <SmallCanvas layers={layers} canvasWidth={190} canvasHeight={190} />
       </div>
       <div className="fps-range-selector">

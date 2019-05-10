@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
-import {
-  ConnectionInfo,
-  StyleEditorPage,
-  FramePicker,
-} from './';
+import { ConnectionInfo, StyleEditorPage, FramePicker } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -15,6 +11,9 @@ const App = () => {
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
+    // print action size in chars to help profile network use
+    // console.log(JSON.stringify(action).length);
+
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
@@ -133,9 +132,9 @@ const App = () => {
     <div>
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
-          <ConnectionInfo />
           <StyleEditorPage />
           <FramePicker />
+          <ConnectionInfo />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
