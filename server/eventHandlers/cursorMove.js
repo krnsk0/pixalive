@@ -1,4 +1,5 @@
 const constants = require('../../shared/constants');
+const os = require('os');
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...

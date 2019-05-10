@@ -15,6 +15,9 @@ const App = () => {
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
+    // print action size in chars to help profile network use
+    // console.log(JSON.stringify(action).length);
+
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {

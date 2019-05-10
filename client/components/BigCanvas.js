@@ -143,7 +143,7 @@ const BigCanvas = () => {
 
   return (
     <div>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className="big-canvas" />
     </div>
   );
 };
