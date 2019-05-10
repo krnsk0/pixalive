@@ -80,6 +80,9 @@ body {
   flex: 2px;
 }
 .big-canvas {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
   background-color: white;
 }
 
@@ -135,6 +138,7 @@ body {
 
 /* tools */
 .tool-container {
+  margin-top: 10px;
   align-self: center;
   flex-direction: column;
   display: flex;
@@ -163,7 +167,7 @@ body {
 
 /* animation */
 .animation-container {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   margin-left: 5px;
   margin-right: 5px;

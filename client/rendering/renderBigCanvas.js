@@ -13,8 +13,8 @@ const renderSingleLayer = (
   const pixels = layer.pixels;
 
   // calculate pixel dims
-  const pixelWidth = Math.floor(constants.CANVAS_WIDTH / pixels[0].length);
-  const pixelHeight = Math.floor(constants.CANVAS_HEIGHT / pixels.length);
+  const pixelWidth = constants.CANVAS_WIDTH / pixels[0].length;
+  const pixelHeight = constants.CANVAS_HEIGHT / pixels.length;
 
   // iterate rows / cols
   for (let [y, row] of pixels.entries()) {
