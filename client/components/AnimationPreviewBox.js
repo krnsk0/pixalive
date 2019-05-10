@@ -28,11 +28,12 @@ const AnimationPreviewBox = () => {
   return (
     <div className="animation-container">
       <div className="animation-canvas">
-        <SmallCanvas layers={layers} canvasWidth={200} canvasHeight={200} />
+        <SmallCanvas layers={layers} canvasWidth={190} canvasHeight={190} />
       </div>
       <div className="fps-range-selector">
         <span className="fps-display">{`${fps} FPS`}</span>
         <input
+          className="fps-selector"
           type="range"
           name="fps"
           min="0"

@@ -172,7 +172,7 @@ body {
   border: 2px solid var(--light-emphasis);
   border-radius: 5px;
   width: 200px;
-  height: 230px;
+  /* height: 230px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,11 +180,12 @@ body {
   background-color: var(--standout-background);
 }
 .animation-canvas {
-
+  margin-top: 5px;
 }
 
 .fps-range-selector {
   color: white;
+  margin-bottom: 5px;
 }
 
 .fps-display {
