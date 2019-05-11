@@ -62,44 +62,66 @@ const FramePicker = () => {
 
   return (
     <div className="bottom-section-container">
-      {frames.map(frame => (
-        <div
-          key={frame.frameOrder}
-          className={
-            frame.frameOrder === selectedFrame
-              ? 'frame-container selected'
-              : 'frame-container'
-          }
-        >
-          <div onClick={() => onFrameClick(frame.frameOrder)}>
-            <SmallCanvas
-              canvasWidth={canvasWidth}
-              canvasHeight={canvasHeight}
-              layers={frame.layers}
-            />
+      {frames.map(frame => {
+        const backButtonStyle =
+          frame.frameOrder === 0
+            ? {
+                color: 'rgb(164, 164, 164)'
+              }
+            : {};
+        const fwdButtonStyle =
+          frame.frameOrder === frames.length - 1
+            ? {
+                color: 'rgb(164, 164, 164)'
+              }
+            : {};
+        return (
+          <div
+            key={frame.frameOrder}
+            className={
+              frame.frameOrder === selectedFrame
+                ? 'frame-container selected'
+                : 'frame-container'
+            }
+          >
+            <div onClick={() => onFrameClick(frame.frameOrder)}>
+              <SmallCanvas
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
+                layers={frame.layers}
+              />
+            </div>
+            <div className="frame-button-container">
+              <div
+                className="frame-button"
+                onClick={() => onShiftFrameLeftClick(frame.frameOrder)}
+              >
+                <GoTriangleLeft
+                  className="frame-button-icon "
+                  size={16}
+                  style={backButtonStyle}
+                />
+              </div>
+              <div
+                className="frame-button"
+                onClick={() => onDeleteFrameClick(frame.frameOrder)}
+              >
+                <GoTrashcan className="frame-button-icon " size={16} />
+              </div>
+              <div
+                className="frame-button"
+                onClick={() => onShiftFrameRightClick(frame.frameOrder)}
+              >
+                <GoTriangleRight
+                  className="frame-button-icon "
+                  size={16}
+                  style={fwdButtonStyle}
+                />
+              </div>
+            </div>
           </div>
-          <div className="frame-button-container">
-            <div
-              className="frame-button"
-              onClick={() => onShiftFrameLeftClick(frame.frameOrder)}
-            >
-              <GoTriangleLeft className="frame-button-icon " size={16} />
-            </div>
-            <div
-              className="frame-button"
-              onClick={() => onDeleteFrameClick(frame.frameOrder)}
-            >
-              <GoTrashcan className="frame-button-icon " size={16} />
-            </div>
-            <div
-              className="frame-button"
-              onClick={() => onShiftFrameRightClick(frame.frameOrder)}
-            >
-              <GoTriangleRight className="frame-button-icon " size={16} />
-            </div>
-          </div>
-        </div>
-      ))}
+        );
+      })}
       <div className="frame-container">
         <div className="add-new-frame">
           {frames.length <= constants.FRAME_CAP ? (
