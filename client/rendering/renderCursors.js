@@ -13,7 +13,7 @@ const renderCursors = (ctx, sprite, socket) => {
     if (id === socketId) {
       break;
     }
-    let currentSpriteName = sprite.users[socketId].name
+    let currentSpriteName = sprite.users[id].name
 
     if (coords.x !== false) {
       // set color to black

@@ -20,6 +20,7 @@ const ConnectionInfo = () => {
   // if the sprite has loaded, save the # of users
   if (sprite) {
     userCount = Object.keys(sprite.users).length;
+    console.log("STATE", sprite)
   } else {
     userCount = '[loading]';
   }
@@ -54,8 +55,4 @@ const ConnectionInfo = () => {
 
 export default ConnectionInfo;
 
-{/* <input name='name' type='text' onChange={props.handleChange} value={ userName } /> */}
 
-//     if (sprite[socketId]) {
-//userName = sprite.users[socketId].name
-//    }
