@@ -1,5 +1,7 @@
 const constants = require('../../shared/constants');
 const updateSelectedColor = require('./updateSelectedColor')
+const paintCan = require('./paintCan')
+const { cloneDeep } = require('lodash')
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
@@ -9,7 +11,6 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     let selectedTool = state[spriteHash].users[socketId].selectedTool;
     const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
     const selectedLayer = state[spriteHash].users[socketId].selectedLayer;
-
     //generates the list of changes to the image on server state
     let changeList = [];
 
@@ -45,6 +46,14 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         namespacedIo.emit(constants.MSG.SELECTED_COLOR_UPDATE, {selectedColor, socketId})
         namespacedIo.emit(constants.MSG.SELECTED_TOOL_UPDATE, {selectedTool, socketId})
       }
+    } else if (selectedTool === constants.TOOLS.PAINT_CAN){
+      let x = coords.x
+      let y = coords.y
+      let currentColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][x]
+      console.log(currentColor)
+      let grid = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels
+      let changes = paintCan(grid, x, y, selectedColor, currentColor, visited = {})
+      changeList = changes.map(a => ({x: a.x, y: a.y, frameIdx: selectedFrame, layerIdx: selectedLayer, color: cloneDeep(selectedColor)}))
     }
 
     //takes list of changes, changes pixels
