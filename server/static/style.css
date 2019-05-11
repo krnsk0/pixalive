@@ -253,3 +253,7 @@ body {
   background-color: var(--highlight-color);
   color: var(--light-text);
 }
+.layer-button-icon {
+  margin-top: 5px;
+  color: black;
+}
