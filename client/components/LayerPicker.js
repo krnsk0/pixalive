@@ -77,8 +77,11 @@ const LayerPicker = () => {
 
   const onLayerNameEditClick = () => {
     if (socket) {
+      // eslint-disable-next-line no-alert
       const newName = prompt('Enter layer name', selectedLayerName);
-      socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME, newName);
+      if (newName) {
+        socket.emit(constants.MSG.EDIT_SELECTED_LAYER_NAME, newName);
+      }
     }
   };
 
