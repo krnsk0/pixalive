@@ -12,6 +12,9 @@ const layerNameChange = require('./layerNameChange');
 const deleteSelectedLayer = require('./deleteSelectedLayer');
 const moveSelectedLayerUp = require('./moveSelectedLayerUp');
 const moveSelectedLayerDown = require('./moveSelectedLayerDown');
+const shiftFrameLeft = require('./shiftFrameLeft');
+const shiftFrameRight = require('./shiftFrameRight');
+const deleteFrame = require('./deleteFrame');
 
 module.exports = {
   cursorMove,
@@ -27,5 +30,8 @@ module.exports = {
   layerNameChange,
   deleteSelectedLayer,
   moveSelectedLayerUp,
-  moveSelectedLayerDown
+  moveSelectedLayerDown,
+  shiftFrameLeft,
+  shiftFrameRight,
+  deleteFrame
 };
