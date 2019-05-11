@@ -44,9 +44,9 @@ const ConnectionInfo = () => {
 
   return (
     <div>
-      <div>Your collaboration username: </div>
+      <div>Your Usernanme: </div>
       <input name='name' type='text' onChange={handleChange} value={userName} />
-
+      <div>Please note, this name will be visible to any users currently in the same drawing as you. We suggest you do not use your full name as your user name.</div>
       <div>The current socket namespace is: {namespace}</div>
       <div>Users in this namespace: {userCount}</div>
     </div>
