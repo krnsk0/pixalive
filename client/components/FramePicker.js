@@ -89,6 +89,7 @@ const FramePicker = () => {
                 canvasWidth={canvasWidth}
                 canvasHeight={canvasHeight}
                 layers={frame.layers}
+                canvasType="frame"
               />
             </div>
             <div className="frame-button-container">
@@ -130,13 +131,13 @@ const FramePicker = () => {
                 className="add-new-frame-button"
                 onClick={onAddNewFrameClick}
               >
-                New blank frame
+                Add Frame
               </div>
               <div
                 className="add-new-frame-button"
                 onClick={onDuplicatedSelectedFrameClick}
               >
-                Duplicate Selected Frame
+                Clone Selected
               </div>
             </div>
           ) : (
