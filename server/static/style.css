@@ -129,18 +129,18 @@ body {
   margin-top: 5px;
   color: black;
 }
-
 .add-new-frame {
   color: var(--light-emphasis);
   text-align: center;
-  width: 80px;
-  height: 80px;
+  padding-top: 10px;
 }
-
-.add-new-frame-plus {
-  font-size: 40px;
-  margin-top: 18px;
-  margin-left: 2px;
+.add-new-frame-button {
+  color: var(--light-text);
+  font-size: 14px;
+  background-color: var(--highlight-color);
+  margin-bottom: 6px;
+  padding: 4px;
+  border-radius: 5px;
 }
 
 /* main canvas */

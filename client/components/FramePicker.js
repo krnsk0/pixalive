@@ -3,6 +3,7 @@ import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { SmallCanvas } from './';
 import { GoTrashcan, GoTriangleLeft, GoTriangleRight } from 'react-icons/go';
+import { TiPlus } from 'react-icons/ti';
 
 const FramePicker = () => {
   const sprite = useContext(SpriteContext);
@@ -54,6 +55,12 @@ const FramePicker = () => {
     }
   };
 
+  const onDuplicatedSelectedFrameClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.DUPLICATE_SELECTED_FRAME);
+    }
+  };
+
   return (
     <div className="bottom-section-container">
       {frames.map(frame => (
@@ -95,8 +102,16 @@ const FramePicker = () => {
         </div>
       ))}
       <div className="frame-container">
-        <div className="add-new-frame" onClick={onAddNewFrameClick}>
-          <div className="add-new-frame-plus">➕</div>
+        <div className="add-new-frame">
+          <div className="add-new-frame-button" onClick={onAddNewFrameClick}>
+            New blank frame
+          </div>
+          <div
+            className="add-new-frame-button"
+            onClick={onDuplicatedSelectedFrameClick}
+          >
+            Duplicate Selected Frame
+          </div>
         </div>
       </div>
     </div>

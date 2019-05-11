@@ -15,6 +15,7 @@ const moveSelectedLayerDown = require('./moveSelectedLayerDown');
 const shiftFrameLeft = require('./shiftFrameLeft');
 const shiftFrameRight = require('./shiftFrameRight');
 const deleteFrame = require('./deleteFrame');
+const duplicateSelectedFrame = require('./duplicateSelectedFrame');
 
 module.exports = {
   cursorMove,
@@ -33,5 +34,6 @@ module.exports = {
   moveSelectedLayerDown,
   shiftFrameLeft,
   shiftFrameRight,
-  deleteFrame
+  deleteFrame,
+  duplicateSelectedFrame
 };
