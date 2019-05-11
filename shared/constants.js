@@ -37,7 +37,10 @@ module.exports = deepFreeze({
     SHIFT_FRAME_LEFT: 'shift_frame_left', // a client-to-server event
     SHIFT_FRAME_RIGHT: 'shift_frame_right', // a client-to-server event
     DELETE_FRAME: 'delete_frame', // a client-to-server event
-    DUPLICATE_SELECTED_FRAME: 'shift_frame_right' // a client-to-server event
+    DUPLICATE_SELECTED_FRAME: 'shift_frame_right', // a client-to-server event
+    SELECTED_TOOL_UPDATE: 'selected_tool_update',
+    UPDATE_USERNAME: 'update_username', //a client-to-server event
+    SEND_USERNAME: 'send_username' //a server-to-client event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
