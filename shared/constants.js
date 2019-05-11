@@ -53,5 +53,6 @@ module.exports = deepFreeze({
   NEW_SPRITE_HEIGHT: 16,
   THROTTLE_MOUSE_SEND: 100, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
-  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`
+  PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
+  FRAME_CAP: 30
 });

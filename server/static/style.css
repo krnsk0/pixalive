@@ -132,7 +132,7 @@ body {
 .add-new-frame {
   color: var(--light-emphasis);
   text-align: center;
-  padding-top: 10px;
+  padding-top: 8px;
 }
 .add-new-frame-button {
   color: var(--light-text);
@@ -141,6 +141,9 @@ body {
   margin-bottom: 6px;
   padding: 4px;
   border-radius: 5px;
+}
+.frame-cap-message {
+  color: black;
 }
 
 /* main canvas */

@@ -3,7 +3,6 @@ import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { SmallCanvas } from './';
 import { GoTrashcan, GoTriangleLeft, GoTriangleRight } from 'react-icons/go';
-import { TiPlus } from 'react-icons/ti';
 
 const FramePicker = () => {
   const sprite = useContext(SpriteContext);
@@ -103,15 +102,24 @@ const FramePicker = () => {
       ))}
       <div className="frame-container">
         <div className="add-new-frame">
-          <div className="add-new-frame-button" onClick={onAddNewFrameClick}>
-            New blank frame
-          </div>
-          <div
-            className="add-new-frame-button"
-            onClick={onDuplicatedSelectedFrameClick}
-          >
-            Duplicate Selected Frame
-          </div>
+          {frames.length <= constants.FRAME_CAP ? (
+            <div>
+              <div
+                className="add-new-frame-button"
+                onClick={onAddNewFrameClick}
+              >
+                New blank frame
+              </div>
+              <div
+                className="add-new-frame-button"
+                onClick={onDuplicatedSelectedFrameClick}
+              >
+                Duplicate Selected Frame
+              </div>
+            </div>
+          ) : (
+            <div className="frame-cap-message">Frame cap reached</div>
+          )}
         </div>
       </div>
     </div>
