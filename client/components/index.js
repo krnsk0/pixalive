@@ -8,3 +8,5 @@ export { default as AnimationPreviewBox } from './AnimationPreviewBox';
 export { default as SmallCanvas } from './SmallCanvas';
 export { default as ColorPicker } from './ColorPicker';
 export { default as StyleEditorPage } from './StyleEditorPage';
+export { default as LayerTools } from './LayerTools';
+export { default as LayerCopyButton } from './LayerCopyButton';
