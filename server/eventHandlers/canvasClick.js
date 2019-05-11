@@ -57,6 +57,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
 
     //takes list of changes, changes pixels
     let madeChange = false;
+    // eslint-disable-next-line complexity
     changeList.forEach(c => {
       // get old value
       const oldColor =
@@ -69,8 +70,8 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       // are either (but not both) null?
       if ((oldColor && !c.color) || (!oldColor && c.color)) {
         different = true;
-      } else {
-        // loop keys and look for changes
+      } else if (!(oldColor === null && c.color === null)) {
+          // loop keys and look for changes
         for (let k of Object.keys(oldColor)) {
           if (oldColor[k] !== c.color[k]) {
             different = true;

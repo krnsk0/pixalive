@@ -40,7 +40,7 @@ const ToolPicker = () => {
         <GoPencil className="tool-picker-icon" size={28} />
       </div>
 
-      <div
+      {/* <div
         className={
           selectedTool === constants.TOOLS.PAINT_CAN
             ? 'tool-button selected'
@@ -50,7 +50,7 @@ const ToolPicker = () => {
       >
         {' '}
         <GoPaintcan className="tool-picker-icon" size={28} />
-      </div>
+      </div> */}
 
       <div
         className={

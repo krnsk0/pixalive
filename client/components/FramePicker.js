@@ -3,6 +3,7 @@ import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { SmallCanvas } from './';
 
+
 const FramePicker = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
@@ -33,30 +34,30 @@ const FramePicker = () => {
   };
 
   return (
-    <div className="bottom-section-container">
-      {frames.map(frame => (
-        <div
-          key={frame.frameOrder}
-          className={
-            frame.frameOrder === selectedFrame
-              ? 'frame-container selected'
-              : 'frame-container'
-          }
-          onClick={() => onFrameClick(frame.frameOrder)}
-        >
-          <SmallCanvas
-            canvasWidth={canvasWidth}
-            canvasHeight={canvasHeight}
-            layers={frame.layers}
-          />
-        </div>
-      ))}
-      <div className="frame-container">
-        <div className="add-new-frame" onClick={onAddNewFrameClick}>
-          <div className="add-new-frame-plus">➕</div>
+      <div className="bottom-section-container">
+        {frames.map(frame => (
+          <div
+            key={frame.frameOrder}
+            className={
+              frame.frameOrder === selectedFrame
+                ? 'frame-container selected'
+                : 'frame-container'
+            }
+            onClick={() => onFrameClick(frame.frameOrder)}
+          >
+            <SmallCanvas
+              canvasWidth={canvasWidth}
+              canvasHeight={canvasHeight}
+              layers={frame.layers}
+            />
+          </div>
+        ))}
+        <div className="frame-container">
+          <div className="add-new-frame" onClick={onAddNewFrameClick}>
+            <div className="add-new-frame-plus">➕</div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

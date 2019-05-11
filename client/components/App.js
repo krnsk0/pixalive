@@ -1,14 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
-import ColorPicker from './ColorPicker';
-import {
-  ConnectionInfo,
-  BigCanvas,
-  FramePicker,
-  LayerPicker,
-  ToolPicker,
-  AnimationPreviewBox
-} from './';
+import { ConnectionInfo, StyleEditorPage, FramePicker } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -19,6 +11,9 @@ const App = () => {
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
+    // print action size in chars to help profile network use
+    // console.log(JSON.stringify(action).length);
+
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
@@ -159,13 +154,9 @@ const App = () => {
     <div>
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
-          <ConnectionInfo />
-          <ToolPicker />
-          <AnimationPreviewBox />
-          <BigCanvas />
-          <ColorPicker />
+          <StyleEditorPage />
           <FramePicker />
-          <LayerPicker />
+          <ConnectionInfo />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
