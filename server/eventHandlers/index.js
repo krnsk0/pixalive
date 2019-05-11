@@ -36,5 +36,6 @@ module.exports = {
   shiftFrameLeft,
   shiftFrameRight,
   duplicateSelectedFrame,
-  updateUserName
+  updateUserName,
+  deleteFrame
 };
