@@ -5,7 +5,7 @@ const constants = require('../../shared/constants');
 const ConnectionInfo = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
-  const [userName, setUserName] = useState('No name')
+  const [userName, setUserName] = useState('collaborator')
 
   let socketId, namespace, userCount;
   //Do we still need this?
@@ -25,23 +25,27 @@ const ConnectionInfo = () => {
   }
   //Watch the sprite object for changes and update the user name
   useEffect(() => {
-    if (socketId) {
-      if (sprite.user[socketId]){
-        setUserName(sprite.users[socketId].name)
-      }
-    }
+    if (sprite) {
+      if (socketId !== '[loading]') {
+        if (sprite.users[socketId]){
+          setUserName(sprite.users[socketId].name)
+        }
+    }}
   }, [sprite])
 
   //Watch for changes in the user name field and send those to state
-  const handleChange = changedName => {
-    setUserName(changedName);
-    socket.emit(constants.MSG.UPDATE_USERNAME, changedName);
+  const handleChange = event => {
+    setUserName(event.target.value);
+    if (socket) {
+      socket.emit(constants.MSG.UPDATE_USERNAME, event.target.value);
+    }
   };
 
   return (
     <div>
       <div>Your collaboration username: </div>
       <input name='name' type='text' onChange={handleChange} value={userName} />
+
       <div>The current socket namespace is: {namespace}</div>
       <div>Users in this namespace: {userCount}</div>
     </div>
@@ -51,3 +55,7 @@ const ConnectionInfo = () => {
 export default ConnectionInfo;
 
 {/* <input name='name' type='text' onChange={props.handleChange} value={ userName } /> */}
+
+//     if (sprite[socketId]) {
+//userName = sprite.users[socketId].name
+//    }

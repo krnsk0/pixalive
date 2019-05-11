@@ -25,7 +25,7 @@ const userFactory = socketId => {
     selectedTool: 'pen',
     x: false,
     y: false,
-    name: ''
+    name: 'collaborator'
   };
 };
 

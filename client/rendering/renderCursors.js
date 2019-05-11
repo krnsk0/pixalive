@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 const constants = require('../../shared/constants');
 
 const renderCursors = (ctx, sprite, socket) => {
@@ -12,6 +13,7 @@ const renderCursors = (ctx, sprite, socket) => {
     if (id === socketId) {
       break;
     }
+    let currentSpriteName = sprite.users[socketId].name
 
     if (coords.x !== false) {
       // set color to black
@@ -28,7 +30,7 @@ const renderCursors = (ctx, sprite, socket) => {
 
       // draw the cursor
       ctx.font = '15px Courier';
-      ctx.fillText(id, coords.x + 5, coords.y);
+      ctx.fillText(currentSpriteName, coords.x + 5, coords.y);
     }
   }
 };

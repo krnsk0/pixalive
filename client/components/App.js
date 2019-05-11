@@ -53,7 +53,7 @@ const App = () => {
         }
       };
       console.log('FROM APP>JS', newState)
-      return newState  
+      return newState
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
       let newState = {
@@ -87,8 +87,19 @@ const App = () => {
         };
       });
       return newState;
-    }
-  };
+    } else if (action.type === constants.MSG.SEND_USERNAME) {
+      let newState = {
+        ...state,
+        users: {
+          ...state.users,
+          [action.socketId]: {
+            ...state.users[action.socketId],
+            name: action.updatedUserName
+          }
+        }
+      };
+      return newState
+  }}
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
@@ -147,6 +158,15 @@ const App = () => {
     // when we get a changelist update, dispatch to sprite state
     socket.on(constants.MSG.SEND_CHANGE_LIST, changeList => {
       spriteDispatch({ type: constants.MSG.SEND_CHANGE_LIST, changeList });
+    });
+
+    //when we update user name in the server dispatch to sprite state
+    socket.on(constants.MSG.SEND_USERNAME, name => {
+      console.log(name)
+      spriteDispatch({
+        type: constants.MSG.SEND_USERNAME,
+        ...name
+      })
     });
   }, []);
 
