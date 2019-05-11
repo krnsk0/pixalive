@@ -10,6 +10,7 @@ const ToolPicker = () => {
 
   // // get the selected tool
   let selectedTool = 'pen';
+  console.log(sprite)
 
   if (socket && Object.keys(sprite.users).length) {
     const socketId = socket.id.slice(socket.nsp.length + 1);
@@ -39,7 +40,7 @@ const ToolPicker = () => {
         <GoPencil className="tool-picker-icon" size={28} />
       </div>
 
-      {/* <div
+       <div
         className={
           selectedTool === constants.TOOLS.PAINT_CAN
             ? 'tool-button selected'
@@ -49,7 +50,7 @@ const ToolPicker = () => {
       >
         {' '}
         <GoPaintcan className="tool-picker-icon" size={28} />
-      </div> */}
+      </div> 
 
       <div
         className={
