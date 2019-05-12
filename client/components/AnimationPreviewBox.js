@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { SpriteContext } from '../contexts';
 import { useInterval } from '../rendering';
 import { SmallCanvas } from '../components';
+const constants = require('../../shared/constants');
 
 const AnimationPreviewBox = () => {
   const sprite = useContext(SpriteContext);
@@ -33,8 +34,8 @@ const AnimationPreviewBox = () => {
       <div className="animation-canvas-container">
         <SmallCanvas
           layers={layers}
-          canvasWidth={190}
-          canvasHeight={190}
+          canvasWidth={192}
+          canvasHeight={192}
           canvasType="animation"
         />
       </div>
@@ -45,7 +46,7 @@ const AnimationPreviewBox = () => {
           type="range"
           name="fps"
           min="0"
-          max="24"
+          max={constants.FPS_CAP}
           step="1"
           value={fps}
           onChange={onRangeChange}
