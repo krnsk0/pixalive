@@ -98,7 +98,7 @@ body {
   margin-bottom: 10px;
   margin-left: 5px;
   margin-right: 5px;
-  border: 4px solid var(--light-emphasis);
+  border: 5px solid var(--light-emphasis);
   border-radius: 5px;
   width: 80px;
   height: 110px;
@@ -110,7 +110,7 @@ body {
   background-color: var(--light-emphasis);
 }
 .frame-container.selected {
-  border: 4px solid var(--highlight-color);
+  border: 5px solid var(--highlight-color);
 }
 .small-canvas {
   background-color: white;
@@ -143,9 +143,12 @@ body {
   padding-top: 8px;
 }
 .add-new-frame-button {
-  color: var(--light-text);
+  color: black;
   font-size: 14px;
-  background-color: var(--highlight-color);
+  background-color: var(--light-emphasis);
+  border: 2px solid black;
+  margin-left: 5px;
+  margin-right: 5px;
   margin-bottom: 6px;
   padding: 4px;
   border-radius: 5px;
@@ -268,7 +271,7 @@ body {
   color: black;
 }
 .layer-copy-button {
-  background-color: var(--highlight-color);
+  background-color: var(--light-emphasis);
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -281,13 +284,15 @@ body {
   width: 194px;
 }
 .layer-copy-icon {
-  color: white;
+  color: black;
   margin: 5px;
+  margin-left: 10px;
 }
 .layer-copy-text {
   margin: 5px;
   font-size: 16px;
-  color: white;
+  color: black;
+  text-align: center;
 }
 .layer-tool-container {
   display: flex;

@@ -137,7 +137,7 @@ const FramePicker = () => {
                 className="add-new-frame-button"
                 onClick={onDuplicatedSelectedFrameClick}
               >
-                Clone Selected
+                Clone Frame
               </div>
             </div>
           ) : (

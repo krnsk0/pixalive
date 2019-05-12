@@ -17,8 +17,8 @@ const LayerCopyButton = () => {
 
   return (
     <div className="layer-copy-button" onClick={onCopyLayerClick}>
-      <GoClippy className="layer-copy-icon" size={16} />
-      <span className="layer-copy-text">Clone to all frames</span>
+      <GoClippy className="layer-copy-icon" size={40} />
+      <span className="layer-copy-text">Copy selected layer to all frames</span>
     </div>
   );
 };
