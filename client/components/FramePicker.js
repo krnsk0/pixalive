@@ -66,13 +66,13 @@ const FramePicker = () => {
         const backButtonStyle =
           frame.frameOrder === 0
             ? {
-                color: 'rgb(164, 164, 164)'
+                visibility: 'hidden'
               }
             : {};
         const fwdButtonStyle =
           frame.frameOrder === frames.length - 1
             ? {
-                color: 'rgb(164, 164, 164)'
+                visibility: 'hidden'
               }
             : {};
         return (

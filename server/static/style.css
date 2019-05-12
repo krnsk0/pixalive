@@ -111,6 +111,7 @@ body {
 }
 .frame-container.selected {
   border: 5px solid var(--highlight-color);
+  background-color: var(--highlight-color);
 }
 .small-canvas {
   background-color: white;
