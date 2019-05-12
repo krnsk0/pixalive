@@ -38,8 +38,8 @@ const AnimationPreviewBox = () => {
           canvasType="animation"
         />
       </div>
-      <div className="fps-range-selector">
-        <span className="fps-display">{`${fps} FPS`}</span>
+      <div className="fps-range-selector-container">
+        <div className="fps-display-text">{`${fps} FPS`}</div>
         <input
           className="fps-selector"
           type="range"
