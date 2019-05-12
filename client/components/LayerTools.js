@@ -33,6 +33,12 @@ const LayerTools = () => {
         </div>
         <div
           className="layer-tool-button"
+          onClick={() => onLayerTranslateClick('right')}
+        >
+          <GoArrowRight className="layer-tool-icon" size={32} />
+        </div>
+        <div
+          className="layer-tool-button"
           onClick={() => onLayerTranslateClick('down')}
         >
           <GoArrowDown className="layer-tool-icon" size={32} />
@@ -42,13 +48,6 @@ const LayerTools = () => {
           onClick={() => onLayerTranslateClick('up')}
         >
           <GoArrowUp className="layer-tool-icon" size={32} />
-        </div>
-
-        <div
-          className="layer-tool-button"
-          onClick={() => onLayerTranslateClick('right')}
-        >
-          <GoArrowRight className="layer-tool-icon" size={32} />
         </div>
       </div>
     </div>
