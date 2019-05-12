@@ -18,6 +18,7 @@ const deleteFrame = require('./deleteFrame');
 const duplicateSelectedFrame = require('./duplicateSelectedFrame');
 const updateUserName = require('./updateUserName');
 const translateLayer = require('./translateLayer');
+const copyLayer = require('./copyLayer');
 
 module.exports = {
   cursorMove,
@@ -39,5 +40,6 @@ module.exports = {
   duplicateSelectedFrame,
   updateUserName,
   deleteFrame,
-  translateLayer
+  translateLayer,
+  copyLayer
 };
