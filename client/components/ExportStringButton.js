@@ -25,7 +25,7 @@ const ExportStringButton = () => {
 
   return (
     <div className="navbar-button" onClick={onExportToStringClick}>
-      Export to String
+      Export String to Clipboard
     </div>
   );
 };
