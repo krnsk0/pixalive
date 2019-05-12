@@ -11,6 +11,7 @@ body {
   --light-text: white;
   --light-emphasis: rgb(164, 164, 164);
   --highlight-color: rgb(0, 145, 255);
+  --very-light-emphasis: #d3d3d3;
 }
 
 /* top-level containers */
@@ -146,8 +147,7 @@ body {
 .add-new-frame-button {
   color: black;
   font-size: 14px;
-  background-color: var(--light-emphasis);
-  border: 2px solid black;
+  background-color: var(--very-light-emphasis);
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 6px;
@@ -234,7 +234,7 @@ body {
   -webkit-appearance: none;
   height: 16px;
   width: 120px;
-  background: #d3d3d3;
+  background: var(--very-light-emphasis);
   outline: none;
 }
 .fps-selector::-webkit-slider-thumb {
@@ -249,11 +249,10 @@ body {
   height: 16px;
   background: var(--highlight-color);
 }
-
 .fps-display-text {
-  font-size: 15px;
-  padding-right: 4px;
-  margin-top: 2px;
+  font-size: 16px;
+  margin-right: 4px;
+  margin-top: 1px;
   margin-left: 2px;
 }
 
