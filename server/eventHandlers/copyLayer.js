@@ -4,7 +4,6 @@ const { cloneDeep } = require('lodash');
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new layer to all frames
   socket.on(constants.MSG.COPY_LAYER, dir => {
-    console.log('in copy layer');
     // get selected frame index
     const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
 
