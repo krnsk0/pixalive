@@ -21,6 +21,7 @@ const updateSpriteName = require('./updateSpriteName');
 const translateLayer = require('./translateLayer');
 const copyLayer = require('./copyLayer');
 const uploadPixels = require('./uploadPixels');
+const resizeSprite = require('./resizeSprite')
 
 module.exports = {
   cursorMove,
@@ -46,4 +47,5 @@ module.exports = {
   translateLayer,
   copyLayer,
   uploadPixels,
+  resizeSprite,
 };
