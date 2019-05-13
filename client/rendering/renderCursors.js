@@ -21,11 +21,18 @@ const renderCursors = (ctx, sprite, socket) => {
 
       //Create white border on pointer
       const half = Math.floor(constants.CURSOR_SIZE / 2);
+      // ctx.fillRect(
+      //   coords.x - half,
+      //   coords.y - half,
+      //   (constants.CURSOR_SIZE + 2),
+      //   (constants.CURSOR_SIZE + 2)
+      // );
+
       ctx.fillRect(
-        (coords.x - half + 2),
-        (coords.y - half + 2),
-        (constants.CURSOR_SIZE + 2),
-        (constants.CURSOR_SIZE + 2)
+        coords.x - half,
+        coords.y - half,
+        (constants.CURSOR_SIZE - 4 ),
+        (constants.CURSOR_SIZE - 4 )
       );
 
       // set color to black
@@ -40,15 +47,10 @@ const renderCursors = (ctx, sprite, socket) => {
         constants.CURSOR_SIZE
       );
 
-      //Create shadow so text is visible on all backgrounds
-      ctx.shadowOffsetX = 3
-      ctx.shadowOffsetY = 3
-      ctx.shadowColor = `hsl(0, 0%, 100%, 1.0)`
-      ctx.shadowBlur = 4
-
       // draw the cursor
       ctx.font = '15px Courier';
       ctx.fillText(currentSpriteName, coords.x + 5, coords.y);
+
     }
   }
 };
