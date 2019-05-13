@@ -1,4 +1,4 @@
-export { default as App } from './App';
+export { default as Editor } from './Editor';
 export { default as ConnectionInfo } from './ConnectionInfo';
 export { default as BigCanvas } from './BigCanvas';
 export { default as FramePicker } from './FramePicker';
@@ -13,3 +13,6 @@ export { default as LayerTools } from './LayerTools';
 export { default as LayerCopyButton } from './LayerCopyButton';
 export { default as ImportStringButton } from './ImportStringButton';
 export { default as ExportStringButton } from './ExportStringButton';
+export { default as Main } from './Main';
+export { default as Homepage } from './Homepage';
+

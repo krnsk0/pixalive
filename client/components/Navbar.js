@@ -38,8 +38,6 @@ const Navbar = () => {
             </div>
             <div className="top-right">
                 <div className="top-button">Create Sprite</div>
-                <div className="top-button">Resize</div>
-                <div className="top-button">Save</div>
                 <div className="top-button">Export</div>
             </div>
         </div>

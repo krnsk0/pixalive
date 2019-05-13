@@ -7,12 +7,12 @@ import {
   ExportStringButton,
   ImportStringButton,
   Navbar
-} from './';
+} from '.';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
-const App = () => {
+const Editor = () => {
   // state for the socket
   const [socket, setSocket] = useState(false);
 
@@ -117,6 +117,7 @@ const App = () => {
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
+
   const initialSprite = initializeEmptySprite(
     hash,
     constants.NEW_SPRITE_WIDTH,
@@ -205,4 +206,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Editor;
