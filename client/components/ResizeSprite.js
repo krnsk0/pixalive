@@ -1,27 +1,33 @@
-import React, { useState, useContext } from 'react'
-import { SocketContext } from '../contexts';
+import React, { useState, useContext, useEffect } from 'react'
+import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
-
-
 
 const  NewSpriteSize = () =>  {
   const socket = useContext(SocketContext);
-  
-  const [spriteSize, setSpriteSize] = useState(16)
- 
+  const sprite = useContext(SpriteContext)
+
+useEffect(() => {
+  if (sprite) {
+    setSpriteSize(sprite.frames[0].layers[0].pixels.length)
+  }
+},[sprite])
+
+const [spriteSize, setSpriteSize] = useState()
+
   
   const handleSubmit = (evt) => {
     evt.preventDefault()
     if (socket) {
-      console.log("EMITTING MSG", spriteSize)
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
     }
   }
-
+  console.log(sprite.frames[0].layers[0].pixels.length)
+  
+  
 
   return (
     <form onSubmit={handleSubmit}>
-        <select onChange={(e) => {
+        <select value={spriteSize} onChange={(e) => {
           setSpriteSize(e.target.value)
           }}>
           <option value={16}>16x16</option>
