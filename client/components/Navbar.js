@@ -10,15 +10,13 @@ const Navbar = (props) => {
     let hashString = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let hashVal;
 
-
-        for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
             hashVal = ''
-            for (let j = 0; j < 12; j++) {
+        for (let j = 0; j < 12; j++) {
                 hashVal += hashString[Math.floor(Math.random() * hashString.length)];
-            }
         }
+    }
 
-        console.log('props', props)
     useEffect(() => {
         if (socket) {
           if (sprite) {
