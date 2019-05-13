@@ -17,16 +17,34 @@ const renderCursors = (ctx, sprite, socket) => {
 
     if (coords.x !== false) {
       // set color to black
+      ctx.fillStyle = `hsl(0, 0%, 100%, 1.0)`;
+
+      //Create white border on pointer
+      const half = Math.floor(constants.CURSOR_SIZE / 2);
+      ctx.fillRect(
+        (coords.x - half + 2),
+        (coords.y - half + 2),
+        (constants.CURSOR_SIZE + 2),
+        (constants.CURSOR_SIZE + 2)
+      );
+
+      // set color to black
       ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`;
 
       // draw a cursor
-      const half = Math.floor(constants.CURSOR_SIZE / 2);
+      //const half = Math.floor(constants.CURSOR_SIZE / 2);
       ctx.fillRect(
         coords.x - half,
         coords.y - half,
         constants.CURSOR_SIZE,
         constants.CURSOR_SIZE
       );
+
+      //Create shadow so text is visible on all backgrounds
+      ctx.shadowOffsetX = 3
+      ctx.shadowOffsetY = 3
+      ctx.shadowColor = `hsl(0, 0%, 100%, 1.0)`
+      ctx.shadowBlur = 4
 
       // draw the cursor
       ctx.font = '15px Courier';
