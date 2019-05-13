@@ -6,8 +6,8 @@ const Main = () => {
 
     return (
        <Switch>
-           <Route exact path="/" component={Homepage} />
            <Route path="/:hash" component={Editor} />
+           <Route exact path="/" component={Homepage} />
        </Switch>
     )
 }

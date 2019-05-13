@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Homepage = () => {
+const Homepage = (props) => {
+    console.log('props', props);
     return (
         <div className="homepage-container">
             <div className="homepage-title">PIXALIVE</div>

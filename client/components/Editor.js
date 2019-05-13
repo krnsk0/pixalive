@@ -12,7 +12,8 @@ import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
-const Editor = () => {
+
+const Editor = (props) => {
   // state for the socket
   const [socket, setSocket] = useState(false);
 
@@ -116,7 +117,8 @@ const Editor = () => {
 }
 
   // initialize sprite state to an empty sprite object
-  const hash = window.location.pathname.slice(1);
+  const hash = props.location.pathname.slice(1);
+
 
   const initialSprite = initializeEmptySprite(
     hash,
@@ -131,8 +133,8 @@ const Editor = () => {
   useEffect(() => {
     // set up our websocket based on the URL's path component
     // eslint-disable-next-line no-shadow
-    const socket = io(window.location.pathname);
-
+    // const socket = io(window.location.pathname);
+    const socket = io(props.location.pathname);
     // pass up to state and then context provider when connected
     socket.on(constants.MSG.CONNECT, () => {
       setSocket(socket);
