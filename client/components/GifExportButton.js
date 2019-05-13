@@ -24,7 +24,9 @@ const GifExportButton = () => {
       // create gif object
       const gif = new GIF({
         workers: 2,
-        quality: 10
+        quality: 10,
+        workerScript: 'gif.worker.js',
+        repeat: 0
       });
 
       // draw some layers
