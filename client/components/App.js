@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
-import { ConnectionInfo, StyleEditorPage, FramePicker } from './';
+import { ConnectionInfo, StyleEditorPage, FramePicker, Navbar } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -53,7 +53,7 @@ const App = () => {
         }
       };
       console.log('FROM APP>JS', newState)
-      return newState  
+      return newState
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
       let newState = {
@@ -154,6 +154,7 @@ const App = () => {
     <div>
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
+          <Navbar />
           <StyleEditorPage />
           <FramePicker />
           <ConnectionInfo />
