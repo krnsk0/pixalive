@@ -40,6 +40,7 @@ const GifExportButton = () => {
       // when done
       gif.on('finished', blob => {
         window.open(URL.createObjectURL(blob));
+        document.body.removeChild(canvas);
       });
 
       // render
