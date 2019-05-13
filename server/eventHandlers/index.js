@@ -44,6 +44,4 @@ module.exports = {
   translateLayer,
   copyLayer,
   uploadPixels,
-  duplicateSelectedFrame,
-  updateUserName
 };

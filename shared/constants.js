@@ -62,6 +62,5 @@ module.exports = deepFreeze({
   PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
   FRAME_CAP: 24,
   LAYER_CAP: 6,
-  FPS_CAP: 24
-
+  FPS_CAP: 24r
 });

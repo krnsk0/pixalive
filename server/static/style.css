@@ -150,9 +150,6 @@ body {
   background-color: var(--very-light-emphasis);
   margin-left: 5px;
   margin-right: 5px;
-  color: var(--light-text);
-  font-size: 14px;
-  background-color: var(--highlight-color);
   margin-bottom: 6px;
   padding: 4px;
   border-radius: 5px;
@@ -332,7 +329,6 @@ body {
   align-content: center;
   background-color: var(--light-emphasis);
 }
-
 /* navbar */
 .navbar-button {
   margin: 10px;
