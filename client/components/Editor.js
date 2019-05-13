@@ -6,7 +6,8 @@ import {
   FramePicker,
   ExportStringButton,
   ImportStringButton,
-  Navbar
+  Navbar,
+  GifExportButton
 } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
