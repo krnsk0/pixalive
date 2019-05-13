@@ -35,7 +35,7 @@ module.exports = {
   moveSelectedLayerDown,
   shiftFrameLeft,
   shiftFrameRight,
-  deleteFrame,
   duplicateSelectedFrame,
-  updateUserName
+  updateUserName,
+  deleteFrame
 };
