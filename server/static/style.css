@@ -101,29 +101,49 @@ body {
   border: 4px solid var(--light-emphasis);
   border-radius: 5px;
   width: 80px;
-  height: 80px;
+  height: 110px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  z-index: 1;
+  background-color: var(--light-emphasis);
 }
 .frame-container.selected {
   border: 4px solid var(--highlight-color);
 }
 .small-canvas {
   background-color: white;
+  z-index: 0;
 }
-
+.frame-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.frame-button {
+}
+.frame-button-icon {
+  margin-top: 5px;
+  color: black;
+}
 .add-new-frame {
   color: var(--light-emphasis);
   text-align: center;
-  width: 80px;
-  height: 80px;
+  padding-top: 8px;
 }
-
-.add-new-frame-plus {
-  font-size: 40px;
-  margin-top: 18px;
-  margin-left: 2px;
+.add-new-frame-button {
+  color: var(--light-text);
+  font-size: 14px;
+  background-color: var(--highlight-color);
+  margin-bottom: 6px;
+  padding: 4px;
+  border-radius: 5px;
+}
+.frame-cap-message {
+  color: black;
 }
 
 /* main canvas */
@@ -235,4 +255,8 @@ body {
 .layer-row.selected {
   background-color: var(--highlight-color);
   color: var(--light-text);
+}
+.layer-button-icon {
+  margin-top: 5px;
+  color: black;
 }

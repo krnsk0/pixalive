@@ -2,6 +2,9 @@
 /* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
+import { GoPencil, GoTriangleDown, GoTriangleUp } from 'react-icons/go';
+import { TiPlus, TiMinus } from 'react-icons/ti';
+
 const constants = require('../../shared/constants');
 
 const LayerPicker = () => {
@@ -114,19 +117,19 @@ const LayerPicker = () => {
       </div>
       <div className="layer-title-row">
         <div className="layer-button" onClick={onAddNewLayerClick}>
-          ➕
+          <TiPlus className="layer-button-icon" size={16} />
         </div>
         <div className="layer-button" onClick={onDeleteLayerClick}>
-          ️️➖
+          <TiMinus className="layer-button-icon" size={16} />
         </div>
         <div className="layer-button" onClick={onLayerNameEditClick}>
-          ✏️️
+          <GoPencil className="layer-button-icon" size={16} />
         </div>
         <div className="layer-button" onClick={onLayerMoveDownClick}>
-          ⬇️
+          <GoTriangleDown className="layer-button-icon" size={16} />
         </div>
         <div className="layer-button" onClick={onLayerMoveUpClick}>
-          ⬆️
+          <GoTriangleUp className="layer-button-icon" size={16} />
         </div>
       </div>
       {layers.map(layer => (

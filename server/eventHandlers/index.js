@@ -12,6 +12,10 @@ const layerNameChange = require('./layerNameChange');
 const deleteSelectedLayer = require('./deleteSelectedLayer');
 const moveSelectedLayerUp = require('./moveSelectedLayerUp');
 const moveSelectedLayerDown = require('./moveSelectedLayerDown');
+const shiftFrameLeft = require('./shiftFrameLeft');
+const shiftFrameRight = require('./shiftFrameRight');
+const deleteFrame = require('./deleteFrame');
+const duplicateSelectedFrame = require('./duplicateSelectedFrame');
 const updateUserName = require('./updateUserName');
 
 module.exports = {
@@ -29,5 +33,9 @@ module.exports = {
   deleteSelectedLayer,
   moveSelectedLayerUp,
   moveSelectedLayerDown,
+  shiftFrameLeft,
+  shiftFrameRight,
+  deleteFrame,
+  duplicateSelectedFrame,
   updateUserName
 };
