@@ -43,5 +43,5 @@ module.exports = {
   deleteFrame,
   translateLayer,
   copyLayer,
-  uploadPixels
+  uploadPixels,
 };
