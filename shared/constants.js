@@ -63,4 +63,5 @@ module.exports = deepFreeze({
   FRAME_CAP: 24,
   LAYER_CAP: 6,
   FPS_CAP: 24
+
 });
