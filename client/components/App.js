@@ -59,7 +59,6 @@ const App = () => {
           }
         }
       };
-      console.log('FROM APP>JS', newState);
       return newState;
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
@@ -151,7 +150,6 @@ const App = () => {
 
     //when we update selected tool in the server dispatch to sprite state
     socket.on(constants.MSG.SELECTED_TOOL_UPDATE, selectedTool => {
-      console.log(selectedTool);
       spriteDispatch({
         type: constants.MSG.SELECTED_TOOL_UPDATE,
         ...selectedTool
@@ -170,7 +168,6 @@ const App = () => {
 
     //when we update user name in the server dispatch to sprite state
     socket.on(constants.MSG.SEND_USERNAME, name => {
-      console.log(name);
       spriteDispatch({
         type: constants.MSG.SEND_USERNAME,
         ...name

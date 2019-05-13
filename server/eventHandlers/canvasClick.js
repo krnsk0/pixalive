@@ -1,7 +1,7 @@
 const constants = require('../../shared/constants');
-const updateSelectedColor = require('./updateSelectedColor')
-const paintCan = require('./paintCan')
-const { cloneDeep } = require('lodash')
+const updateSelectedColor = require('./updateSelectedColor');
+const paintCan = require('./paintCan');
+const { cloneDeep } = require('lodash');
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
@@ -30,30 +30,54 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: null
       });
-    }
-    else if (selectedTool === constants.TOOLS.EYE_DROPPER){
+    } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
       //get the cell color at coords
-      let x = coords.x
-      let y = coords.y
-      let selectedColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][x]
+      let x = coords.x;
+      let y = coords.y;
+      let selectedColor =
+        state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][
+          x
+        ];
       //reset users selected color on state to that color
       //reset selected tool to pen
-      if (selectedColor){
-        state[spriteHash].users[socketId].selectedColor = selectedColor
-        state[spriteHash].users[socketId].selectedTool = constants.TOOLS.PEN
-        selectedTool = constants.TOOLS.PEN
+      if (selectedColor) {
+        state[spriteHash].users[socketId].selectedColor = selectedColor;
+        state[spriteHash].users[socketId].selectedTool = constants.TOOLS.PEN;
+        selectedTool = constants.TOOLS.PEN;
         //broadcast new selected color / tool
-        namespacedIo.emit(constants.MSG.SELECTED_COLOR_UPDATE, {selectedColor, socketId})
-        namespacedIo.emit(constants.MSG.SELECTED_TOOL_UPDATE, {selectedTool, socketId})
+        namespacedIo.emit(constants.MSG.SELECTED_COLOR_UPDATE, {
+          selectedColor,
+          socketId
+        });
+        namespacedIo.emit(constants.MSG.SELECTED_TOOL_UPDATE, {
+          selectedTool,
+          socketId
+        });
       }
-    } else if (selectedTool === constants.TOOLS.PAINT_CAN){
-      let x = coords.x
-      let y = coords.y
-      let currentColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][x]
-      console.log(currentColor)
-      let grid = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels
-      let changes = paintCan(grid, x, y, selectedColor, currentColor, visited = {})
-      changeList = changes.map(a => ({x: a.x, y: a.y, frameIdx: selectedFrame, layerIdx: selectedLayer, color: cloneDeep(selectedColor)}))
+    } else if (selectedTool === constants.TOOLS.PAINT_CAN) {
+      let x = coords.x;
+      let y = coords.y;
+      let currentColor =
+        state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[y][
+          x
+        ];
+      let grid =
+        state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels;
+      let changes = paintCan(
+        grid,
+        x,
+        y,
+        selectedColor,
+        currentColor,
+        (visited = {})
+      );
+      changeList = changes.map(a => ({
+        x: a.x,
+        y: a.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: cloneDeep(selectedColor)
+      }));
     }
 
     //takes list of changes, changes pixels
@@ -72,7 +96,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       if ((oldColor && !c.color) || (!oldColor && c.color)) {
         different = true;
       } else if (!(oldColor === null && c.color === null)) {
-          // loop keys and look for changes
+        // loop keys and look for changes
         for (let k of Object.keys(oldColor)) {
           if (oldColor[k] !== c.color[k]) {
             different = true;
