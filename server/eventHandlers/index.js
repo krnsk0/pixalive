@@ -17,6 +17,7 @@ const shiftFrameRight = require('./shiftFrameRight');
 const deleteFrame = require('./deleteFrame');
 const duplicateSelectedFrame = require('./duplicateSelectedFrame');
 const updateUserName = require('./updateUserName');
+const updateSpriteName = require('./updateSpriteName');
 const translateLayer = require('./translateLayer');
 const copyLayer = require('./copyLayer');
 const uploadPixels = require('./uploadPixels');
@@ -37,10 +38,11 @@ module.exports = {
   deleteSelectedLayer,
   moveSelectedLayerUp,
   moveSelectedLayerDown,
+  updateUserName,
+  updateSpriteName,
   shiftFrameLeft,
   shiftFrameRight,
   duplicateSelectedFrame,
-  updateUserName,
   deleteFrame,
   translateLayer,
   copyLayer,

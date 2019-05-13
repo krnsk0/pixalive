@@ -6,13 +6,15 @@ import {
   FramePicker,
   ExportStringButton,
   ImportStringButton,
-  ResizeSprite
+  ResizeSprite,
+  Navbar,
+  GifExportButton
 } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
-const App = () => {
+const Editor = props => {
   // state for the socket
   const [socket, setSocket] = useState(false);
 
@@ -59,7 +61,6 @@ const App = () => {
           }
         }
       };
-      console.log('FROM APP>JS', newState);
       return newState;
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
@@ -106,11 +107,18 @@ const App = () => {
         }
       };
       return newState;
+    } else if (action.type === constants.MSG.SEND_SPRITE_NAME) {
+      let newState = {
+        ...state,
+        name: action.name
+      };
+      return newState;
     }
   };
 
   // initialize sprite state to an empty sprite object
-  const hash = window.location.pathname.slice(1);
+  const hash = props.location.pathname.slice(1);
+
   const initialSprite = initializeEmptySprite(
     hash,
     constants.NEW_SPRITE_WIDTH,
@@ -124,8 +132,8 @@ const App = () => {
   useEffect(() => {
     // set up our websocket based on the URL's path component
     // eslint-disable-next-line no-shadow
-    const socket = io(window.location.pathname);
-
+    // const socket = io(window.location.pathname);
+    const socket = io(props.location.pathname);
     // pass up to state and then context provider when connected
     socket.on(constants.MSG.CONNECT, () => {
       setSocket(socket);
@@ -151,7 +159,6 @@ const App = () => {
 
     //when we update selected tool in the server dispatch to sprite state
     socket.on(constants.MSG.SELECTED_TOOL_UPDATE, selectedTool => {
-      console.log(selectedTool);
       spriteDispatch({
         type: constants.MSG.SELECTED_TOOL_UPDATE,
         ...selectedTool
@@ -170,11 +177,15 @@ const App = () => {
 
     //when we update user name in the server dispatch to sprite state
     socket.on(constants.MSG.SEND_USERNAME, name => {
-      console.log(name);
       spriteDispatch({
         type: constants.MSG.SEND_USERNAME,
         ...name
       });
+    });
+
+    // when we get a name update, dispatch to sprite state
+    socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
+      spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
   }, []);
 
@@ -182,16 +193,18 @@ const App = () => {
     <div>
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
-        <ResizeSprite />
+          <Navbar />
+          <ResizeSprite />
           <StyleEditorPage />
           <FramePicker />
           <ConnectionInfo />
           <ExportStringButton />
           <ImportStringButton />
+          <GifExportButton />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
   );
 };
 
-export default App;
+export default Editor;
