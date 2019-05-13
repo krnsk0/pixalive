@@ -25,7 +25,6 @@ const Editor = props => {
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
-      // console.log('CURSOR UPDATE ACTION: ', action);
       let newState = {
         ...state,
         users: {
@@ -37,7 +36,6 @@ const Editor = props => {
           }
         }
       };
-      // console.log('CURSOR UPDATE NEWSTATE: ', newState);
       return newState;
     } else if (action.type === constants.MSG.SELECTED_COLOR_UPDATE) {
       let newState = {
