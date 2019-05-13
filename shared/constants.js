@@ -42,7 +42,8 @@ module.exports = deepFreeze({
     UPDATE_USERNAME: 'update_username', //a client-to-server event
     SEND_USERNAME: 'send_username', //a server-to-client event
     TRANSLATE_SELECTED_LAYER: 'translate_selected_layer', //a client-to-server event
-    COPY_LAYER: 'copy_layer' //a client-to-server event
+    COPY_LAYER: 'copy_layer', //a client-to-server event
+    UPLOAD_PIXELS: 'upload_pixels'
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
