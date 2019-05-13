@@ -120,19 +120,19 @@ const LayerPicker = () => {
       </div>
       <div className="layer-title-row">
         <div className="layer-button" onClick={onAddNewLayerClick}>
-          <TiPlus className="layer-button-icon" size={16} />
+          <TiPlus className="layer-button-icon" size={22} />
         </div>
         <div className="layer-button" onClick={onDeleteLayerClick}>
-          <TiMinus className="layer-button-icon" size={16} />
+          <TiMinus className="layer-button-icon" size={22} />
         </div>
         <div className="layer-button" onClick={onLayerNameEditClick}>
-          <GoPencil className="layer-button-icon" size={16} />
+          <GoPencil className="layer-button-icon" size={22} />
         </div>
         <div className="layer-button" onClick={onLayerMoveDownClick}>
-          <GoTriangleDown className="layer-button-icon" size={16} />
+          <GoTriangleDown className="layer-button-icon" size={22} />
         </div>
         <div className="layer-button" onClick={onLayerMoveUpClick}>
-          <GoTriangleUp className="layer-button-icon" size={16} />
+          <GoTriangleUp className="layer-button-icon" size={22} />
         </div>
       </div>
       {layers.map(layer => (

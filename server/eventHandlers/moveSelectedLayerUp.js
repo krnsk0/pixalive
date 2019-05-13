@@ -12,17 +12,14 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     // is the selected layer larger than zero?
     // don't do anything if we've selected the first layer already
     if (selectedLayer > 0) {
-      // store deleted layer
-      const deletedLayer = state[spriteHash].frames[
-        selectedFrame
-      ].layers.splice(selectedLayer, 1);
+      // move layer for each frame
+      state[spriteHash].frames.forEach(frame => {
+        // store deleted layer
+        const deletedLayer = frame.layers.splice(selectedLayer, 1);
 
-      // insert deleted layer
-      state[spriteHash].frames[selectedFrame].layers.splice(
-        selectedLayer - 1,
-        0,
-        deletedLayer[0]
-      );
+        // insert deleted layer
+        frame.layers.splice(selectedLayer - 1, 0, deletedLayer[0]);
+      });
 
       // decrement selected layer
       state[spriteHash].users[socketId].selectedLayer = selectedLayer - 1;

@@ -40,7 +40,9 @@ module.exports = deepFreeze({
     DUPLICATE_SELECTED_FRAME: 'shift_frame_right', // a client-to-server event
     SELECTED_TOOL_UPDATE: 'selected_tool_update',
     UPDATE_USERNAME: 'update_username', //a client-to-server event
-    SEND_USERNAME: 'send_username' //a server-to-client event
+    SEND_USERNAME: 'send_username', //a server-to-client event
+    TRANSLATE_SELECTED_LAYER: 'translate_selected_layer', //a client-to-server event
+    COPY_LAYER: 'copy_layer' //a client-to-server event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -57,5 +59,7 @@ module.exports = deepFreeze({
   THROTTLE_MOUSE_SEND: 100, // in milliseconds
   BACKDROP_PIXEL_SIZE: 10, // in screen pixels
   PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
-  FRAME_CAP: 30
+  FRAME_CAP: 24,
+  LAYER_CAP: 6,
+  FPS_CAP: 24
 });

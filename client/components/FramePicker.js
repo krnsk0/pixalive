@@ -66,13 +66,13 @@ const FramePicker = () => {
         const backButtonStyle =
           frame.frameOrder === 0
             ? {
-                color: 'rgb(164, 164, 164)'
+                visibility: 'hidden'
               }
             : {};
         const fwdButtonStyle =
           frame.frameOrder === frames.length - 1
             ? {
-                color: 'rgb(164, 164, 164)'
+                visibility: 'hidden'
               }
             : {};
         return (
@@ -89,6 +89,7 @@ const FramePicker = () => {
                 canvasWidth={canvasWidth}
                 canvasHeight={canvasHeight}
                 layers={frame.layers}
+                canvasType="frame"
               />
             </div>
             <div className="frame-button-container">
@@ -130,13 +131,13 @@ const FramePicker = () => {
                 className="add-new-frame-button"
                 onClick={onAddNewFrameClick}
               >
-                New blank frame
+                Add Frame
               </div>
               <div
                 className="add-new-frame-button"
                 onClick={onDuplicatedSelectedFrameClick}
               >
-                Duplicate Selected Frame
+                Clone Frame
               </div>
             </div>
           ) : (

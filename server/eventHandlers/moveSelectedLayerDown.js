@@ -15,17 +15,14 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       selectedLayer <
       state[spriteHash].frames[selectedFrame].layers.length - 1
     ) {
-      // store deleted layer
-      const deletedLayer = state[spriteHash].frames[
-        selectedFrame
-      ].layers.splice(selectedLayer, 1);
+      // move layer for each frame
+      state[spriteHash].frames.forEach(frame => {
+        // store deleted layer
+        const deletedLayer = frame.layers.splice(selectedLayer, 1);
 
-      // insert deleted layer
-      state[spriteHash].frames[selectedFrame].layers.splice(
-        selectedLayer + 1,
-        0,
-        deletedLayer[0]
-      );
+        // insert deleted layer
+        frame.layers.splice(selectedLayer + 1, 0, deletedLayer[0]);
+      });
 
       // increment selected layer
       state[spriteHash].users[socketId].selectedLayer = selectedLayer + 1;
