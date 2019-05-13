@@ -1,4 +1,5 @@
 const constants = require('../../shared/constants')
+const { cloneDeep } = require('lodash');
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     //add new layer to all frames
@@ -20,7 +21,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
                   nullRows.push(null)
               }
               for (let i = 0; i < numToAdd; i++){
-                  grid.push(nullRows)
+                  grid.push(cloneDeep(nullRows))
               }
           } else if (numToAdd < 0){
               grid = grid.map(row => row.slice(0, numToAdd)).slice(0, numToAdd)
