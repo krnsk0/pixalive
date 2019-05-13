@@ -22,10 +22,10 @@ const Editor = props => {
   const spriteReducer = (state, action) => {
     // print action size in chars to help profile network use
     // console.log(JSON.stringify(action).length);
-
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
+      // console.log('CURSOR UPDATE ACTION: ', action);
       let newState = {
         ...state,
         users: {
@@ -37,6 +37,7 @@ const Editor = props => {
           }
         }
       };
+      // console.log('CURSOR UPDATE NEWSTATE: ', newState);
       return newState;
     } else if (action.type === constants.MSG.SELECTED_COLOR_UPDATE) {
       let newState = {
