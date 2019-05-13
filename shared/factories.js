@@ -33,7 +33,8 @@ const spriteFactory = hash => {
   return {
     hash,
     users: {},
-    frames: []
+    frames: [],
+    name: 'Untitled'
   };
 };
 

@@ -6,6 +6,10 @@ const Sprites = db.define('sprites', {
     hash: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    name: {
+        type: Sequelize.STRING,
+        defaultValue: 'Untitled'
     }
 })
 

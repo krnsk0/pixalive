@@ -43,9 +43,9 @@ const ConnectionInfo = () => {
   };
 
   return (
-    <div>
-      <div>Your usernanme: </div>
-      <input name="name" type="text" onChange={handleChange} value={userName} />
+    <div className="info">
+      <div>Enter Your Username: </div>
+      <input className="username" name="name" type="text" onChange={handleChange} value={userName} />
       <div>
         Please note, this name will be visible to any users currently in the
         same drawing as you. We suggest you do not use your full name as your

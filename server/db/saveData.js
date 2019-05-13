@@ -3,6 +3,7 @@ const chalk = require('chalk');
 
 const saveData = async stateSprite => {
   const spriteHash = stateSprite.hash;
+  const name = stateSprite.name;
   try {
     let spriteToDelete = await Sprites.findOne({ where: { hash: spriteHash } });
     if (spriteToDelete) {
@@ -17,7 +18,8 @@ const saveData = async stateSprite => {
 
     //Create a new sprite with the information from the sprite on state
     let newSprite = await Sprites.create({
-      hash: spriteHash
+      hash: spriteHash,
+      name: name
     });
 
     //Map over the frames on the sprite on state and create frames in the database
