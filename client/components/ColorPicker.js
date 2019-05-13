@@ -70,7 +70,7 @@ function ColorPicker() {
         cursor: 'pointer'
       },
       popover: {
-        position: 'absolute',
+        position: 'relative',
         zIndex: '2'
       },
       cover: {
