@@ -12,6 +12,7 @@ const layerNameChange = require('./layerNameChange');
 const deleteSelectedLayer = require('./deleteSelectedLayer');
 const moveSelectedLayerUp = require('./moveSelectedLayerUp');
 const moveSelectedLayerDown = require('./moveSelectedLayerDown');
+const updateUserName = require('./updateUserName');
 
 module.exports = {
   cursorMove,
@@ -27,5 +28,6 @@ module.exports = {
   layerNameChange,
   deleteSelectedLayer,
   moveSelectedLayerUp,
-  moveSelectedLayerDown
+  moveSelectedLayerDown,
+  updateUserName
 };
