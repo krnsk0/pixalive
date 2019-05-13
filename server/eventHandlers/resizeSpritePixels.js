@@ -5,6 +5,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   socket.on(constants.MSG.RESIZE_SPRITE, spriteSize => {
     //get sprite
     const sprite = state[spriteHash];
+    let arrayOfFrames = sprite.frames;
 
     const resizePixelGrids = (grid, spriteSize) => {
       let gridEnds = [];
