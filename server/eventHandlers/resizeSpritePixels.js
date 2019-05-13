@@ -1,11 +1,11 @@
 const constants = require('../../shared/constants');
+const { cloneDeep } = require('lodash');
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new layer to all frames
   socket.on(constants.MSG.RESIZE_SPRITE, spriteSize => {
     //get sprite
     const sprite = state[spriteHash];
-    let arrayOfFrames = sprite.frames;
 
     const resizePixelGrids = (grid, spriteSize) => {
       let gridEnds = [];
@@ -20,7 +20,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
           nullRows.push(null);
         }
         for (let i = 0; i < numToAdd; i++) {
-          grid.push(nullRows);
+          grid.push(cloneDeep(nullRows));
         }
       } else if (numToAdd < 0) {
         grid = grid.map(row => row.slice(0, numToAdd)).slice(0, numToAdd);
@@ -36,7 +36,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       }))
     }));
 
-    //   send updated sprite
+    // send updated sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 };
