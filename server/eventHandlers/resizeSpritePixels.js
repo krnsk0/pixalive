@@ -29,8 +29,11 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         }
 
 
-    state[spriteHash].frames = sprite.frames.map(frame => ({...frame, layers: frame.layers.map(layer => ({...layer, pixels: resizePixelGrids(layer.pixels, spriteSize)}))}))
-    console.log(sprite.frames)
+    state[spriteHash].frames = sprite.frames.map(frame => (
+        {...frame, 
+        layers: frame.layers.map(layer => (
+            {...layer, 
+            pixels: resizePixelGrids(layer.pixels, spriteSize)}))}))
 
 
     //   send updated sprite
