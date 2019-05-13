@@ -6,7 +6,6 @@ const Navbar = () => {
     const [name, setName ] = useState('Untitled');
     const sprite = useContext(SpriteContext);
     const socket = useContext(SocketContext);
-    console.log(sprite);
     useEffect(() => {
         if (socket) {
           if (sprite) {
