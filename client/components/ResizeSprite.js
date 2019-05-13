@@ -10,7 +10,6 @@ const NewSpriteSize = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     if (socket) {
-      console.log('EMITTING MSG', spriteSize);
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
     }
   };
