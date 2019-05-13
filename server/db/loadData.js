@@ -37,6 +37,7 @@ let loadData = async spriteHash => {
       }
       newState = {
         hash: loadedSprite.hash,
+        name: loadedSprite.name,
         users: {},
         frames: loadedFrames
       };

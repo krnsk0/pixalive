@@ -328,3 +328,20 @@ body {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.input-name {
+  background-color: var(--standout-background);
+  border: none;
+  color: var(--light-text);
+}
+
+.username {
+  background-color: var(--body-background);
+  border: 2px solid var(--light-emphasis);
+  border-radius: 4px;
+  color: var(--light-text);
+}
+
+.info {
+  color: var(--light-text);
+}

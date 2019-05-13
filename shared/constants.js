@@ -36,7 +36,9 @@ module.exports = deepFreeze({
     SEND_CHANGE_LIST: 'send_change_list', // a server-to-client event
     SELECTED_TOOL_UPDATE: 'selected_tool_update',
     UPDATE_USERNAME: 'update_username', //a client-to-server event
-    SEND_USERNAME: 'send_username' //a server-to-client event
+    SEND_USERNAME: 'send_username', //a server-to-client event
+    UPDATE_SPRITE_NAME: 'update_sprite_name', //a client-to-server event
+    SEND_SPRITE_NAME: 'send_sprite_name', //a server-to-client event
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event

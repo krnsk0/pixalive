@@ -99,7 +99,14 @@ const App = () => {
         }
       };
       return newState
-  }}
+  } else if (action.type === constants.MSG.SEND_SPRITE_NAME) {
+    let newState = {
+      ...state,
+      name: action.name
+    };
+    return newState
+  }
+}
 
   // initialize sprite state to an empty sprite object
   const hash = window.location.pathname.slice(1);
@@ -167,6 +174,11 @@ const App = () => {
         type: constants.MSG.SEND_USERNAME,
         ...name
       })
+    });
+
+     // when we get a name update, dispatch to sprite state
+     socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
+      spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
   }, []);
 
