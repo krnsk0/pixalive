@@ -6,7 +6,8 @@ import {
   GoArrowDown,
   GoArrowLeft,
   GoArrowRight,
-  GoArrowUp
+  GoArrowUp,
+  GoClock
 } from 'react-icons/go';
 const constants = require('../../shared/constants');
 
@@ -48,6 +49,12 @@ const LayerTools = () => {
           onClick={() => onLayerTranslateClick('up')}
         >
           <GoArrowUp className="layer-tool-icon" size={32} />
+        </div>
+        <div
+          className="layer-tool-button"
+          onClick={() => {onLayerTranslateClick('rotate')}}
+        >
+          <GoClock className="layer-tool-icon" size={32} />
         </div>
       </div>
     </div>
