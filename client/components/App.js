@@ -5,7 +5,8 @@ import {
   StyleEditorPage,
   FramePicker,
   ExportStringButton,
-  ImportStringButton
+  ImportStringButton,
+  ResizeSprite
 } from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -181,6 +182,7 @@ const App = () => {
     <div>
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
+        <ResizeSprite />
           <StyleEditorPage />
           <FramePicker />
           <ConnectionInfo />
