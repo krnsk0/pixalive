@@ -6,14 +6,14 @@ import {
   FramePicker,
   ExportStringButton,
   ImportStringButton,
-  Navbar
-} from '.';
+  Navbar,
+  GifExportButton
+} from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
-
-const Editor = (props) => {
+const Editor = props => {
   // state for the socket
   const [socket, setSocket] = useState(false);
 
@@ -60,7 +60,6 @@ const Editor = (props) => {
           }
         }
       };
-      console.log('FROM APP>JS', newState);
       return newState;
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
@@ -106,19 +105,18 @@ const Editor = (props) => {
           }
         }
       };
-      return newState
-  } else if (action.type === constants.MSG.SEND_SPRITE_NAME) {
-    let newState = {
-      ...state,
-      name: action.name
-    };
-    return newState
-  }
-}
+      return newState;
+    } else if (action.type === constants.MSG.SEND_SPRITE_NAME) {
+      let newState = {
+        ...state,
+        name: action.name
+      };
+      return newState;
+    }
+  };
 
   // initialize sprite state to an empty sprite object
   const hash = props.location.pathname.slice(1);
-
 
   const initialSprite = initializeEmptySprite(
     hash,
@@ -160,7 +158,6 @@ const Editor = (props) => {
 
     //when we update selected tool in the server dispatch to sprite state
     socket.on(constants.MSG.SELECTED_TOOL_UPDATE, selectedTool => {
-      console.log(selectedTool);
       spriteDispatch({
         type: constants.MSG.SELECTED_TOOL_UPDATE,
         ...selectedTool
@@ -179,15 +176,14 @@ const Editor = (props) => {
 
     //when we update user name in the server dispatch to sprite state
     socket.on(constants.MSG.SEND_USERNAME, name => {
-      console.log(name);
       spriteDispatch({
         type: constants.MSG.SEND_USERNAME,
         ...name
       });
     });
 
-     // when we get a name update, dispatch to sprite state
-     socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
+    // when we get a name update, dispatch to sprite state
+    socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
   }, []);
@@ -202,6 +198,7 @@ const Editor = (props) => {
           <ConnectionInfo />
           <ExportStringButton />
           <ImportStringButton />
+          <GifExportButton />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
