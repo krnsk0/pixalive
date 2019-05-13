@@ -6,6 +6,7 @@ import {
   FramePicker,
   ExportStringButton,
   ImportStringButton,
+  ResizeSprite,
   Navbar,
   GifExportButton
 } from './';
@@ -193,6 +194,7 @@ const Editor = props => {
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <Navbar />
+          <ResizeSprite />
           <StyleEditorPage />
           <FramePicker />
           <ConnectionInfo />

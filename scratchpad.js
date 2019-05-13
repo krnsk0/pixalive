@@ -50,9 +50,9 @@ const spriteFactory = hash => {
 // a new sprite! wow!
 const sprite = spriteFactory('IJ#RWOGJ#OI%JIEO');
 
-canvas = canvasRef.current
-ctx = canvas.getContext('2d')
-pixelSize =
+// canvas = canvasRef.current
+// ctx = canvas.getContext('2d')
+// pixelSize =
 
 const pixels = sprite.frames[0].layers[0]
 for (let [row, y] of pixels.entries()) {
@@ -70,12 +70,12 @@ for (let y = 0; y < pixels.length; y += 1) {
 }
 
 
-[
-  {
-    x
-    y
-    frame
-    layer
-    color
-  }
-]
+// [
+//   {
+//     x,
+//     y,
+//     frame
+//     layer
+//     color
+//   }
+// ]

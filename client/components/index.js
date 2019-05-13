@@ -13,6 +13,7 @@ export { default as LayerTools } from './LayerTools';
 export { default as LayerCopyButton } from './LayerCopyButton';
 export { default as ImportStringButton } from './ImportStringButton';
 export { default as ExportStringButton } from './ExportStringButton';
+export { default as ResizeSprite } from './ResizeSprite'
 export { default as GifExportButton } from './GifExportButton';
 export { default as Main } from './Main';
 export { default as Homepage } from './Homepage';
