@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { renderSmallCanvas, renderBackdrop } from '../rendering';
 
 const SmallCanvas = props => {
-  const { canvasWidth, canvasHeight, layers } = props;
+  const { canvasWidth, canvasHeight, layers, canvasType } = props;
   const canvasRef = useRef();
 
   // set up canvas width & height after first mount
@@ -25,7 +25,7 @@ const SmallCanvas = props => {
     renderSmallCanvas(ctx, layers, canvasWidth, canvasHeight);
   });
 
-  return <canvas ref={canvasRef} className="small-canvas" />;
+  return <canvas ref={canvasRef} className={'small-canvas ' + canvasType} />;
 };
 
 export default SmallCanvas;

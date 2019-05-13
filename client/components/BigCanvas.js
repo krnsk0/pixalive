@@ -49,7 +49,7 @@ const BigCanvas = () => {
       socket && socket.emit(constants.MSG.CURSOR_MOVE, coords);
     }, constants.MSG.THROTTLE_MOUSE_SEND);
 
-    const moveOnlyHanlder = evt => {
+    const moveOnlyHandler = evt => {
       const inCanvas = isMouseInsideCanvas(
         canvasRef.current,
         evt.clientX,
@@ -116,7 +116,7 @@ const BigCanvas = () => {
       }
     };
     const onWindowMouseMove = evt => {
-      moveOnlyHanlder(evt); // fire move events to server if in canvas
+      moveOnlyHandler(evt); // fire move events to server if in canvas
       moveOrClickHandler(evt); // fire click events to server if clicked and in canvas
     };
 

@@ -40,9 +40,12 @@ const spriteFactory = hash => {
 // make an empty sprite with one layer and one frame
 const initializeEmptySprite = (hash, w, h) => {
   const sprite = spriteFactory(hash);
-  const frame = frameFactory(sprite.frames.length);
-  const layer = layerFactory(w, h, frame.layers.length);
-  frame.layers.push(layer);
+  const frame = frameFactory(0);
+  const fg = layerFactory(w, h, 1);
+  const bg = layerFactory(w, h, 0);
+  bg.name = 'background 1';
+  fg.name = 'foreground 1';
+  frame.layers.push(fg, bg);
   sprite.frames.push(frame);
   return sprite;
 };

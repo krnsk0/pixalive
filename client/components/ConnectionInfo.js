@@ -5,7 +5,7 @@ const constants = require('../../shared/constants');
 const ConnectionInfo = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
-  const [userName, setUserName] = useState('collaborator')
+  const [userName, setUserName] = useState('collaborator');
 
   let socketId, namespace, userCount;
   //Do we still need this?
@@ -27,11 +27,12 @@ const ConnectionInfo = () => {
   useEffect(() => {
     if (sprite) {
       if (socketId !== '[loading]') {
-        if (sprite.users[socketId]){
-          setUserName(sprite.users[socketId].name)
+        if (sprite.users[socketId]) {
+          setUserName(sprite.users[socketId].name);
         }
-    }}
-  }, [sprite])
+      }
+    }
+  }, [sprite]);
 
   //Watch for changes in the user name field and send those to state
   const handleChange = event => {
@@ -44,8 +45,12 @@ const ConnectionInfo = () => {
   return (
     <div className="info">
       <div>Enter Your Username: </div>
-      <input className="username" name='name' type='text' onChange={handleChange} value={userName} />
-      <div>Please note, this name will be visible to any users currently in the same drawing as you. We suggest you do not use your full name as your user name.</div>
+      <input className="username" name="name" type="text" onChange={handleChange} value={userName} />
+      <div>
+        Please note, this name will be visible to any users currently in the
+        same drawing as you. We suggest you do not use your full name as your
+        user name.
+      </div>
       <div>The current socket namespace is: {namespace}</div>
       <div>Users in this namespace: {userCount}</div>
     </div>
@@ -53,5 +58,3 @@ const ConnectionInfo = () => {
 };
 
 export default ConnectionInfo;
-
-

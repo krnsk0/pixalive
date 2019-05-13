@@ -12,8 +12,15 @@ const layerNameChange = require('./layerNameChange');
 const deleteSelectedLayer = require('./deleteSelectedLayer');
 const moveSelectedLayerUp = require('./moveSelectedLayerUp');
 const moveSelectedLayerDown = require('./moveSelectedLayerDown');
+const shiftFrameLeft = require('./shiftFrameLeft');
+const shiftFrameRight = require('./shiftFrameRight');
+const deleteFrame = require('./deleteFrame');
+const duplicateSelectedFrame = require('./duplicateSelectedFrame');
 const updateUserName = require('./updateUserName');
 const updateSpriteName = require('./updateSpriteName');
+const translateLayer = require('./translateLayer');
+const copyLayer = require('./copyLayer');
+const uploadPixels = require('./uploadPixels');
 
 module.exports = {
   cursorMove,
@@ -31,5 +38,12 @@ module.exports = {
   moveSelectedLayerUp,
   moveSelectedLayerDown,
   updateUserName,
-  updateSpriteName
+  updateSpriteName,
+  shiftFrameLeft,
+  shiftFrameRight,
+  duplicateSelectedFrame,
+  deleteFrame,
+  translateLayer,
+  copyLayer,
+  uploadPixels,
 };

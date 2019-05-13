@@ -5,7 +5,9 @@ import {
   ToolPicker,
   AnimationPreviewBox,
   BigCanvas,
-  ColorPicker
+  ColorPicker,
+  LayerTools,
+  LayerCopyButton
 } from './';
 
 const StyleEditorPage = () => {
@@ -21,6 +23,8 @@ const StyleEditorPage = () => {
       <div className="right-section-container">
         <AnimationPreviewBox />
         <LayerPicker />
+        <LayerCopyButton />
+        <LayerTools />
       </div>
     </div>
   );

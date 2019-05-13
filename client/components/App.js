@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
-import { ConnectionInfo, StyleEditorPage, FramePicker, Navbar } from './';
+import {
+  ConnectionInfo,
+  StyleEditorPage,
+  FramePicker,
+  ExportStringButton,
+  ImportStringButton,
+  Navbar
+} from './';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
@@ -52,8 +59,8 @@ const App = () => {
           }
         }
       };
-      console.log('FROM APP>JS', newState)
-      return newState
+      console.log('FROM APP>JS', newState);
+      return newState;
     } else if (action.type === constants.MSG.SEND_CHANGE_LIST) {
       // shallow copy so we can loop over a var hre
       let newState = {
@@ -150,12 +157,12 @@ const App = () => {
 
     //when we update selected tool in the server dispatch to sprite state
     socket.on(constants.MSG.SELECTED_TOOL_UPDATE, selectedTool => {
-      console.log(selectedTool)
+      console.log(selectedTool);
       spriteDispatch({
         type: constants.MSG.SELECTED_TOOL_UPDATE,
         ...selectedTool
-      })
-    })
+      });
+    });
 
     // when we get a cursor update, dispatch to sprite state
     socket.on(constants.MSG.CURSOR_UPDATE, update => {
@@ -169,11 +176,11 @@ const App = () => {
 
     //when we update user name in the server dispatch to sprite state
     socket.on(constants.MSG.SEND_USERNAME, name => {
-      console.log(name)
+      console.log(name);
       spriteDispatch({
         type: constants.MSG.SEND_USERNAME,
         ...name
-      })
+      });
     });
 
      // when we get a name update, dispatch to sprite state
@@ -190,6 +197,8 @@ const App = () => {
           <StyleEditorPage />
           <FramePicker />
           <ConnectionInfo />
+          <ExportStringButton />
+          <ImportStringButton />
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>

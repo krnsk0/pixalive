@@ -22,9 +22,11 @@ const renderSingleLayer = (layer, ctx, canvasWidth, canvasHeight) => {
 };
 
 const renderSmallCanvas = (ctx, layers, canvasWidth, canvasHeight) => {
-  layers.forEach(layer => {
-    renderSingleLayer(layer, ctx, canvasWidth, canvasHeight);
-  });
+  if (layers) {
+    layers.forEach(layer => {
+      renderSingleLayer(layer, ctx, canvasWidth, canvasHeight);
+    });
+  }
 };
 
 export default renderSmallCanvas;
