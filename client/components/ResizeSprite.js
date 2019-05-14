@@ -22,20 +22,27 @@ const NewSpriteSize = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select
-        value={spriteSize}
-        onChange={e => {
-          setSpriteSize(e.target.value);
-        }}
-      >
-        <option value={16}>16x16</option>
-        <option value={32}>32x32</option>
-        <option value={48}>48x48</option>
-        <option value={64}>64x64</option>
-      </select>
-      <input type="submit" value="Resize sprite" />
-    </form>
+    <div className="resize-picker-container">
+      <form onSubmit={handleSubmit}>
+        <select
+          className="resize-selector"
+          value={spriteSize}
+          onChange={e => {
+            setSpriteSize(e.target.value);
+          }}
+        >
+          <option value={16}>16x16</option>
+          <option value={32}>32x32</option>
+          <option value={48}>48x48</option>
+          <option value={64}>64x64</option>
+        </select>
+        <input
+          type="submit"
+          value="Resize sprite"
+          className="resize-sprite-button"
+        />
+      </form>
+    </div>
   );
 };
 
