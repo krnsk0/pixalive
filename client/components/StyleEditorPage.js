@@ -18,13 +18,13 @@ const StyleEditorPage = () => {
         <ToolPicker />
         <ColorPicker />
         <ResizeSprite />
+        <LayerPicker />
       </div>
       <div>
         <BigCanvas />
       </div>
       <div className="middle-section-right">
         <AnimationPreviewBox />
-        <LayerPicker />
         <LayerCopyButton />
         <LayerTools />
       </div>

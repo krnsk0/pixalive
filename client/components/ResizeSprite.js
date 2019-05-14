@@ -35,7 +35,11 @@ const NewSpriteSize = () => {
           <option value={48}>48x48</option>
           <option value={64}>64x64</option>
         </select>
-        <input type="submit" value="Resize sprite" />
+        <input
+          type="submit"
+          value="Resize sprite"
+          className="resize-sprite-button"
+        />
       </form>
     </div>
   );
