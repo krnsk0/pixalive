@@ -189,7 +189,7 @@ const Editor = props => {
   }, []);
 
   return (
-    <div>
+    <div className="app-container">
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <Navbar />
