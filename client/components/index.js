@@ -10,10 +10,10 @@ export { default as ColorPicker } from './ColorPicker';
 export { default as StyleEditorPage } from './StyleEditorPage';
 export { default as Navbar } from './Navbar';
 export { default as LayerTools } from './LayerTools';
-export { default as LayerCopyButton } from './LayerCopyButton';
 export { default as ImportStringButton } from './ImportStringButton';
 export { default as ExportStringButton } from './ExportStringButton';
-export { default as ResizeSprite } from './ResizeSprite'
+export { default as ResizeSprite } from './ResizeSprite';
 export { default as GifExportButton } from './GifExportButton';
 export { default as Main } from './Main';
 export { default as Homepage } from './Homepage';
+export { default as CopyTools } from './copyTools';

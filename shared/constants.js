@@ -48,7 +48,7 @@ module.exports = deepFreeze({
     UPLOAD_PIXELS: 'upload_pixels',
     RESIZE_SPRITE: 'resize_sprite',
     ROTATE_SELECTED_LAYER: 'rotate_selected_layer',
-    
+    COPY_LAYER_TO_ONE_FRAME: 'copy_layer_to_one_frame'
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -59,7 +59,7 @@ module.exports = deepFreeze({
     BRUSH_16: 'brush_16',
     BRUSH_32: 'brush_32',
     BRUSH_48: 'brush_48',
-    BRUSH_64: 'brush_64',
+    BRUSH_64: 'brush_64'
   },
   CANVAS_HEIGHT: 576, // measured in screen pixels
   CANVAS_WIDTH: 576, // measured in screen pixels
@@ -71,5 +71,8 @@ module.exports = deepFreeze({
   PIXEL_HIGHLIGHT_COLOR: `hsl(0, 0%, 50%, 0.5`,
   FRAME_CAP: 32,
   LAYER_CAP: 6,
-  FPS_CAP: 24
+  FPS_CAP: 24,
+  SL_PICKER_WIDTH: 100,
+  SL_PICKER_HEIGHT: 100,
+  H_PICKER_WIDTH: 100
 });
