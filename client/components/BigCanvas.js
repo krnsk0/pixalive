@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable max-statements */
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 import {
@@ -150,6 +152,20 @@ const BigCanvas = () => {
       selectedTool = sprite.users[socketId].selectedTool;
     }
   }
+  let brush;
+
+  if (sprite.frames[0].layers[0].pixels.length === 16) {
+    brush = constants.TOOLS.BRUSH_16;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 32) {
+    brush = constants.TOOLS.BRUSH_32;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 48) {
+    brush = constants.TOOLS.BRUSH_48;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 64) {
+    brush = constants.TOOLS.BRUSH_64;
+  }
 
   return (
     <div>
@@ -164,6 +180,8 @@ const BigCanvas = () => {
           'big-canvas-eraser' :
         selectedTool === constants.TOOLS.EYE_DROPPER ?
           'big-canvas-eye-dropper' :
+        selectedTool === brush ?
+        'big-canvas-brush' :
           'big-canvas'
       } />
     </div>
