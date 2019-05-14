@@ -7,20 +7,22 @@ import {
   BigCanvas,
   ColorPicker,
   LayerTools,
-  LayerCopyButton
+  LayerCopyButton,
+  ResizeSprite
 } from './';
 
 const StyleEditorPage = () => {
   return (
     <div className="middle-section-container">
-      <div className="left-section-container">
+      <div className="middle-section-left">
         <ToolPicker />
         <ColorPicker />
+        <ResizeSprite />
       </div>
       <div>
         <BigCanvas />
       </div>
-      <div className="right-section-container">
+      <div className="middle-section-right">
         <AnimationPreviewBox />
         <LayerPicker />
         <LayerCopyButton />
