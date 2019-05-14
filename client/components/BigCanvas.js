@@ -156,6 +156,20 @@ const BigCanvas = () => {
       selectedTool = sprite.users[socketId].selectedTool;
     }
   }
+  let brush;
+
+  if (sprite.frames[0].layers[0].pixels.length === 16) {
+    brush = constants.TOOLS.BRUSH_16;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 32) {
+    brush = constants.TOOLS.BRUSH_32;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 48) {
+    brush = constants.TOOLS.BRUSH_48;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 64) {
+    brush = constants.TOOLS.BRUSH_64;
+  }
 
   // determine class name addendum
   let extraClassName;
