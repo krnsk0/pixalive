@@ -12,10 +12,7 @@ const NewSpriteSize = () => {
     }
   }, [sprite]);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 595d63b1472e8eb54c055e4456e8a55ee6ae7791
   const [spriteSize, setSpriteSize] = useState();
 
   const handleSubmit = evt => {

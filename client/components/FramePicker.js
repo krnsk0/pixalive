@@ -26,13 +26,6 @@ const FramePicker = () => {
     }
   };
 
-  // click handler for adding frames
-  const onAddNewFrameClick = () => {
-    if (socket) {
-      socket.emit(constants.MSG.ADD_NEW_FRAME);
-    }
-  };
-
   // click handler for shifting frames left
   const onShiftFrameLeftClick = frameOrder => {
     if (socket) {
@@ -54,96 +47,71 @@ const FramePicker = () => {
     }
   };
 
-  const onDuplicatedSelectedFrameClick = () => {
-    if (socket) {
-      socket.emit(constants.MSG.DUPLICATE_SELECTED_FRAME);
-    }
-  };
-
   return (
     <div className="bottom-section-container">
-      {frames.map(frame => {
-        const backButtonStyle =
-          frame.frameOrder === 0
-            ? {
-                visibility: 'hidden'
+      <div className="bottom-section-flex-container">
+        {' '}
+        {frames.map(frame => {
+          const backButtonStyle =
+            frame.frameOrder === 0
+              ? {
+                  visibility: 'hidden'
+                }
+              : {};
+          const fwdButtonStyle =
+            frame.frameOrder === frames.length - 1
+              ? {
+                  visibility: 'hidden'
+                }
+              : {};
+          return (
+            <div
+              key={frame.frameOrder}
+              className={
+                frame.frameOrder === selectedFrame
+                  ? 'frame-container selected'
+                  : 'frame-container'
               }
-            : {};
-        const fwdButtonStyle =
-          frame.frameOrder === frames.length - 1
-            ? {
-                visibility: 'hidden'
-              }
-            : {};
-        return (
-          <div
-            key={frame.frameOrder}
-            className={
-              frame.frameOrder === selectedFrame
-                ? 'frame-container selected'
-                : 'frame-container'
-            }
-          >
-            <div onClick={() => onFrameClick(frame.frameOrder)}>
-              <SmallCanvas
-                canvasWidth={canvasWidth}
-                canvasHeight={canvasHeight}
-                layers={frame.layers}
-                canvasType="frame"
-              />
-            </div>
-            <div className="frame-button-container">
-              <div
-                className="frame-button"
-                onClick={() => onShiftFrameLeftClick(frame.frameOrder)}
-              >
-                <GoTriangleLeft
-                  className="frame-button-icon "
-                  size={16}
-                  style={backButtonStyle}
+            >
+              <div onClick={() => onFrameClick(frame.frameOrder)}>
+                <SmallCanvas
+                  canvasWidth={canvasWidth}
+                  canvasHeight={canvasHeight}
+                  layers={frame.layers}
+                  canvasType="frame"
                 />
               </div>
-              <div
-                className="frame-button"
-                onClick={() => onDeleteFrameClick(frame.frameOrder)}
-              >
-                <GoTrashcan className="frame-button-icon " size={16} />
-              </div>
-              <div
-                className="frame-button"
-                onClick={() => onShiftFrameRightClick(frame.frameOrder)}
-              >
-                <GoTriangleRight
-                  className="frame-button-icon "
-                  size={16}
-                  style={fwdButtonStyle}
-                />
-              </div>
-            </div>
-          </div>
-        );
-      })}
-      <div className="frame-container">
-        <div className="add-new-frame">
-          {frames.length <= constants.FRAME_CAP ? (
-            <div>
-              <div
-                className="add-new-frame-button"
-                onClick={onAddNewFrameClick}
-              >
-                Add Frame
-              </div>
-              <div
-                className="add-new-frame-button"
-                onClick={onDuplicatedSelectedFrameClick}
-              >
-                Clone Frame
+              <div className="frame-button-container">
+                <div
+                  className="frame-button"
+                  onClick={() => onShiftFrameLeftClick(frame.frameOrder)}
+                >
+                  <GoTriangleLeft
+                    className="frame-button-icon "
+                    size={16}
+                    style={backButtonStyle}
+                  />
+                </div>
+                <div
+                  className="frame-button"
+                  onClick={() => onDeleteFrameClick(frame.frameOrder)}
+                >
+                  <GoTrashcan className="frame-button-icon " size={16} />
+                </div>
+                <div
+                  className="frame-button"
+                  onClick={() => onShiftFrameRightClick(frame.frameOrder)}
+                >
+                  <GoTriangleRight
+                    className="frame-button-icon "
+                    size={16}
+                    style={fwdButtonStyle}
+                  />
+                </div>
               </div>
             </div>
-          ) : (
-            <div className="frame-cap-message">Frame cap reached</div>
-          )}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

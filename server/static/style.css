@@ -3,6 +3,7 @@ body {
   margin: 0px;
   font-family: 'Helvetica Neue', 'Arial', sans-serif;
   background-color: var(--body-background);
+  min-width: 620px;
 }
 
 /* colors */
@@ -22,12 +23,8 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 .middle-section-container {
-  flex: 2;
   background-color: var(--body-background);
 }
 .top-section-container,
@@ -38,15 +35,18 @@ body {
 /* top bar */
 .top-section-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .top-left {
+  width: 200px;
   margin: 10px;
 }
 .top-middle {
+  width: 576px;
   margin: 10px;
 }
 .top-right {
+  width: 200px;
   display: flex;
   margin: 10px;
 }
@@ -78,32 +78,39 @@ body {
 .middle-section-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 .middle-section-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-content: center;
-  background-color: var(--standout-background);
 }
 .middle-section-right {
-  flex: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  margin-left: 10px;
 }
 .big-canvas {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: white;
 }
 
 /* frame container */
 .bottom-section-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   overflow-x: auto;
 }
+.bottom-section-flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
 .frame-container {
+  flex: 0 0 auto;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 5px;
@@ -142,8 +149,6 @@ body {
   justify-content: space-between;
   width: 100%;
 }
-.frame-button {
-}
 .frame-button-icon {
   margin-top: 5px;
   color: black;
@@ -157,22 +162,17 @@ body {
   color: black;
   font-size: 14px;
   background-color: var(--very-light-emphasis);
+  border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 6px;
   padding: 4px;
-  border-radius: 5px;
 }
 .frame-cap-message {
   color: black;
 }
 
 /* main canvas */
-.middle-section-right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .layer-canvas {
   background-color: black;
   border-radius: 5px;
@@ -182,18 +182,20 @@ body {
 
 /* tools */
 .tool-container {
+  width: 204px;
   margin-top: 10px;
-  align-self: center;
-  flex-direction: column;
+  margin-left: 10px;
+  flex-direction: row;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 140px;
   padding: 5px;
+  background-color: var(--light-emphasis);
+  border-radius: 5px;
 }
 .tool-button {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   margin: 1px;
   background-color: var(--body-background);
   border-radius: 4px;
@@ -211,10 +213,9 @@ body {
 
 /* animation */
 .animation-container {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 20px;
+  margin-right: 10px;
   border: 2px solid var(--light-emphasis);
   border-radius: 5px;
   width: 200px;
@@ -268,8 +269,14 @@ body {
 /* layer picker */
 .layer-container {
   margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 20px;
+  margin-left: 10px;
+  width: 206px;
+  border: 4px solid var(--light-emphasis);
+  border-radius: 5px;
+}
+.layer-translation-container {
+  margin-bottom: 10px;
+  margin-right: 10px;
   width: 196px;
   border: 4px solid var(--light-emphasis);
   border-radius: 5px;
@@ -305,41 +312,59 @@ body {
 }
 
 .layer-button-icon {
-  margin-top: 5px;
+  margin-top: 2px;
   color: black;
 }
+.layer-row-container {
+  height: 126px;
+  background-color: var(--standout-background);
+}
 
-.layer-copy-button {
+/* copy tools  */
+.copy-tools-container {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 196px;
+  border: 4px solid var(--light-emphasis);
+  border-radius: 5px;
   background-color: var(--light-emphasis);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+}
+.copy-tools-button {
+  background-color: var(--very-light-emphasis);
   display: flex;
   flex-direction: row;
   justify-content: start;
-  align-content: center;
+  align-items: center;
   border-radius: 5px;
   padding: 5px;
+  width: 180px;
   margin-bottom: 10px;
-  margin-left: 5px;
-  margin-right: 20px;
-  width: 194px;
 }
-.layer-copy-icon {
+.copy-tools-icon {
   color: black;
   margin: 5px;
   margin-left: 10px;
 }
-.layer-copy-text {
-  margin: 5px;
+.copy-tools-text {
   font-size: 16px;
   color: black;
   text-align: center;
+  width: 100%;
 }
 .layer-tool-container {
+  padding-top: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
   background-color: var(--light-emphasis);
 }
+
 /* navbar */
 .navbar-button {
   margin: 10px;
@@ -447,4 +472,63 @@ body {
 
 .info {
   color: var(--light-text);
+}
+.color-picker-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 2px solid var(--light-emphasis);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--light-emphasis);
+  padding: 10px;
+}
+.h-picker {
+  width: 180px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+.sl-picker {
+  width: 180px;
+  height: 180px;
+}
+.selected-color-row {
+  margin-top: 10px;
+  display: flex;
+}
+.swatch {
+  height: 18px;
+  width: 18px;
+  background-color: white;
+  margin-top: 1px;
+  margin-left: 10px;
+}
+.resize-picker-container {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 2px solid var(--light-emphasis);
+  border-radius: 5px;
+  background-color: var(--light-emphasis);
+  padding: 10px;
+}
+.resize-picker-container form {
+  width: 190px;
+}
+.resize-selector {
+  background-color: var(--very-light-emphasis);
+  color: black;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.resize-sprite-button {
+  font-size: 15px;
+  background-color: var(--very-light-emphasis);
+  border-radius: 5px;
+  margin: 0px;
+  top: -1px;
 }
