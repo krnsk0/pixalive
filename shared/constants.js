@@ -48,13 +48,18 @@ module.exports = deepFreeze({
     UPLOAD_PIXELS: 'upload_pixels',
     RESIZE_SPRITE: 'resize_sprite',
     ROTATE_SELECTED_LAYER: 'rotate_selected_layer',
+    
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
     PEN: 'pen',
     ERASER: 'eraser',
     EYE_DROPPER: 'eye_dropper',
-    PAINT_CAN: 'paint_can'
+    PAINT_CAN: 'paint_can',
+    BRUSH_16: 'brush_16',
+    BRUSH_32: 'brush_32',
+    BRUSH_48: 'brush_48',
+    BRUSH_64: 'brush_64',
   },
   CANVAS_HEIGHT: 576, // measured in screen pixels
   CANVAS_WIDTH: 576, // measured in screen pixels

@@ -7,6 +7,7 @@ const Navbar = (props) => {
     const [name, setName ] = useState('Untitled');
     const sprite = useContext(SpriteContext);
     const socket = useContext(SocketContext);
+
     let hashString = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let hashVal;
 
