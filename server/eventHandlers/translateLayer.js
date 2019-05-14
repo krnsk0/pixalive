@@ -1,4 +1,5 @@
 const constants = require('../../shared/constants');
+const rotate = require('./rotate')
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new layer to all frames
@@ -10,7 +11,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     const selectedLayer = state[spriteHash].users[socketId].selectedLayer;
 
     // get selsected layer
-    const pixels =
+    let pixels =
       state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels;
 
     if (dir === 'up') {
@@ -29,8 +30,11 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         const temp = row.pop();
         row.unshift(temp);
       });
+    } else if (dir === 'rotate') {
+      state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = rotate(pixels)
     }
 
+    
     //send updated sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
