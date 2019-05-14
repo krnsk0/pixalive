@@ -38,8 +38,9 @@ body {
   justify-content: center;
 }
 .top-left {
-  width: 200px;
-  margin: 10px;
+  width: 234px;
+  margin-left: 30px;
+  margin-top: 10px;
 }
 .top-middle {
   width: 576px;
@@ -51,9 +52,8 @@ body {
   margin: 10px;
 }
 .app-title {
-  color: var(--light-text);
-  font-size: 25px;
   cursor: pointer;
+  width: 220px;
 }
 .sprite-title {
   color: var(--light-text);

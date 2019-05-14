@@ -34,7 +34,7 @@ const Navbar = props => {
     <div className="top-section-container">
       <div className="top-left">
         <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
-          <div className="app-title">PIXALIVE</div>
+          <img className="app-title" src="/logo.png" />
         </Link>
       </div>
       <div className="top-middle">
