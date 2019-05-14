@@ -6,7 +6,8 @@ import {
   GoArrowDown,
   GoArrowLeft,
   GoArrowRight,
-  GoArrowUp
+  GoArrowUp, 
+  GoMirror
 } from 'react-icons/go';
 import { MdRotate90DegreesCcw } from 'react-icons/md';
 const constants = require('../../shared/constants');
@@ -45,6 +46,12 @@ const LayerTools = () => {
           }}
         >
           <MdRotate90DegreesCcw className="layer-tool-icon" size={28} />
+        </div>
+        <div
+          className="layer-tool-button"
+          onClick={() => onLayerTranslateClick('mirror')}
+        >
+        <GoMirror className="layer-tool-icon" size={28} />
         </div>
         <div
           className="layer-tool-button"
