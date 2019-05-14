@@ -1,13 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { Link } from 'react-router-dom';
+import { GoPencil } from 'react-icons/go';
 
 const Navbar = props => {
   const [name, setName] = useState('Untitled');
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
   const [userName, setUserName] = useState('collaborator');
+
   let hashString =
     '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
   let hashVal;
@@ -50,6 +53,7 @@ const Navbar = props => {
     setName(evt.target.value);
     socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
   };
+
   return (
     <div className="top-section-container">
       <div className="top-left">
@@ -66,6 +70,11 @@ const Navbar = props => {
             value={name}
             onChange={onSpriteNameChange}
           />
+
+          <div className="top-input-box-label">
+            <GoPencil className="input-box-pencil-icon" size={10} />
+            Sprite Title
+          </div>
         </div>
         <div className="navbar-title-block">
           <input
@@ -75,13 +84,20 @@ const Navbar = props => {
             onChange={handleChange}
             value={userName}
           />
+
+          <div className="top-input-box-label">
+            <GoPencil className="input-box-pencil-icon" size={10} />
+            Display Name
+          </div>
         </div>
       </div>
       <div className="top-right">
         <Link to={`/${hashVal}`} style={{ textDecoration: 'none' }}>
           <div className="top-button">New Sprite</div>
         </Link>
-        <div className="top-button">Export</div>
+        <div className="top-button" onClick={() => setPopup(true)}>
+          Import/Export
+        </div>
       </div>
     </div>
   );

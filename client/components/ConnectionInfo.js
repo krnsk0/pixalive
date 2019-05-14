@@ -25,8 +25,8 @@ const ConnectionInfo = () => {
 
   return (
     <div className="info">
-      <div>The current socket namespace is: {namespace}</div>
-      <div>Users in this namespace: {userCount}</div>
+      <div className="connection-block">Namespace: {namespace}</div>
+      <div>Users: {userCount}</div>
     </div>
   );
 };

@@ -9,13 +9,16 @@ import {
   Navbar,
   GifExportButton
 } from './';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
 const Editor = props => {
   // state for the socket
   const [socket, setSocket] = useState(false);
+
+  // popup state
+  const [popup, setPopup] = useState(false);
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
@@ -192,13 +195,24 @@ const Editor = props => {
     <div className="app-container">
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
-          <Navbar />
-          <StyleEditorPage />
-          <FramePicker />
-          <ConnectionInfo />
-          <ExportStringButton />
-          <ImportStringButton />
-          <GifExportButton />
+          <PopupContext.Provider value={[popup, setPopup]}>
+            {popup && (
+              <div className="popup-outer-container" onClick={null}>
+                <div className="popup">
+                  <div className="close-popup" onClick={() => setPopup(false)}>
+                    close
+                  </div>
+                </div>
+              </div>
+            )}
+            <Navbar />
+            <StyleEditorPage />
+            <FramePicker />
+            <ConnectionInfo />
+            <ExportStringButton />
+            <ImportStringButton />
+            <GifExportButton />
+          </PopupContext.Provider>
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>

@@ -1,6 +1,7 @@
+/* eslint-disable max-statements */
 /* eslint-disable complexity */
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 import {
   renderCursors,
   renderBigCanvas,
@@ -17,6 +18,9 @@ const BigCanvas = () => {
   // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
+  const popupRef = useRef();
+  popupRef.current = popup;
   const [canvasMouseCoords, setCanvasMouseCoords] = useState({
     x: false,
     y: false
@@ -95,7 +99,9 @@ const BigCanvas = () => {
         evt.clientY
       );
       // if in canvas and clicked, send click to server
-      if (inCanvas && mouseClickedRef.current) {
+      // don't allow clicks when in popup
+      console.log('popup in big canvas: ', popupRef.current);
+      if (inCanvas && mouseClickedRef.current && !popupRef.current) {
         const pixelCoords = convertCanvasToPixelCoords(
           canvasMouseCoordsRef.current,
           spriteRef.current
