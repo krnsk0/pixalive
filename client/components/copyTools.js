@@ -2,13 +2,7 @@
 /* eslint-disable complexity */
 import React, { useContext } from 'react';
 import { SocketContext } from '../contexts';
-import {
-  GoClippy,
-  GoDiffAdded,
-  GoDiff,
-  GoCode,
-  GoChevronRight
-} from 'react-icons/go';
+import { GoClippy, GoDiffAdded, GoCode, GoChevronRight } from 'react-icons/go';
 
 const constants = require('../../shared/constants');
 
