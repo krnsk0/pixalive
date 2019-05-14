@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable max-statements */
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 import {
@@ -142,9 +144,46 @@ const BigCanvas = () => {
     renderCursors(ctx, sprite, socket);
   });
 
+  // get the selected tool
+  let selectedTool = 'pen';
+  if (socket && Object.keys(sprite.users).length) {
+    const socketId = socket.id.slice(socket.nsp.length + 1);
+    if (sprite.users[socketId]) {
+      selectedTool = sprite.users[socketId].selectedTool;
+    }
+  }
+  let brush;
+
+  if (sprite.frames[0].layers[0].pixels.length === 16) {
+    brush = constants.TOOLS.BRUSH_16;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 32) {
+    brush = constants.TOOLS.BRUSH_32;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 48) {
+    brush = constants.TOOLS.BRUSH_48;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 64) {
+    brush = constants.TOOLS.BRUSH_64;
+  }
+
   return (
     <div>
-      <canvas ref={canvasRef} className="big-canvas" />
+      <canvas
+      ref={canvasRef}
+      className={
+        selectedTool === constants.TOOLS.PAINT_CAN ?
+          'big-canvas-paint-can' :
+        selectedTool === constants.TOOLS.PEN ?
+          'big-canvas-pen' :
+        selectedTool === constants.TOOLS.ERASER ?
+          'big-canvas-eraser' :
+        selectedTool === constants.TOOLS.EYE_DROPPER ?
+          'big-canvas-eye-dropper' :
+        selectedTool === brush ?
+        'big-canvas-brush' :
+          'big-canvas'
+      } />
     </div>
   );
 };
