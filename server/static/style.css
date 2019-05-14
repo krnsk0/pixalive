@@ -100,28 +100,28 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
-  cursor: url("https://img.icons8.com/color/15/000000/fill-color.png"), auto;
+  cursor: url("https://img.icons8.com/color/15/000000/fill-color.png") 25 25, auto;
 }
 
 .big-canvas-pen {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
-  cursor: url("https://img.icons8.com/color/15/000000/pencil-tip.png"), auto;
+  cursor: url("https://img.icons8.com/color/15/000000/pencil-tip.png") -3 12, auto;
 }
 
 .big-canvas-eraser {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
-  cursor: url("https://img.icons8.com/color/15/000000/eraser.png"), auto;
+  cursor: url("https://img.icons8.com/color/15/000000/eraser.png") -8 15, auto;
 }
 
 .big-canvas-eye-dropper {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
-  cursor: url("https://img.icons8.com/color/20/000000/map-pin.png"), auto;
+  cursor: url("https://img.icons8.com/color/20/000000/map-pin.png") 10 20, auto;
 }
 
 
