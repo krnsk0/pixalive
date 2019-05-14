@@ -6,12 +6,6 @@ const NewSpriteSize = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
 
-  // useEffect(() => {
-  //   if (sprite) {
-  //     setSpriteSize(sprite.frames[0].layers[0].pixels.length);
-  //   }
-  // }, [sprite]);
-
 
   const [spriteSize, setSpriteSize] = useState();
 

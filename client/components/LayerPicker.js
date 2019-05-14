@@ -135,19 +135,21 @@ const LayerPicker = () => {
           <GoTriangleUp className="layer-button-icon" size={22} />
         </div>
       </div>
-      {layers.map(layer => (
-        <div
-          key={layer.layerOrder}
-          className={
-            layer.layerOrder === selectedLayer
-              ? 'layer-row selected'
-              : 'layer-row'
-          }
-          onClick={() => onSelectLayerClick(layer.layerOrder)}
-        >
-          {layer.name}
-        </div>
-      ))}
+      <div className="layer-row-container">
+        {layers.map(layer => (
+          <div
+            key={layer.layerOrder}
+            className={
+              layer.layerOrder === selectedLayer
+                ? 'layer-row selected'
+                : 'layer-row'
+            }
+            onClick={() => onSelectLayerClick(layer.layerOrder)}
+          >
+            {layer.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
