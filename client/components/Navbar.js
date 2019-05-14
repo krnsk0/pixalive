@@ -15,6 +15,20 @@ const Navbar = () => {
     hashVal = '';
     for (let j = 0; j < 12; j++) {
       hashVal += hashString[Math.floor(Math.random() * hashString.length)];
+    const [name, setName ] = useState('Untitled');
+    const sprite = useContext(SpriteContext);
+    const socket = useContext(SocketContext);
+    useEffect(() => {
+        if (socket) {
+          if (sprite) {
+            setName(sprite.name);
+          }
+        }
+      }, [sprite]);
+
+    const onSpriteNameChange = (evt) => {
+        setName(evt.target.value)
+        socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
     }
   }
 
