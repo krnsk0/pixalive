@@ -5,7 +5,6 @@ const constants = require('../../shared/constants');
 const NewSpriteSize = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
-  const [spriteSize, setSpriteSize] = useState();
 
   useEffect(() => {
     if (sprite) {
@@ -14,18 +13,11 @@ const NewSpriteSize = () => {
   }, [sprite]);
 
   const [spriteSize, setSpriteSize] = useState();
-  const brushes = [
-    constants.TOOLS.BRUSH_16,
-    constants.TOOLS.BRUSH_32,
-    constants.TOOLS.BRUSH_48,
-    constants.TOOLS.BRUSH_64
-  ];
 
   const handleSubmit = evt => {
     evt.preventDefault();
     if (socket) {
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
-      socket.emit(constants.TOOLS.SELECT_TOOL, constants.TOOLS.PEN);
     }
   };
 
