@@ -142,9 +142,30 @@ const BigCanvas = () => {
     renderCursors(ctx, sprite, socket);
   });
 
+  // get the selected tool
+  let selectedTool = 'pen';
+  if (socket && Object.keys(sprite.users).length) {
+    const socketId = socket.id.slice(socket.nsp.length + 1);
+    if (sprite.users[socketId]) {
+      selectedTool = sprite.users[socketId].selectedTool;
+    }
+  }
+
   return (
     <div>
-      <canvas ref={canvasRef} className="big-canvas" />
+      <canvas
+      ref={canvasRef}
+      className={
+        selectedTool === constants.TOOLS.PAINT_CAN ?
+          'big-canvas-paint-can' :
+        selectedTool === constants.TOOLS.PEN ?
+          'big-canvas-pen' :
+        selectedTool === constants.TOOLS.ERASER ?
+          'big-canvas-eraser' :
+        selectedTool === constants.TOOLS.EYE_DROPPER ?
+          'big-canvas-eye-dropper' :
+          'big-canvas'
+      } />
     </div>
   );
 };

@@ -5,14 +5,13 @@ const constants = require('../../shared/constants');
 const NewSpriteSize = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
+  const [spriteSize, setSpriteSize] = useState();
 
   useEffect(() => {
     if (sprite) {
       setSpriteSize(sprite.frames[0].layers[0].pixels.length);
     }
   }, [sprite]);
-
-  const [spriteSize, setSpriteSize] = useState();
 
   const handleSubmit = evt => {
     evt.preventDefault();

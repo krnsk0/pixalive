@@ -30,12 +30,10 @@ const Navbar = props => {
 
   //Watch the sprite object for changes and update the user name
   useEffect(() => {
-    if (sprite) {
-      if (socket) {
-        const socketId = socket.id.slice(socket.nsp.length + 1);
-        if (sprite.users[socketId]) {
-          setUserName(sprite.users[socketId].name);
-        }
+    if (socket) {
+      const socketId = socket.id.slice(socket.nsp.length + 1);
+      if (sprite.users[socketId]) {
+        setUserName(sprite.users[socketId].name);
       }
     }
   }, [sprite]);
