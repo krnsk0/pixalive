@@ -6,9 +6,9 @@ import {
   GoArrowDown,
   GoArrowLeft,
   GoArrowRight,
-  GoArrowUp,
-  GoClock
+  GoArrowUp
 } from 'react-icons/go';
+import { MdRotate90DegreesCcw } from 'react-icons/md';
 const constants = require('../../shared/constants');
 
 const LayerTools = () => {
@@ -40,6 +40,14 @@ const LayerTools = () => {
         </div>
         <div
           className="layer-tool-button"
+          onClick={() => {
+            onLayerTranslateClick('rotate');
+          }}
+        >
+          <MdRotate90DegreesCcw className="layer-tool-icon" size={28} />
+        </div>
+        <div
+          className="layer-tool-button"
           onClick={() => onLayerTranslateClick('down')}
         >
           <GoArrowDown className="layer-tool-icon" size={32} />
@@ -49,12 +57,6 @@ const LayerTools = () => {
           onClick={() => onLayerTranslateClick('up')}
         >
           <GoArrowUp className="layer-tool-icon" size={32} />
-        </div>
-        <div
-          className="layer-tool-button"
-          onClick={() => {onLayerTranslateClick('rotate')}}
-        >
-          <GoClock className="layer-tool-icon" size={32} />
         </div>
       </div>
     </div>
