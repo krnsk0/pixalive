@@ -24,9 +24,8 @@ module.exports = (brushType, x, y, layerToDraw) => {
         field = coordMaker(6, x, y)
     }
     else if (brushType === constants.TOOLS.BRUSH_64){
-        field = coordMaker(8, x, y)
+        field = coordMaker(7, x, y)
     }
-    console.log(field.length)
     return field.filter(a => a.x >= 0 && a. y >= 0 & a.x < layerToDraw.length && a.y < layerToDraw.length)
 }
 
