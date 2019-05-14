@@ -1,5 +1,6 @@
 const constants = require('../../shared/constants');
 const rotate = require('./rotate')
+const mirror = require('./mirror')
 
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   //add new layer to all frames
@@ -32,7 +33,10 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       });
     } else if (dir === 'rotate') {
       state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = rotate(pixels)
+    } else if (dir === 'mirror') {
+      state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = mirror(pixels)
     }
+
 
     
     //send updated sprite
