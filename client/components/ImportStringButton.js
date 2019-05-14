@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 
 const ImportStringButton = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
 
   const onImportFromStringClick = () => {
     if (socket) {
@@ -13,12 +14,13 @@ const ImportStringButton = () => {
       if (savedPixels) {
         const json = JSON.parse(atob(savedPixels));
         socket.emit(constants.MSG.UPLOAD_PIXELS, json);
+        setPopup(false);
       }
     }
   };
 
   return (
-    <div className="navbar-button" onClick={onImportFromStringClick}>
+    <div className="popup-button" onClick={onImportFromStringClick}>
       Import from String
     </div>
   );

@@ -1,65 +1,106 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { Link } from 'react-router-dom';
+import { GoPencil } from 'react-icons/go';
 
-const Navbar = (props) => {
-    const [name, setName ] = useState('Untitled');
-    const sprite = useContext(SpriteContext);
-    const socket = useContext(SocketContext);
+const Navbar = props => {
+  const [name, setName] = useState('Untitled');
+  const sprite = useContext(SpriteContext);
+  const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
+  const [userName, setUserName] = useState('collaborator');
 
-    let hashString = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-    let hashVal;
+  let hashString =
+    '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+  let hashVal;
 
-    for (let i = 0; i < 10; i++) {
-            hashVal = ''
-        for (let j = 0; j < 12; j++) {
-                hashVal += hashString[Math.floor(Math.random() * hashString.length)];
-        }
+  for (let i = 0; i < 10; i++) {
+    hashVal = '';
+    for (let j = 0; j < 12; j++) {
+      hashVal += hashString[Math.floor(Math.random() * hashString.length)];
     }
+  }
 
-    useEffect(() => {
-        if (socket) {
-          if (sprite) {
-            setName(sprite.name);
-          }
-        }
-      }, [sprite]);
-
-    const onSpriteNameChange = (evt) => {
-        setName(evt.target.value)
-        socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
+  // watch for changes to name
+  useEffect(() => {
+    if (socket) {
+      if (sprite) {
+        setName(sprite.name);
+      }
     }
-    return (
-        <div className="top-section-container">
-            <div className="top-left">
-                <Link
-                    to= "/"
-                    style={{ textDecoration: 'none', color: 'white'}} >
-                <div className="app-title">PIXALIVE</div>
-                </Link>
-            </div>
-            <div className="top-middle">
-                <div className="sprite-title">
-                    <input
-                    className="input-name"
-                    type="text"
-                    name="sprite-name"
-                    value={name}
-                    onChange={onSpriteNameChange}
-                    />
-                </div>
-            </div>
-            <div className="top-right">
-                <Link
-                    to={`/${hashVal}`}
-                    style={{ textDecoration: 'none', color: '#212121'}} >
-                <div className="top-button">Create Sprite</div>
-                </Link>
-                <div className="top-button">Export</div>
-            </div>
+  }, [sprite]);
+
+  //Watch the sprite object for changes and update the user name
+  useEffect(() => {
+    if (socket) {
+      const socketId = socket.id.slice(socket.nsp.length + 1);
+      if (sprite.users[socketId]) {
+        setUserName(sprite.users[socketId].name);
+      }
+    }
+  }, [sprite]);
+
+  //Watch for changes in the user name field and send those to state
+  const handleChange = event => {
+    setUserName(event.target.value);
+    if (socket) {
+      socket.emit(constants.MSG.UPDATE_USERNAME, event.target.value);
+    }
+  };
+
+  const onSpriteNameChange = evt => {
+    setName(evt.target.value);
+    socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
+  };
+
+  return (
+    <div className="top-section-container">
+      <div className="top-left">
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+          <img className="app-title" src="/logo.png" />
+        </Link>
+      </div>
+      <div className="top-middle">
+        <div className="navbar-title-block">
+          <input
+            className="top-input-box input-title"
+            type="text"
+            name="sprite-name"
+            value={name}
+            onChange={onSpriteNameChange}
+          />
+
+          <div className="top-input-box-label">
+            <GoPencil className="input-box-pencil-icon" size={10} />
+            Sprite Title
+          </div>
         </div>
-    )
-}
+        <div className="navbar-title-block">
+          <input
+            className="top-input-box input-username"
+            name="name"
+            type="text"
+            onChange={handleChange}
+            value={userName}
+          />
+
+          <div className="top-input-box-label">
+            <GoPencil className="input-box-pencil-icon" size={10} />
+            Display Name
+          </div>
+        </div>
+      </div>
+      <div className="top-right">
+        <Link to={`/${hashVal}`} style={{ textDecoration: 'none' }}>
+          <div className="top-button">New Sprite</div>
+        </Link>
+        <div className="top-button" onClick={() => setPopup(true)}>
+          Import/Export
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Navbar;

@@ -7,15 +7,19 @@ import {
   ExportStringButton,
   ImportStringButton,
   Navbar,
-  GifExportButton
+  GifExportButton,
+  ImportExportPopup
 } from './';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
 const Editor = props => {
   // state for the socket
   const [socket, setSocket] = useState(false);
+
+  // popup state
+  const [popup, setPopup] = useState(false);
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
@@ -188,17 +192,18 @@ const Editor = props => {
     });
   }, []);
 
+  console.log('layers', sprite.frames[0].layers);
   return (
     <div className="app-container">
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
-          <Navbar />
-          <StyleEditorPage />
-          <FramePicker />
-          <ConnectionInfo />
-          <ExportStringButton />
-          <ImportStringButton />
-          <GifExportButton />
+          <PopupContext.Provider value={[popup, setPopup]}>
+            {popup && <ImportExportPopup />}
+            <Navbar />
+            <StyleEditorPage />
+            <FramePicker />
+            <ConnectionInfo />
+          </PopupContext.Provider>
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>

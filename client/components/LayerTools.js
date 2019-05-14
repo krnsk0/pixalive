@@ -23,7 +23,7 @@ const LayerTools = () => {
 
   return (
     <div className="layer-translation-container">
-      <div className="layer-title-row">
+      <div className="layer-title-row center">
         <div className="layer-title-text">Layer Translation</div>
       </div>
       <div className="layer-tool-container">

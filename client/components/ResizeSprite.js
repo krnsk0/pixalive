@@ -5,6 +5,7 @@ const constants = require('../../shared/constants');
 const NewSpriteSize = () => {
   const socket = useContext(SocketContext);
   const sprite = useContext(SpriteContext);
+  const [spriteSize, setSpriteSize] = useState();
 
   useEffect(() => {
     if (sprite) {
@@ -12,32 +13,36 @@ const NewSpriteSize = () => {
     }
   }, [sprite]);
 
-
-  const [spriteSize, setSpriteSize] = useState();
-
   const handleSubmit = evt => {
     evt.preventDefault();
     if (socket) {
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
-      socket.emit(constants.TOOLS.SELECT_TOOL, constants.TOOLS.PEN)
+      socket.emit(constants.TOOLS.SELECT_TOOL, constants.TOOLS.PEN);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select
-        value={spriteSize}
-        onChange={e => {
-          setSpriteSize(e.target.value);
-        }}
-      >
-        <option value={16}>16x16</option>
-        <option value={32}>32x32</option>
-        <option value={48}>48x48</option>
-        <option value={64}>64x64</option>
-      </select>
-      <input type="submit" value="Resize sprite" />
-    </form>
+    <div className="resize-picker-container">
+      <form onSubmit={handleSubmit}>
+        <select
+          className="resize-selector"
+          value={spriteSize}
+          onChange={e => {
+            setSpriteSize(e.target.value);
+          }}
+        >
+          <option value={16}>16x16</option>
+          <option value={32}>32x32</option>
+          <option value={48}>48x48</option>
+          <option value={64}>64x64</option>
+        </select>
+        <input
+          type="submit"
+          value="Resize sprite"
+          className="resize-sprite-button"
+        />
+      </form>
+    </div>
   );
 };
 

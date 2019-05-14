@@ -1,7 +1,7 @@
-/* eslint-disable complexity */
 /* eslint-disable max-statements */
+/* eslint-disable complexity */
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 import {
   renderCursors,
   renderBigCanvas,
@@ -18,6 +18,9 @@ const BigCanvas = () => {
   // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
+  const popupRef = useRef();
+  popupRef.current = popup;
   const [canvasMouseCoords, setCanvasMouseCoords] = useState({
     x: false,
     y: false
@@ -96,7 +99,8 @@ const BigCanvas = () => {
         evt.clientY
       );
       // if in canvas and clicked, send click to server
-      if (inCanvas && mouseClickedRef.current) {
+      // don't allow clicks when in popup
+      if (inCanvas && mouseClickedRef.current && !popupRef.current) {
         const pixelCoords = convertCanvasToPixelCoords(
           canvasMouseCoordsRef.current,
           spriteRef.current
@@ -167,23 +171,30 @@ const BigCanvas = () => {
     brush = constants.TOOLS.BRUSH_64;
   }
 
+  // determine class name addendum
+  let extraClassName;
+  if (selectedTool === constants.TOOLS.PAINT_CAN) {
+    extraClassName = 'paint-can';
+  } else if (selectedTool === constants.TOOLS.PEN) {
+    extraClassName = 'pen';
+  } else if (selectedTool === constants.TOOLS.ERASER) {
+    extraClassName = 'eraser';
+  } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
+    extraClassName = 'eye-dropper';
+  } else if (
+    [
+      constants.TOOLS.BRUSH_16,
+      constants.TOOLS.BRUSH_32,
+      constants.TOOLS.BRUSH_48,
+      constants.TOOLS.BRUSH_64
+    ].includes(selectedTool)
+  ) {
+    extraClassName = 'brush';
+  }
+
   return (
     <div>
-      <canvas
-      ref={canvasRef}
-      className={
-        selectedTool === constants.TOOLS.PAINT_CAN ?
-          'big-canvas-paint-can' :
-        selectedTool === constants.TOOLS.PEN ?
-          'big-canvas-pen' :
-        selectedTool === constants.TOOLS.ERASER ?
-          'big-canvas-eraser' :
-        selectedTool === constants.TOOLS.EYE_DROPPER ?
-          'big-canvas-eye-dropper' :
-        selectedTool === brush ?
-        'big-canvas-brush' :
-          'big-canvas'
-      } />
+      <canvas ref={canvasRef} className={'big-canvas ' + extraClassName} />
     </div>
   );
 };
