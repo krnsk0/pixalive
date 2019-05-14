@@ -78,6 +78,12 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: cloneDeep(selectedColor)
       }));
+    } else if (selectedTool === constants.TOOLS.BRUSH_16){
+      const x = coords.x
+      const y = coords.y
+      const field = [{x, y}, {x: x+1, y}, {x, y: y+1}, {x: x+1, y: y+1}]
+      field.map(a => changeList.push({x: a.x, y: a.y, frameIdx: selectedFrame, layerIdx: selectedLayer, color: cloneDeep(selectedColor)}))
+      console.log(changeList)
     }
 
     //takes list of changes, changes pixels

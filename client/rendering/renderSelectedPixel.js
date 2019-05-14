@@ -1,6 +1,8 @@
 import { convertCanvasToPixelCoords } from './';
 const constants = require('../../shared/constants');
 
+const 
+
 const renderSelectedPixel = (ctx, canvasCoords, sprite) => {
   const pixelCoords = convertCanvasToPixelCoords(canvasCoords, sprite);
 
