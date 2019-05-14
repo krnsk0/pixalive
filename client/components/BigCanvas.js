@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 import {
@@ -151,21 +152,30 @@ const BigCanvas = () => {
     }
   }
 
+  // determine class name addendum
+  let extraClassName;
+  if (selectedTool === constants.TOOLS.PAINT_CAN) {
+    extraClassName = 'paint-can';
+  } else if (selectedTool === constants.TOOLS.PEN) {
+    extraClassName = 'pen';
+  } else if (selectedTool === constants.TOOLS.ERASER) {
+    extraClassName = 'eraser';
+  } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
+    extraClassName = 'eye-dropper';
+  } else if (
+    [
+      constants.TOOLS.BRUSH_16,
+      constants.TOOLS.BRUSH_32,
+      constants.TOOLS.BRUSH_48,
+      constants.TOOLS.BRUSH_64
+    ].includes(selectedTool)
+  ) {
+    extraClassName = 'brush';
+  }
+
   return (
     <div>
-      <canvas
-      ref={canvasRef}
-      className={
-        selectedTool === constants.TOOLS.PAINT_CAN ?
-          'big-canvas-paint-can' :
-        selectedTool === constants.TOOLS.PEN ?
-          'big-canvas-pen' :
-        selectedTool === constants.TOOLS.ERASER ?
-          'big-canvas-eraser' :
-        selectedTool === constants.TOOLS.EYE_DROPPER ?
-          'big-canvas-eye-dropper' :
-          'big-canvas'
-      } />
+      <canvas ref={canvasRef} className={'big-canvas ' + extraClassName} />
     </div>
   );
 };
