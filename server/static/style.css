@@ -52,7 +52,7 @@ body {
 .top-right {
   width: 206px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding-top: 10px;
 }
 .app-title {
