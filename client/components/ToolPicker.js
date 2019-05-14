@@ -7,7 +7,6 @@ import { FaEraser, FaEyeDropper, FaPaintBrush } from 'react-icons/fa';
 const ToolPicker = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
-  console.log(sprite.frames[0].layers[0].pixels.length)
 
   // // get the selected tool
   let selectedTool = 'pen';

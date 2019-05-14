@@ -21,7 +21,6 @@ const [spriteSize, setSpriteSize] = useState()
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
     }
   }
-  console.log(sprite.frames[0].layers[0].pixels.length)
   
   
 

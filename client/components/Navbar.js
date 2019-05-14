@@ -6,7 +6,6 @@ const Navbar = () => {
     const [name, setName ] = useState('Untitled');
     const sprite = useContext(SpriteContext);
     const socket = useContext(SocketContext);
-    console.log(sprite);
     useEffect(() => {
         if (socket) {
           if (sprite) {
@@ -16,7 +15,6 @@ const Navbar = () => {
       }, [sprite]);
 
     const onSpriteNameChange = (evt) => {
-        console.log('val', evt.target.value)
         setName(evt.target.value)
         socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
     }
