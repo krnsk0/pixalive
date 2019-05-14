@@ -127,6 +127,12 @@ body {
   cursor: url("https://img.icons8.com/color/20/000000/map-pin.png") 10 20, auto;
 }
 
+.big-canvas-brush {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+  cursor: url("https://img.icons8.com/color/18/000000/paint.png") 4 15, auto;
+}
 
 /* frame container */
 .bottom-section-container {
