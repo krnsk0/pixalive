@@ -1,101 +1,65 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
-import reactCSS from 'reactcss';
-import { PhotoshopPicker } from 'react-color';
 const constants = require('../../shared/constants');
 
-function ColorPicker() {
-  const sprite = useContext(SpriteContext);
-  const socket = useContext(SocketContext);
-  const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [color, setColor] = useState({
-    h: 0,
-    s: 0,
-    l: 0,
-    o: 1
-  });
+const ColorPicker = () => {
+  const slCanvasRef = useRef();
+  const hCanvasRef = useRef();
+  const [H, setH] = useState(0);
+  const [S, setS] = useState(0);
+  const [L, setL] = useState(0);
 
+  // set up canvas width & height after first mount
   useEffect(() => {
-    if (socket) {
-      let socketId = socket.id.slice(socket.nsp.length + 1);
-      if (sprite.users[socketId]) {
-        setColor(sprite.users[socketId].selectedColor);
+    const slCanvas = slCanvasRef.current;
+    slCanvas.width = 100;
+    slCanvas.height = 100;
+
+    const hCanvas = hCanvasRef.current;
+    hCanvas.width = 100;
+    hCanvas.height = 10;
+  }, []);
+
+  // paint the sl canvas
+  useEffect(() => {
+    const slCanvas = slCanvasRef.current;
+    const ctx = slCanvas.getContext('2d');
+    const PIXEL_SIZE = 10;
+    ctx.clearRect(0, 0, constants.SL_PICKER_WIDTH, constants.SL_PICKER_HEIGHT);
+    for (let y = 0; y < constants.SL_PICKER_HEIGHT; y += PIXEL_SIZE) {
+      for (let x = 0; x < constants.SL_PICKER_HEIGHT; x += PIXEL_SIZE) {
+        ctx.fillStyle = `hsl(${H}, ${x}%, ${100 - y}%, 1.0)`;
+        ctx.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
       }
     }
-  }, [sprite]);
+  }, [H]);
 
-  const handleClick = () => {
-    setDisplayColorPicker(!displayColorPicker);
-  };
-
-  const handleClose = () => {
-    setDisplayColorPicker(false);
-  };
-
-  const handleChange = changedColor => {
-    //
-    let newColor = {
-      h: Number(changedColor.hsl.h).toFixed(0),
-      s: changedColor.hsl.s.toFixed(2) * 100,
-      l: changedColor.hsl.l.toFixed(2) * 100,
-      o: changedColor.hsl.a.toFixed(2)
-    };
-    setColor(newColor);
-    socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, newColor);
-  };
-
-  const convertBack = convertBackColor => {
-    return {
-      h: convertBackColor.h,
-      s: convertBackColor.s / 100,
-      l: convertBackColor.l / 100,
-      a: convertBackColor.o
-    };
-  };
-  const styles = reactCSS({
-    // eslint-disable-next-line quote-props
-    default: {
-      color: {
-        width: '60px',
-        height: '60px',
-        borderRadius: '2px',
-        background: `hsla(${color.h}, ${color.s}%, ${color.l}%, ${color.o})`
-      },
-      swatch: {
-        padding: '5px',
-        background: '#fff',
-        borderRadius: '1px',
-        boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-        display: 'inline-block',
-        cursor: 'pointer'
-      },
-      popover: {
-        position: 'relative',
-        zIndex: '2'
-      },
-      cover: {
-        position: 'fixed',
-        top: '0px',
-        right: '0px',
-        bottom: '0px',
-        left: '0px'
-      }
+  // paint the H canvas just once
+  useEffect(() => {
+    const hCanvas = hCanvasRef.current;
+    const ctx = hCanvas.getContext('2d');
+    const PIXEL_SIZE = 10;
+    ctx.clearRect(0, 0, constants.H_PICKER_WIDTH, constants.H_PICKER_HEIGHT);
+    for (let x = 0; x < constants.H_PICKER_WIDTH; x += PIXEL_SIZE) {
+      ctx.fillStyle = `hsl(${(x / 100) * 360}, ${100}%, ${50}%, 1.0)`;
+      ctx.fillRect(x, 0, PIXEL_SIZE, PIXEL_SIZE);
     }
-  });
+  }, []);
+
+  const selectedColorStyle = {
+    backgroundColor: `hsl(${H}, ${S}%, ${L}%, 1.0)`
+  };
 
   return (
-    <div>
-      <div style={styles.swatch} onClick={handleClick}>
-        <div style={styles.color} />
+    <div className="color-picker-container">
+      <canvas ref={hCanvasRef} className="h-picker" />
+      <canvas ref={slCanvasRef} className="sl-picker" />
+      <div className="selected-color-row">
+        <div>Selected color</div>
+        <div className="swatch" style={selectedColorStyle} />
       </div>
-      {displayColorPicker ? (
-        <div style={styles.popover}>
-          <div style={styles.cover} onClick={handleClose} />
-          <PhotoshopPicker color={convertBack(color)} onChange={handleChange} />
-        </div>
-      ) : null}
     </div>
   );
-}
+};
 
 export default ColorPicker;

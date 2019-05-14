@@ -449,3 +449,37 @@ body {
 .info {
   color: var(--light-text);
 }
+.color-picker-container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 20px;
+  border: 2px solid var(--light-emphasis);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--light-emphasis);
+  padding: 10px;
+}
+.h-picker {
+  width: 180px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+.sl-picker {
+  width: 180px;
+  height: 180px;
+}
+.selected-color-row {
+  margin-top: 10px;
+  display: flex;
+}
+.swatch {
+  height: 18px;
+  width: 18px;
+  background-color: white;
+  margin-top: 1px;
+  margin-left: 10px;
+}

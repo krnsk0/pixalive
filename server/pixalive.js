@@ -32,8 +32,11 @@ module.exports = (namespacedIo, io) => {
     // make a new user object and add it
     state[spriteHash].users[socketId] = userFactory(socketId);
 
-    // send the current drawing object
-    socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    // send the current sprite to the user who just connected
+    // socket.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+
+    // send the sprite to everyone
+    io.of(`/${spriteHash}`).emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
 
     // print state for debugging
     console.log(chalk.yellow('LOGGING ROOMS AFTER USER CONNECT'));

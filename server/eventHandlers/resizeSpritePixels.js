@@ -6,6 +6,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   socket.on(constants.MSG.RESIZE_SPRITE, spriteSize => {
     //get sprite
     const sprite = state[spriteHash];
+    let arrayOfFrames = sprite.frames;
 
     const resizePixelGrids = (grid, spriteSize) => {
       let gridEnds = [];
@@ -36,7 +37,15 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       }))
     }));
 
-    // send updated sprite
+    state[spriteHash].frames = sprite.frames.map(frame => ({
+      ...frame,
+      layers: frame.layers.map(layer => ({
+        ...layer,
+        pixels: resizePixelGrids(layer.pixels, spriteSize)
+      }))
+    }));
+
+    //   send updated sprite
     namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
   });
 };
