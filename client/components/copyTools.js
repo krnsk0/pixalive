@@ -3,24 +3,74 @@
 import React, { useContext } from 'react';
 import { SocketContext } from '../contexts';
 import {
-  GoArrowDown,
-  GoArrowLeft,
-  GoArrowRight,
-  GoArrowUp
+  GoClippy,
+  GoDiffAdded,
+  GoDiff,
+  GoCode,
+  GoChevronRight
 } from 'react-icons/go';
-import { MdRotate90DegreesCcw } from 'react-icons/md';
+
 const constants = require('../../shared/constants');
 
-const LayerTools = () => {
+const CopyTools = () => {
   const socket = useContext(SocketContext);
 
-  const onLayerTranslateClick = dir => {
+  const onCopyLayerClick = () => {
     if (socket) {
-      socket.emit(constants.MSG.TRANSLATE_SELECTED_LAYER, dir);
+      socket.emit(constants.MSG.COPY_LAYER);
     }
   };
 
-  return <div className="copy-tools-container" />;
+  const onCopyLayerToOneFrameClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.COPY_LAYER_TO_ONE_FRAME);
+    }
+  };
+
+  // click handler for adding frames
+  const onAddNewFrameClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.ADD_NEW_FRAME);
+    }
+  };
+
+  // click handler for cloning frames
+  const onDuplicatedSelectedFrameClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.DUPLICATE_SELECTED_FRAME);
+    }
+  };
+
+  return (
+    <div className="copy-tools-container">
+      <div
+        className="copy-tools-button"
+        onClick={onDuplicatedSelectedFrameClick}
+      >
+        <GoClippy className="copy-tools-icon" size={30} />
+        <span className="copy-tools-text">Duplicate selected frame</span>
+      </div>
+
+      <div className="copy-tools-button" onClick={onAddNewFrameClick}>
+        <GoDiffAdded className="copy-tools-icon" size={30} />
+        <span className="copy-tools-text">Add new frame</span>
+      </div>
+
+      <div className="copy-tools-button" onClick={onCopyLayerClick}>
+        <GoCode className="copy-tools-icon" size={30} />
+        <span className="copy-tools-text">
+          Copy selected layer to all frames
+        </span>
+      </div>
+
+      <div className="copy-tools-button" onClick={onCopyLayerToOneFrameClick}>
+        <GoChevronRight className="copy-tools-icon" size={30} />
+        <span className="copy-tools-text">
+          Copy selected layer to next frame
+        </span>
+      </div>
+    </div>
+  );
 };
 
-export default LayerTools;
+export default CopyTools;

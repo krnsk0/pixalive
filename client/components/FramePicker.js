@@ -26,13 +26,6 @@ const FramePicker = () => {
     }
   };
 
-  // click handler for adding frames
-  const onAddNewFrameClick = () => {
-    if (socket) {
-      socket.emit(constants.MSG.ADD_NEW_FRAME);
-    }
-  };
-
   // click handler for shifting frames left
   const onShiftFrameLeftClick = frameOrder => {
     if (socket) {
@@ -51,12 +44,6 @@ const FramePicker = () => {
   const onDeleteFrameClick = frameOrder => {
     if (socket) {
       socket.emit(constants.MSG.DELETE_FRAME, frameOrder);
-    }
-  };
-
-  const onDuplicatedSelectedFrameClick = () => {
-    if (socket) {
-      socket.emit(constants.MSG.DUPLICATE_SELECTED_FRAME);
     }
   };
 
@@ -123,28 +110,6 @@ const FramePicker = () => {
           </div>
         );
       })}
-      <div className="frame-container">
-        <div className="add-new-frame">
-          {frames.length <= constants.FRAME_CAP ? (
-            <div>
-              <div
-                className="add-new-frame-button"
-                onClick={onAddNewFrameClick}
-              >
-                Add Frame
-              </div>
-              <div
-                className="add-new-frame-button"
-                onClick={onDuplicatedSelectedFrameClick}
-              >
-                Clone Frame
-              </div>
-            </div>
-          ) : (
-            <div className="frame-cap-message">Frame cap reached</div>
-          )}
-        </div>
-      </div>
     </div>
   );
 };

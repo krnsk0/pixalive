@@ -47,7 +47,8 @@ module.exports = deepFreeze({
     COPY_LAYER: 'copy_layer', //a client-to-server event
     UPLOAD_PIXELS: 'upload_pixels',
     RESIZE_SPRITE: 'resize_sprite',
-    ROTATE_SELECTED_LAYER: 'rotate_selected_layer'
+    ROTATE_SELECTED_LAYER: 'rotate_selected_layer',
+    COPY_LAYER_TO_ONE_FRAME: 'copy_layer_to_one_frame'
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
