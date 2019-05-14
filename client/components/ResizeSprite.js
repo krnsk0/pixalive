@@ -12,12 +12,14 @@ const NewSpriteSize = () => {
     }
   }, [sprite]);
 
+
   const [spriteSize, setSpriteSize] = useState();
 
   const handleSubmit = evt => {
     evt.preventDefault();
     if (socket) {
       socket.emit(constants.MSG.RESIZE_SPRITE, spriteSize);
+      socket.emit(constants.TOOLS.SELECT_TOOL, constants.TOOLS.PEN)
     }
   };
 
