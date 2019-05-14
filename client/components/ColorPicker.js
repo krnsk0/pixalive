@@ -77,7 +77,6 @@ const ColorPicker = () => {
     setS(100)
     setL(50)
     let selectedColor = {h: returnHColor, s: 100, l: 50, o: 1}
-    console.log(returnHColor)
     socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, selectedColor)
   }
 
