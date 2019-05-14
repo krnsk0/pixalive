@@ -58,7 +58,7 @@ const Navbar = props => {
         </Link>
       </div>
       <div className="top-middle">
-        <div className="sprite-title">
+        <div className="navbar-title-block">
           <input
             className="top-input-box input-title"
             type="text"
@@ -66,6 +66,8 @@ const Navbar = props => {
             value={name}
             onChange={onSpriteNameChange}
           />
+        </div>
+        <div className="navbar-title-block">
           <input
             className="top-input-box input-username"
             name="name"

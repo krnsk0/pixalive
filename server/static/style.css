@@ -4,6 +4,7 @@ body {
   font-family: 'Helvetica Neue', 'Arial', sans-serif;
   background-color: var(--body-background);
   min-width: 620px;
+  font-family: 'VT323', monospace;
 }
 
 /* colors */
@@ -50,18 +51,19 @@ body {
   justify-content: center;
 }
 .top-right {
-  width: 220px;
+  width: 206px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   padding-top: 10px;
 }
 .app-title {
   cursor: pointer;
   width: 190px;
 }
-.sprite-title {
+.navbar-title-block {
   color: var(--light-text);
-  font-size: 20px;
+  font-size: 18px;
+  font-family: 'VT323', monospace;
 }
 .top-button {
   background-color: var(--highlight-color);
@@ -71,6 +73,7 @@ body {
   font-size: 15px;
   height: 20px;
   padding: 5px;
+  margin-left: 10px;
 }
 
 .top-button:hover {
@@ -489,10 +492,12 @@ body {
 }
 
 .input-title {
-  font-size: 22px;
+  font-size: 30px;
+  font-family: 'VT323', monospace;
 }
 .input-username {
-  font-size: 22px;
+  font-size: 30px;
+  font-family: 'VT323', monospace;
 }
 
 .username {
