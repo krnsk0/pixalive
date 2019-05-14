@@ -38,22 +38,26 @@ body {
   justify-content: center;
 }
 .top-left {
-  width: 234px;
-  margin-left: 30px;
+  width: 230px;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 .top-middle {
-  width: 576px;
-  margin: 10px;
+  width: 580px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 .top-right {
-  width: 200px;
+  width: 220px;
   display: flex;
-  margin: 10px;
+  justify-content: space-evenly;
+  padding-top: 10px;
 }
 .app-title {
   cursor: pointer;
-  width: 220px;
+  width: 190px;
 }
 .sprite-title {
   color: var(--light-text);
@@ -61,11 +65,12 @@ body {
 }
 .top-button {
   background-color: var(--highlight-color);
-  margin: 0px 5px 0px 5px;
-  padding: 2px 7px 0px 7px;
   border-radius: 5px;
   color: var(--standout-background);
   font-weight: bold;
+  font-size: 15px;
+  height: 20px;
+  padding: 5px;
 }
 
 .top-button:hover {
@@ -457,10 +462,18 @@ body {
   margin-right: 5px;
 }
 
-.input-name {
+.top-input-box {
   background-color: var(--standout-background);
   border: none;
   color: var(--light-text);
+  text-align: center;
+}
+
+.input-title {
+  font-size: 22px;
+}
+.input-username {
+  font-size: 22px;
 }
 
 .username {
