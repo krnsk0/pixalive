@@ -603,7 +603,7 @@ body {
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.418);
+  background-color: rgba(0, 0, 0, 0.818);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -611,10 +611,29 @@ body {
 }
 .popup {
   background: var(--light-emphasis);
-  border: var(--standout-background) solid 2px;
   border-radius: 5px;
-  padding: 15px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.popup-button {
+  background-color: var(--very-light-emphasis);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: var(--standout-background);
+  font-weight: bold;
+  font-size: 25px;
+  height: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  font-family: 'VT323', monospace;
+}
+.close-popup {
+  font-size: 25px;
+  font-family: 'VT323', monospace;
+  margin-top: 10px;
 }

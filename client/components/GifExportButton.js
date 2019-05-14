@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { renderSmallCanvas } from '../rendering';
 import gifshot from 'gifshot';
@@ -8,6 +8,7 @@ import download from 'downloadjs';
 const GifExportButton = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
 
   const onExportToGifClick = () => {
     if (socket) {
@@ -46,6 +47,7 @@ const GifExportButton = () => {
           // download the gif
           if (!result.error) {
             download(result.image, 'image.gif', 'image/gif');
+            setPopup(false);
           }
         }
       );
@@ -53,7 +55,7 @@ const GifExportButton = () => {
   };
 
   return (
-    <div className="navbar-button" onClick={onExportToGifClick}>
+    <div className="popup-button" onClick={onExportToGifClick}>
       Export GIF
     </div>
   );

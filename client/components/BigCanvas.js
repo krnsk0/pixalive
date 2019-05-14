@@ -100,7 +100,6 @@ const BigCanvas = () => {
       );
       // if in canvas and clicked, send click to server
       // don't allow clicks when in popup
-      console.log('popup in big canvas: ', popupRef.current);
       if (inCanvas && mouseClickedRef.current && !popupRef.current) {
         const pixelCoords = convertCanvasToPixelCoords(
           canvasMouseCoordsRef.current,

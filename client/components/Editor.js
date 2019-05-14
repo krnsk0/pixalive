@@ -7,7 +7,8 @@ import {
   ExportStringButton,
   ImportStringButton,
   Navbar,
-  GifExportButton
+  GifExportButton,
+  ImportExportPopup
 } from './';
 import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
@@ -196,22 +197,11 @@ const Editor = props => {
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <PopupContext.Provider value={[popup, setPopup]}>
-            {popup && (
-              <div className="popup-outer-container" onClick={null}>
-                <div className="popup">
-                  <div className="close-popup" onClick={() => setPopup(false)}>
-                    close
-                  </div>
-                </div>
-              </div>
-            )}
+            {popup && <ImportExportPopup />}
             <Navbar />
             <StyleEditorPage />
             <FramePicker />
             <ConnectionInfo />
-            <ExportStringButton />
-            <ImportStringButton />
-            <GifExportButton />
           </PopupContext.Provider>
         </SpriteContext.Provider>
       </SocketContext.Provider>

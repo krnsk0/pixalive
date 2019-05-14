@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 
 const ExportStringButton = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
 
   const copyTextToClipboard = str => {
     const el = document.createElement('textarea');
@@ -20,11 +21,12 @@ const ExportStringButton = () => {
       const jsonString = JSON.stringify(sprite.frames);
       const base64String = btoa(jsonString);
       copyTextToClipboard(base64String);
+      setPopup(false);
     }
   };
 
   return (
-    <div className="navbar-button" onClick={onExportToStringClick}>
+    <div className="popup-button" onClick={onExportToStringClick}>
       Export String to Clipboard
     </div>
   );
