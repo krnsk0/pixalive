@@ -65,7 +65,9 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 .undo-icon {
-  margin-top: -5px;
+  margin-top: -3px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 .top-button {
   background-color: var(--highlight-color);

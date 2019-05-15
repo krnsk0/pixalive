@@ -92,7 +92,7 @@ const Navbar = props => {
           </div>
         </div>
         <div className="top-button" onClick={null}>
-          <IoIosUndo className="undo-icon" size={30} />
+          <IoIosUndo className="undo-icon" size={25} />
         </div>
       </div>
       <div className="top-right">
