@@ -64,6 +64,11 @@ body {
   font-size: 18px;
   font-family: 'Courier New', Courier, monospace;
 }
+.undo-icon {
+  margin-top: -3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
 .top-button {
   background-color: var(--highlight-color);
   border-radius: 5px;
@@ -159,6 +164,7 @@ body {
   border: 5px solid var(--highlight-color);
   background-color: var(--highlight-color);
 }
+
 .small-canvas {
   background-color: white;
   z-index: 0;
@@ -323,6 +329,11 @@ body {
 .layer-title-row.center {
   justify-content: center;
 }
+.checkbox-and-label {
+  display: flex;
+  flex-direction: row;
+  width: 110px;
+}
 .layer-title-text {
   color: var(--standout-background);
   margin-left: 5px;
@@ -330,13 +341,19 @@ body {
   margin-right: 5px;
   font-size: 22px;
 }
+.layer-title-text-preview {
+  color: var(--standout-background);
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+  font-size: 22px;
+}
 .layer-button {
   margin-left: 3px;
   margin-right: 3px;
 }
-.layer-picker-checkbox {
-  color: red;
-  background-color: red;
+.checkbox {
+  margin-top: 1px;
 }
 .layer-row {
   color: var(--light-emphasis);
@@ -431,7 +448,7 @@ body {
   margin-left: 20px;
 }
 .sample-sprite {
-  width: 300px;
+  width: 250px;
   margin-top: 20px;
 }
 
