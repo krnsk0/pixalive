@@ -150,7 +150,6 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-
 }
 .frame-container {
   flex: 0 0 auto;
