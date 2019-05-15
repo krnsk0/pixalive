@@ -593,24 +593,21 @@ body {
   padding: 10px;
   border-top: var(--standout-background);
 }
-.resize-picker-container form {
+.resize-text {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.resize-picker-container {
   width: 190px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .resize-selector {
   background-color: var(--very-light-emphasis);
   color: var(--standout-background);
-  font-size: 20px;
-  margin-right: 10px;
-  font-family: 'VT323', monospace;
-}
-.resize-sprite-button {
-  font-size: 20px;
-  background-color: var(--very-light-emphasis);
-  border-radius: 5px;
-  margin: 0px;
-  position: relative;
+  font-size: 18px;
   font-family: 'VT323', monospace;
 }
 
