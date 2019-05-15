@@ -1,3 +1,5 @@
+/* eslint-disable max-statements */
+/* eslint-disable complexity */
 /* eslint-disable guard-for-in */
 const constants = require('../../shared/constants');
 
@@ -12,46 +14,57 @@ const renderCursors = (ctx, sprite, socket) => {
     // skip if the user's own mouse
     if (id !== socketId) {
       let currentSpriteName = sprite.users[id].name;
+      let s = sprite.users[id].selectedColor;
 
       if (coords.x !== false) {
-        // set color to white
-        ctx.fillStyle = `hsl(0, 0%, 100%, 1.0)`;
+        // draw box around text
+        let textWidth;
+        if (currentSpriteName.length > 0) {
+          textWidth = 4 + currentSpriteName.length * 9.2;
+        } else {
+          textWidth = 0;
+        }
+        if (s.l > 60) {
+          ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`; //black
+        } else {
+          ctx.fillStyle = `hsl(0, 0%, 100%, 1.0)`; // white
+        }
+        ctx.fillRect(coords.x + 6, coords.y - 12, textWidth, 15);
 
-        //Create white border on pointer
-        const half = Math.floor(constants.CURSOR_SIZE / 2);
-        ctx.fillRect(
-          coords.x - half,
-          coords.y - half,
-          constants.CURSOR_SIZE + 2,
-          constants.CURSOR_SIZE + 2
-        );
-
-        ctx.fillRect(
-          coords.x - half,
-          coords.y - half,
-          constants.CURSOR_SIZE - 4,
-          constants.CURSOR_SIZE - 4
-        );
-
+        // set color to selected color and draw the text
         ctx.font = '15px Courier';
-        ctx.fillText(currentSpriteName, coords.x + 6, coords.y + 2);
-
-        // set color to selected color
-        let s = sprite.users[id].selectedColor;
-        s = { h: 100, s: 50, l: 50 };
         ctx.fillStyle = `hsl(${s.h}, ${s.s}%, ${s.l}%, 1.0)`;
+        ctx.fillText(currentSpriteName, coords.x + 8, coords.y);
 
-        // draw a cursor
-        ctx.fillRect(
-          coords.x - half - 4,
-          coords.y - half - 4,
-          constants.CURSOR_SIZE + 4,
-          constants.CURSOR_SIZE + 4
-        );
-
-        // draw the text
-        ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`;
-        ctx.fillText(currentSpriteName, coords.x + 5, coords.y);
+        // create an image to use for the cursor
+        let offsetX;
+        let offsetY;
+        let selectedTool = sprite.users[id].selectedTool;
+        const img = document.createElement('img');
+        if (selectedTool === constants.TOOLS.PAINT_CAN) {
+          img.src = '/fill-color.png';
+          [offsetX, offsetY] = [-15, -8];
+        } else if (selectedTool === constants.TOOLS.PEN) {
+          img.src = '/pencil-tip.png';
+          [offsetX, offsetY] = [-7, -6];
+        } else if (selectedTool === constants.TOOLS.ERASER) {
+          img.src = '/eraser.png';
+          [offsetX, offsetY] = [-6, -5];
+        } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
+          img.src = '/map-pin.png';
+          [offsetX, offsetY] = [-10, -15];
+        } else if (
+          [
+            constants.TOOLS.BRUSH_16,
+            constants.TOOLS.BRUSH_32,
+            constants.TOOLS.BRUSH_48,
+            constants.TOOLS.BRUSH_64
+          ].includes(selectedTool)
+        ) {
+          img.src = '/paint.png';
+          [offsetX, offsetY] = [-7, -9];
+        }
+        ctx.drawImage(img, coords.x + offsetX, coords.y + offsetY);
       }
     }
   }
