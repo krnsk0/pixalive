@@ -25,7 +25,8 @@ const userFactory = socketId => {
     selectedTool: 'pen',
     x: false,
     y: false,
-    name: 'collaborator'
+    name: 'collaborator',
+    history: []
   };
 };
 

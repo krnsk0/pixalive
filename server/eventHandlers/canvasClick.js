@@ -13,8 +13,11 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     const selectedFrame = state[spriteHash].users[socketId].selectedFrame;
     const selectedLayer = state[spriteHash].users[socketId].selectedLayer;
     const layerToDraw = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels
+    const previousColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[coords.y][coords.x]
     const brushes = [constants.TOOLS.BRUSH_16,constants.TOOLS.BRUSH_32,constants.TOOLS.BRUSH_48,constants.TOOLS.BRUSH_64]
     //generates the list of changes to the image on server state
+
+    let history = state[spriteHash].users[socketId].history
     let changeList = [];
 
     if (selectedTool === constants.TOOLS.PEN) {
@@ -129,6 +132,11 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
 
     // send change list only if we actually made changes
     if (madeChange) {
+      history.unshift(changeList)
+      while(history.length > 20){
+        history.pop()
+      }
+      namespacedIo.emit(constants.MSG.SEND_HISTORY_LIST, history)
       namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
     }
   });
