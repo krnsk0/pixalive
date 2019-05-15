@@ -19,6 +19,9 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = newLayer
 
     //send updated sprite
-    namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, change);
+    if (change){
+      console.log(change)
+      namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, change);
+    }
   });
 };

@@ -197,7 +197,6 @@ const Editor = props => {
     })
   }, []);
 
-  console.log('layers', sprite.frames[0].layers);
   return (
     <div className="app-container">
       <SocketContext.Provider value={socket}>
