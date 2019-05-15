@@ -134,14 +134,23 @@ body {
 }
 
 /* frame container */
-.bottom-section-container {
+/* .bottom-section-container {
+  overflow-x: scroll;
+} */
+
+.bottom-section-container-add-frame {
   overflow-x: auto;
+  overflow-y: hidden;
+  margin-left: 210px;
+  margin-right: 215px;
 }
 .bottom-section-flex-container {
+  width: 960px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
+
 }
 .frame-container {
   flex: 0 0 auto;
