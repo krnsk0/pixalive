@@ -109,13 +109,11 @@ body {
 }
 
 .paint-can {
-  cursor: url('/fill-color.png') 25 25,
-    auto;
+  cursor: url('/fill-color.png') 25 25, auto;
 }
 
 .pen {
-  cursor: url('/pencil-tip.png') -3 12,
-    auto;
+  cursor: url('/pencil-tip.png') -3 12, auto;
 }
 
 .eraser {
@@ -578,7 +576,7 @@ body {
   border-radius: 5px;
   background-color: var(--light-emphasis);
   padding: 10px;
-  border-top: color: var(--standout-background);
+  border-top: var(--standout-background);
 }
 .resize-picker-container form {
   width: 190px;
