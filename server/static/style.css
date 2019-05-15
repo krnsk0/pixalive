@@ -658,3 +658,17 @@ body {
   font-family: 'VT323', monospace;
   margin-top: 10px;
 }
+.gif-export-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.gif-size-selector {
+  background-color: var(--very-light-emphasis);
+  color: var(--standout-background);
+  font-size: 25px;
+  margin-right: 10px;
+  height: 35px;
+  font-family: 'VT323', monospace;
+}
