@@ -109,25 +109,23 @@ body {
 }
 
 .paint-can {
-  cursor: url('https://img.icons8.com/color/15/000000/fill-color.png') 25 25,
-    auto;
+  cursor: url('/fill-color.png') 25 25, auto;
 }
 
 .pen {
-  cursor: url('https://img.icons8.com/color/15/000000/pencil-tip.png') -3 12,
-    auto;
+  cursor: url('/pencil-tip.png') -3 12, auto;
 }
 
 .eraser {
-  cursor: url('https://img.icons8.com/color/15/000000/eraser.png') -8 15, auto;
+  cursor: url('/eraser.png') -8 15, auto;
 }
 
 .eye-dropper {
-  cursor: url('https://img.icons8.com/color/20/000000/map-pin.png') 10 20, auto;
+  cursor: url('/map-pin.png') 10 20, auto;
 }
 
 .brush {
-  cursor: url('https://img.icons8.com/color/18/000000/paint.png') 4 15, auto;
+  cursor: url('/paint.png') 4 15, auto;
 }
 
 /* frame container */
@@ -407,13 +405,15 @@ body {
   align-content: center;
   background-color: var(--light-emphasis);
 }
+.layer-tool-icon {
+  color: var(--standout-background);
+}
 
 /* homepage */
 
 .homepage-container {
   background-color: var(--body-background);
 }
-
 .homepage-title {
   font-size: 40px;
   color: var(--light-text);
@@ -555,6 +555,7 @@ body {
   display: flex;
   font-family: 'VT323', monospace;
   font-size: 23px;
+  color: var(--standout-background);
 }
 .selected-color-row div {
   margin-top: -10px;
@@ -575,6 +576,7 @@ body {
   border-radius: 5px;
   background-color: var(--light-emphasis);
   padding: 10px;
+  border-top: var(--standout-background);
 }
 .resize-picker-container form {
   width: 190px;
