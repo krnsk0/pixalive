@@ -27,8 +27,7 @@ body {
 .middle-section-container {
   background-color: var(--body-background);
 }
-.top-section-container,
-.bottom-section-container {
+.top-section-container {
   background-color: var(--standout-background);
 }
 
@@ -134,23 +133,18 @@ body {
 }
 
 /* frame container */
-/* .bottom-section-container {
-  overflow-x: scroll;
-} */
-
-.bottom-section-container-add-frame {
-  overflow-x: auto;
-  overflow-y: hidden;
-  margin-left: 210px;
-  margin-right: 215px;
+.bottom-section-container {
 }
+
 .bottom-section-flex-container {
-  width: 960px;
+  background-color: var(--standout-background);
+  overflow-x: auto;
+  width: 1016px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-
+  margin: auto;
 }
 .frame-container {
   flex: 0 0 auto;

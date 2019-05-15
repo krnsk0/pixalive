@@ -54,16 +54,16 @@ const FramePicker = () => {
   };
 
   return (
-    <div
-    className="bottom-section-container-add-frame">
+    <div className="bottom-section-container">
       <div
-      className="bottom-section-flex-container"
-      style={ frames.length - 1 < 9 ?
-        {justifyContent: 'center'} :
-        {justifyContent: 'flex-start'}}
+        className="bottom-section-flex-container"
+        style={
+          frames.length - 1 < 9
+            ? { justifyContent: 'center' }
+            : { justifyContent: 'flex-start' }
+        }
       >
         {' '}
-
         {frames.map(frame => {
           const backButtonStyle =
             frame.frameOrder === 0
