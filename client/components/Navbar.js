@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { Link } from 'react-router-dom';
-import { GoPencil } from 'react-icons/go';
+import { GoPencil, GoListUnordered } from 'react-icons/go';
+
 
 const Navbar = props => {
   const [name, setName] = useState('Untitled');
@@ -54,6 +55,12 @@ const Navbar = props => {
     socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
   };
 
+  const onUndoClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.UNDO);
+    }
+  };
+
   return (
     <div className="top-section-container">
       <div className="top-left">
@@ -92,6 +99,9 @@ const Navbar = props => {
         </div>
       </div>
       <div className="top-right">
+      <div className="top-button" onClick={() => onUndoClick()}>
+          Undo Paint
+        </div>
         <Link to={`/${hashVal}`} style={{ textDecoration: 'none' }}>
           <div className="top-button">New Sprite</div>
         </Link>
