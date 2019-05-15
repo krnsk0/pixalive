@@ -121,8 +121,8 @@ const Editor = props => {
         name: action.name
       };
       return newState;
-    }
-  };
+    } 
+  }
 
   // initialize sprite state to an empty sprite object
   const hash = props.location.pathname.slice(1);
@@ -195,6 +195,11 @@ const Editor = props => {
     socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
+    
+    //when we add to user history in the server, dispatch to sprite state
+    socket.on(constants.MSG.SEND_HISTORY_LIST, history => {
+      spriteDispatch({type: constants.MSG.SEND_HISTORY_LIST, history})
+    })
   }, []);
 
   return (
@@ -217,5 +222,6 @@ const Editor = props => {
     </div>
   );
 };
+
 
 export default Editor;

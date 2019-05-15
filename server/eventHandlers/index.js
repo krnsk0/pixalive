@@ -23,6 +23,7 @@ const copyLayer = require('./copyLayer');
 const uploadPixels = require('./uploadPixels');
 const resizeSpritePixels = require('./resizeSpritePixels');
 const copyLayerToOneFrame = require('./copyLayerToOneFrame');
+const undo = require('./undo')
 
 module.exports = {
   cursorMove,
@@ -49,5 +50,6 @@ module.exports = {
   copyLayer,
   uploadPixels,
   resizeSpritePixels,
-  copyLayerToOneFrame
+  copyLayerToOneFrame,
+  undo
 };
