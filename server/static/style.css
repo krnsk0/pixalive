@@ -109,25 +109,25 @@ body {
 }
 
 .paint-can {
-  cursor: url('https://img.icons8.com/color/15/000000/fill-color.png') 25 25,
+  cursor: url('/fill-color.png') 25 25,
     auto;
 }
 
 .pen {
-  cursor: url('https://img.icons8.com/color/15/000000/pencil-tip.png') -3 12,
+  cursor: url('/pencil-tip.png') -3 12,
     auto;
 }
 
 .eraser {
-  cursor: url('https://img.icons8.com/color/15/000000/eraser.png') -8 15, auto;
+  cursor: url('/eraser.png') -8 15, auto;
 }
 
 .eye-dropper {
-  cursor: url('https://img.icons8.com/color/20/000000/map-pin.png') 10 20, auto;
+  cursor: url('/map-pin.png') 10 20, auto;
 }
 
 .brush {
-  cursor: url('https://img.icons8.com/color/18/000000/paint.png') 4 15, auto;
+  cursor: url('/paint.png') 4 15, auto;
 }
 
 /* frame container */
