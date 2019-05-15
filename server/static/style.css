@@ -150,7 +150,6 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-
 }
 .frame-container {
   flex: 0 0 auto;
@@ -457,7 +456,7 @@ body {
   margin-left: 20px;
 }
 .sample-sprite {
-  width: 250px;
+  width: 220px;
   margin-top: 20px;
 }
 
