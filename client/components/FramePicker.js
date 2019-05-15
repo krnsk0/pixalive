@@ -57,6 +57,7 @@ const FramePicker = () => {
         {justifyContent: 'flex-start'}}
       >
         {' '}
+
         {frames.map(frame => {
           const backButtonStyle =
             frame.frameOrder === 0
