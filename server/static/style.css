@@ -1,7 +1,7 @@
 /* RESET */
 body {
   margin: 0px;
-  font-family: monospace;
+  font-family: 'Courier New', Courier, monospace;
   background-color: var(--body-background);
   min-width: 620px;
 }
@@ -62,7 +62,7 @@ body {
 .navbar-title-block {
   color: var(--light-text);
   font-size: 18px;
-  font-family: monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 .top-button {
   background-color: var(--highlight-color);
@@ -413,31 +413,51 @@ body {
 
 .homepage-container {
   background-color: var(--body-background);
-}
-.homepage-title {
-  font-size: 40px;
-  color: var(--light-text);
-  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-.homepage-tagline {
-  padding: 10px;
+.left-container {
+}
+.right-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.homepage-title img {
+  width: 300px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+.sample-sprite {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.homepage-tagline-container {
 }
 .homepage-tagline-title {
-  font-size: 30px;
+  font-size: 40px;
   color: var(--light-text);
-  font-weight: bolder;
-  margin-top: 15px;
-  padding: 10px;
+  margin-top: 20px;
+  margin-left: 30px;
+  font-family: 'VT323', monospace;
 }
 
 .homepage-tagline-desc {
   font-size: 25px;
   color: var(--light-text);
-  padding: 10px;
+  margin-top: 30px;
+  font-family: 'VT323', monospace;
+}
+.pixalive-screenshot {
+  margin-left: 30px;
+  margin-top: 30px;
 }
 
 .create-sprite-container {
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
 }
@@ -447,8 +467,8 @@ body {
   height: 40px;
   background-color: var(--highlight-color);
   border-radius: 4px;
-  padding: 3px;
-  margin-left: 10px;
+  font-family: 'VT323', monospace;
+  margin-top: 10px;
 }
 
 .homepage-create-sprite-button :hover {
@@ -470,11 +490,6 @@ body {
   font-size: 25px;
   font-weight: bold;
   margin-top: 20px;
-  padding: 10px;
-}
-
-#sprite-examples-container {
-  display: flex;
   padding: 10px;
 }
 
