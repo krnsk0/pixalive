@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 import { GoPencil, GoTriangleDown, GoTriangleUp } from 'react-icons/go';
 import { TiPlus, TiMinus } from 'react-icons/ti';
+import { FiSquare, FiCheckSquare } from 'react-icons/fi';
 
 const constants = require('../../shared/constants');
 
@@ -94,11 +95,10 @@ const LayerPicker = () => {
   };
 
   // click handler for toggling preview
-  const onPreviewToggleClick = evt => {
-    evt.preventDefault();
-    if (evt.target.checked && socket) {
+  const onPreviewToggleClick = value => {
+    if (value && socket) {
       socket.emit(constants.MSG.SET_PREVIEW_LAYER, true);
-    } else if (!evt.target.checked && socket) {
+    } else if (!value && socket) {
       socket.emit(constants.MSG.SET_PREVIEW_LAYER, false);
     }
   };
@@ -107,15 +107,22 @@ const LayerPicker = () => {
     <div className="layer-container">
       <div className="layer-title-row">
         <div className="layer-title-text">Layers</div>
-        <div className="layer-title-text">
-          Preview:{' '}
-          <input
-            type="checkbox"
-            name="preview"
-            onChange={onPreviewToggleClick}
-            checked={preview}
-            className="layer-picker-checkbox"
-          />
+        <div className="checkbox-and-label">
+          <div className="layer-title-text-preview">Preview: </div>
+
+          {preview ? (
+            <FiCheckSquare
+              className="checkbox"
+              size={22}
+              onClick={() => onPreviewToggleClick(false)}
+            />
+          ) : (
+            <FiSquare
+              className="checkbox"
+              size={22}
+              onClick={() => onPreviewToggleClick(true)}
+            />
+          )}
         </div>
       </div>
       <div className="layer-title-row">

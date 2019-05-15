@@ -323,6 +323,11 @@ body {
 .layer-title-row.center {
   justify-content: center;
 }
+.checkbox-and-label {
+  display: flex;
+  flex-direction: row;
+  width: 110px;
+}
 .layer-title-text {
   color: var(--standout-background);
   margin-left: 5px;
@@ -330,13 +335,19 @@ body {
   margin-right: 5px;
   font-size: 22px;
 }
+.layer-title-text-preview {
+  color: var(--standout-background);
+  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+  font-size: 22px;
+}
 .layer-button {
   margin-left: 3px;
   margin-right: 3px;
 }
-.layer-picker-checkbox {
-  color: red;
-  background-color: red;
+.checkbox {
+  margin-top: 1px;
 }
 .layer-row {
   color: var(--light-emphasis);
