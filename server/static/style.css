@@ -407,13 +407,15 @@ body {
   align-content: center;
   background-color: var(--light-emphasis);
 }
+.layer-tool-icon {
+  color: var(--standout-background);
+}
 
 /* homepage */
 
 .homepage-container {
   background-color: var(--body-background);
 }
-
 .homepage-title {
   font-size: 40px;
   color: var(--light-text);
@@ -555,6 +557,7 @@ body {
   display: flex;
   font-family: 'VT323', monospace;
   font-size: 23px;
+  color: var(--standout-background);
 }
 .selected-color-row div {
   margin-top: -10px;
@@ -575,6 +578,7 @@ body {
   border-radius: 5px;
   background-color: var(--light-emphasis);
   padding: 10px;
+  border-top: color: var(--standout-background);
 }
 .resize-picker-container form {
   width: 190px;
