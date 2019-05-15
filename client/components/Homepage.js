@@ -49,7 +49,7 @@ const Homepage = () => {
       </div>
       <div className="right-container">
         <img className="sample-sprite" src="sample1.gif" />
-        <img className="sample-sprite" src="homepage-screenshot.png" />
+        <img className="sample-sprite" src="sample2.gif" />
         <img className="sample-sprite" src="homepage-screenshot.png" />
       </div>
     </div>
