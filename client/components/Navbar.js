@@ -3,7 +3,7 @@ import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { Link } from 'react-router-dom';
 import { GoPencil, GoListUnordered } from 'react-icons/go';
-
+import { IoIosUndo } from 'react-icons/io';
 
 const Navbar = props => {
   const [name, setName] = useState('Untitled');
@@ -97,11 +97,11 @@ const Navbar = props => {
             Display Name
           </div>
         </div>
+        <div className="top-button" onClick={onUndoClick}>
+          <IoIosUndo className="undo-icon" size={25} />
+        </div>
       </div>
       <div className="top-right">
-      <div className="top-button" onClick={() => onUndoClick()}>
-          Undo Paint
-        </div>
         <Link to={`/${hashVal}`} style={{ textDecoration: 'none' }}>
           <div className="top-button">New Sprite</div>
         </Link>
