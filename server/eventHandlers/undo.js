@@ -11,17 +11,22 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     const selectedLayer = state[spriteHash].users[socketId].selectedLayer;
 
     // get selsected layer
-    let pixels = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels;
-    const change = state[spriteHash].users[socketId].history.shift()
+    let change
+    let pixels
+    if (state[spriteHash].users[socketId].history.length){
+      pixels = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels;
+      change = state[spriteHash].users[socketId].history.shift()
+      state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = undoFunc(pixels, change)
+      namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, change)
+    }
     // console.log(change)
 
-    const newLayer = undoFunc(pixels, change)
-    state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = newLayer
+    // const newLayer = undoFunc(pixels, change)
+    // state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels = newLayer
 
     //send updated sprite
-    if (change){
-      console.log(change)
-      namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, change);
-    }
+    // if (newLayer){
+    //   ;
+    // }
   });
 };
