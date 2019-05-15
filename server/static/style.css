@@ -1,7 +1,7 @@
 /* RESET */
 body {
   margin: 0px;
-  font-family: monospace;
+  font-family: 'Courier New', Courier, monospace;
   background-color: var(--body-background);
   min-width: 620px;
 }
@@ -62,7 +62,7 @@ body {
 .navbar-title-block {
   color: var(--light-text);
   font-size: 18px;
-  font-family: monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 .top-button {
   background-color: var(--highlight-color);
