@@ -113,18 +113,7 @@ const Editor = props => {
         name: action.name
       };
       return newState;
-    } else if (action.type === constants.MSG.SEND_HISTORY_LIST) {
-      let newState = {
-        ...state,
-        users: {
-          ...state.users,
-          [action.socketId]: {
-            ...state.users[action.socketId],
-            history: action.history
-          }
-        }
-      }; return newState
-    }
+    } 
   }
 
   // initialize sprite state to an empty sprite object

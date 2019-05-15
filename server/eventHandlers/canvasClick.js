@@ -28,6 +28,13 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: selectedColor
       });
+      history.unshift({
+        x: coords.x,
+        y: coords.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: previousColor
+      })
     } else if (selectedTool === constants.TOOLS.ERASER) {
       changeList.push({
         x: coords.x,
@@ -36,6 +43,13 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: null
       });
+      history.unshift({
+        x: coords.x,
+        y: coords.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: previousColor
+      })
     } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
       //get the cell color at coords
       let x = coords.x;
@@ -84,7 +98,15 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: cloneDeep(selectedColor)
       }));
+      history.unshift(changeList.map(a => ({
+        x: a.x,
+        y: a.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: previousColor
+      })))
     } else if (brushes.includes(selectedTool)){
+      console.log(layerToDraw)
       changeList = changeList.concat(brushChanges(selectedTool, coords.x, coords.y, layerToDraw).map(a => 
         ({
           x: a.x, 
@@ -93,6 +115,13 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
           layerIdx: selectedLayer, 
           color: cloneDeep(selectedColor)
         })))
+      history.unshift(changeList.map(a => ({
+        x: a.x,
+        y: a.y,
+        frameIdx: selectedFrame,
+        layerIdx: selectedLayer,
+        color: previousColor
+      })))
     }
 
 
@@ -132,11 +161,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
 
     // send change list only if we actually made changes
     if (madeChange) {
-      history.unshift(changeList)
-      while(history.length > 20){
-        history.pop()
-      }
-      namespacedIo.emit(constants.MSG.SEND_HISTORY_LIST, history)
+      // namespacedIo.emit(constants.MSG.SEND_HISTORY_LIST, history)
       namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
     }
   });

@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 import { SpriteContext, SocketContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { GoPaintcan, GoPencil } from 'react-icons/go';
@@ -8,8 +8,7 @@ import { FaEraser, FaEyeDropper, FaPaintBrush } from 'react-icons/fa';
 const ToolPicker = () => {
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
-  const spriteRef = useRef()
-  spriteRef.current = sprite
+
 
   // [sprite, setSprite] = useState()
 
@@ -22,8 +21,6 @@ const ToolPicker = () => {
     const socketId = socket.id.slice(socket.nsp.length + 1);
     if (sprite.users[socketId]) {
       selectedTool = sprite.users[socketId].selectedTool;
-      console.log(spriteRef.current, 'REF LOG')
-      // const history = sprite.users[socketId].history
     }
   }
 
