@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 const constants = require('../../shared/constants');
 import { Link } from 'react-router-dom';
-import { GoPencil } from 'react-icons/go';
+import { GoPencil, GoListUnordered } from 'react-icons/go';
+import { IoIosUndo } from 'react-icons/io';
 
 const Navbar = props => {
   const [name, setName] = useState('Untitled');
@@ -54,6 +55,12 @@ const Navbar = props => {
     socket.emit(constants.MSG.UPDATE_SPRITE_NAME, evt.target.value);
   };
 
+  const onUndoClick = () => {
+    if (socket) {
+      socket.emit(constants.MSG.UNDO);
+    }
+  };
+
   return (
     <div className="top-section-container">
       <div className="top-left">
@@ -89,6 +96,9 @@ const Navbar = props => {
             <GoPencil className="input-box-pencil-icon" size={10} />
             Display Name
           </div>
+        </div>
+        <div className="top-button" onClick={onUndoClick}>
+          <IoIosUndo className="undo-icon" size={25} />
         </div>
       </div>
       <div className="top-right">

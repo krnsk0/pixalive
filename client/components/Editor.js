@@ -10,7 +10,12 @@ import {
   GifExportButton,
   ImportExportPopup
 } from './';
-import { SocketContext, SpriteContext, PopupContext } from '../contexts';
+import {
+  SocketContext,
+  SpriteContext,
+  PopupContext,
+  AnimationResetContext
+} from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
@@ -21,11 +26,11 @@ const Editor = props => {
   // popup state
   const [popup, setPopup] = useState(false);
 
+  // animtion reset state
+  const [animationReset, setAnimationReset] = useState(false);
+
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
-    // print action size in chars to help profile network use
-    // console.log(JSON.stringify(action).length);
-
     if (action.type === constants.MSG.SEND_SPRITE) {
       return action.sprite;
     } else if (action.type === constants.MSG.CURSOR_UPDATE) {
@@ -116,8 +121,8 @@ const Editor = props => {
         name: action.name
       };
       return newState;
-    }
-  };
+    } 
+  }
 
   // initialize sprite state to an empty sprite object
   const hash = props.location.pathname.slice(1);
@@ -190,24 +195,33 @@ const Editor = props => {
     socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
+    
+    //when we add to user history in the server, dispatch to sprite state
+    socket.on(constants.MSG.SEND_HISTORY_LIST, history => {
+      spriteDispatch({type: constants.MSG.SEND_HISTORY_LIST, history})
+    })
   }, []);
 
-  console.log('layers', sprite.frames[0].layers);
   return (
     <div className="app-container">
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <PopupContext.Provider value={[popup, setPopup]}>
-            {popup && <ImportExportPopup />}
-            <Navbar />
-            <StyleEditorPage />
-            <FramePicker />
-            <ConnectionInfo />
+            <AnimationResetContext.Provider
+              value={[animationReset, setAnimationReset]}
+            >
+              {popup && <ImportExportPopup />}
+              <Navbar />
+              <StyleEditorPage />
+              <FramePicker />
+              <ConnectionInfo />
+            </AnimationResetContext.Provider>
           </PopupContext.Provider>
         </SpriteContext.Provider>
       </SocketContext.Provider>
     </div>
   );
 };
+
 
 export default Editor;

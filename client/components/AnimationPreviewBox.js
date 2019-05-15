@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { SpriteContext } from '../contexts';
+import React, { useContext, useState, useEffect } from 'react';
+import { SpriteContext, AnimationResetContext } from '../contexts';
 import { useInterval } from '../rendering';
 import { SmallCanvas } from '../components';
 const constants = require('../../shared/constants');
@@ -8,6 +8,15 @@ const AnimationPreviewBox = () => {
   const sprite = useContext(SpriteContext);
   const [fps, setFps] = useState(10);
   let [frameIndex, setFrameIndex] = useState(0);
+  const [animationReset, setAnimationReset] = useContext(AnimationResetContext);
+
+  // handle animation resets when the user deletes a frame
+  useEffect(() => {
+    if (animationReset == true) {
+      setAnimationReset(false);
+      setFrameIndex(0);
+    }
+  }, [animationReset]);
 
   let layers;
   if (sprite.frames[frameIndex]) {
