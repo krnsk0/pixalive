@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { SocketContext, SpriteContext } from '../contexts';
 const constants = require('../../shared/constants');
 
-
 const ColorPicker = () => {
   const slCanvasRef = useRef();
   const hCanvasRef = useRef();
@@ -10,11 +9,9 @@ const ColorPicker = () => {
   const [S, setS] = useState(0);
   const [L, setL] = useState(0);
   const PIXEL_SIZE = 10;
-  
-  const socket = useContext(SocketContext)
-  const sprite = useContext(SpriteContext)
-  
-  
+
+  const socket = useContext(SocketContext);
+  const sprite = useContext(SpriteContext);
 
   // set up canvas width & height after first mount
   useEffect(() => {
@@ -40,9 +37,9 @@ const ColorPicker = () => {
     }
   }, [H]);
 
-  let socketId
+  let socketId;
   if (socket) {
-    socketId = socket.id.slice(socket.nsp.length + 1)
+    socketId = socket.id.slice(socket.nsp.length + 1);
   }
   // paint the H canvas just once
   useEffect(() => {
@@ -60,62 +57,70 @@ const ColorPicker = () => {
   };
 
   //Click handler that converts x axis to H value
-  function hPicker (xLocation) {
+  function hPicker(xLocation) {
     //Get the ref to the hCanvas
     const hCanvas = hCanvasRef.current;
-    let hRect = hCanvas.getBoundingClientRect()
-    let hRectLeft = hRect.left
-    let hRectRight = hRect.right
-    const rectX = xLocation - hRectLeft
-    let totalRange = hRectRight - hRectLeft
+    let hRect = hCanvas.getBoundingClientRect();
+    let hRectLeft = hRect.left;
+    let hRectRight = hRect.right;
+    const rectX = xLocation - hRectLeft;
+    let totalRange = hRectRight - hRectLeft;
     //Get the index of the pixel clicked
-    let pixelIndex = Math.floor((rectX / totalRange) * PIXEL_SIZE)
+    let pixelIndex = Math.floor((rectX / totalRange) * PIXEL_SIZE);
     //Use the pixel index to get the return H color
-    let returnHColor = pixelIndex * 36
+    let returnHColor = pixelIndex * 36;
     //Set the H color to require a re-render of the SL Canvas
-    setH(returnHColor)
-    setS(100)
-    setL(50)
-    let selectedColor = {h: returnHColor, s: 100, l: 50, o: 1}
-    socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, selectedColor)
+    setH(returnHColor);
+    setS(100);
+    setL(50);
+    let selectedColor = { h: returnHColor, s: 100, l: 50, o: 1 };
+    socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, selectedColor);
   }
 
-  function slPicker(x, y){
-    const slCanvas = slCanvasRef.current
-    const slRect = slCanvas.getBoundingClientRect()
-    let xLocation = x - slRect.left
-    let slRectTop = slRect.top
-    let slRectBottom = slRect.bottom
-    let yLocation = y - slRect.top
-    let pixelCoords = {}
-    pixelCoords.x = Math.floor((xLocation/(slRect.right - slRect.left)) * PIXEL_SIZE)
-    pixelCoords.y = Math.floor((yLocation/(slRectBottom - slRectTop)) * PIXEL_SIZE)
-    let color = `hsl(${H}, ${pixelCoords.x * 10}%, ${100 - (pixelCoords.y * 10)}%, 1.0)`
-    setS(pixelCoords.x * 10)
-    setL(100 - (pixelCoords.y * 10))
-    let selectedColor = {h: H, s: pixelCoords.x * 10, l: (100 - (pixelCoords.y * 10)), o: 1}
-    if (socket){
-      socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, selectedColor)
-
+  function slPicker(x, y) {
+    const slCanvas = slCanvasRef.current;
+    const slRect = slCanvas.getBoundingClientRect();
+    let xLocation = x - slRect.left;
+    let slRectTop = slRect.top;
+    let slRectBottom = slRect.bottom;
+    let yLocation = y - slRect.top;
+    let pixelCoords = {};
+    pixelCoords.x = Math.floor(
+      (xLocation / (slRect.right - slRect.left)) * PIXEL_SIZE
+    );
+    pixelCoords.y = Math.floor(
+      (yLocation / (slRectBottom - slRectTop)) * PIXEL_SIZE
+    );
+    let color = `hsl(${H}, ${pixelCoords.x * 10}%, ${100 -
+      pixelCoords.y * 10}%, 1.0)`;
+    setS(pixelCoords.x * 10);
+    setL(100 - pixelCoords.y * 10);
+    let selectedColor = {
+      h: H,
+      s: pixelCoords.x * 10,
+      l: 100 - pixelCoords.y * 10,
+      o: 1
+    };
+    if (socket) {
+      socket.emit(constants.MSG.UPDATE_SELECTED_COLOR, selectedColor);
     }
-    
   }
 
   return (
     <div className="color-picker-container">
       <canvas
-      ref={hCanvasRef}
-      onClick={e => {
-        hPicker(e.clientX)
-      }}
-       className="h-picker"
-       />
-      <canvas 
-      ref={slCanvasRef} 
-      className="sl-picker"
-      onClick={e => {
-        slPicker(e.clientX, e.clientY)
-      }} 
+        ref={hCanvasRef}
+        onClick={e => {
+          hPicker(e.clientX);
+        }}
+        className="h-picker"
+      />
+      <canvas
+        ref={slCanvasRef}
+        className="sl-picker"
+        onClick={e => {
+          slPicker(e.clientX, e.clientY);
+        }}
       />
       <div className="selected-color-row">
         <div>Selected color</div>

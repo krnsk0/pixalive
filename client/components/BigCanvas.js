@@ -1,5 +1,7 @@
+/* eslint-disable max-statements */
+/* eslint-disable complexity */
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { SocketContext, SpriteContext } from '../contexts';
+import { SocketContext, SpriteContext, PopupContext } from '../contexts';
 import {
   renderCursors,
   renderBigCanvas,
@@ -16,6 +18,9 @@ const BigCanvas = () => {
   // context & state
   const sprite = useContext(SpriteContext);
   const socket = useContext(SocketContext);
+  const [popup, setPopup] = useContext(PopupContext);
+  const popupRef = useRef();
+  popupRef.current = popup;
   const [canvasMouseCoords, setCanvasMouseCoords] = useState({
     x: false,
     y: false
@@ -94,7 +99,8 @@ const BigCanvas = () => {
         evt.clientY
       );
       // if in canvas and clicked, send click to server
-      if (inCanvas && mouseClickedRef.current) {
+      // don't allow clicks when in popup
+      if (inCanvas && mouseClickedRef.current && !popupRef.current) {
         const pixelCoords = convertCanvasToPixelCoords(
           canvasMouseCoordsRef.current,
           spriteRef.current
@@ -142,9 +148,53 @@ const BigCanvas = () => {
     renderCursors(ctx, sprite, socket);
   });
 
+  // get the selected tool
+  let selectedTool = 'pen';
+  if (socket && Object.keys(sprite.users).length) {
+    const socketId = socket.id.slice(socket.nsp.length + 1);
+    if (sprite.users[socketId]) {
+      selectedTool = sprite.users[socketId].selectedTool;
+    }
+  }
+  let brush;
+
+  if (sprite.frames[0].layers[0].pixels.length === 16) {
+    brush = constants.TOOLS.BRUSH_16;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 32) {
+    brush = constants.TOOLS.BRUSH_32;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 48) {
+    brush = constants.TOOLS.BRUSH_48;
+  }
+  if (sprite.frames[0].layers[0].pixels.length === 64) {
+    brush = constants.TOOLS.BRUSH_64;
+  }
+
+  // determine class name addendum
+  let extraClassName;
+  if (selectedTool === constants.TOOLS.PAINT_CAN) {
+    extraClassName = 'paint-can';
+  } else if (selectedTool === constants.TOOLS.PEN) {
+    extraClassName = 'pen';
+  } else if (selectedTool === constants.TOOLS.ERASER) {
+    extraClassName = 'eraser';
+  } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
+    extraClassName = 'eye-dropper';
+  } else if (
+    [
+      constants.TOOLS.BRUSH_16,
+      constants.TOOLS.BRUSH_32,
+      constants.TOOLS.BRUSH_48,
+      constants.TOOLS.BRUSH_64
+    ].includes(selectedTool)
+  ) {
+    extraClassName = 'brush';
+  }
+
   return (
     <div>
-      <canvas ref={canvasRef} className="big-canvas" />
+      <canvas ref={canvasRef} className={'big-canvas ' + extraClassName} />
     </div>
   );
 };

@@ -4,6 +4,15 @@ const paintCan = require('./paintCan');
 const { cloneDeep } = require('lodash');
 const brushChanges = require('../eventHandlers/brushChanges')
 
+const deepUnEquals = (a, b) => {
+  for (let k in a){
+    if (!(b[k] && a[k] === b[k])){
+      return true
+    }
+  }return false
+}
+
+
 module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   // when a cursor moves...
   socket.on(constants.MSG.CANVAS_CLICK, coords => {
@@ -15,6 +24,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     const layerToDraw = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels
     const previousColor = state[spriteHash].frames[selectedFrame].layers[selectedLayer].pixels[coords.y][coords.x]
     const brushes = [constants.TOOLS.BRUSH_16,constants.TOOLS.BRUSH_32,constants.TOOLS.BRUSH_48,constants.TOOLS.BRUSH_64]
+    const prevGrid = cloneDeep(layerToDraw)
     //generates the list of changes to the image on server state
 
     let history = state[spriteHash].users[socketId].history
@@ -28,13 +38,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: selectedColor
       });
-      history.unshift({
-        x: coords.x,
-        y: coords.y,
-        frameIdx: selectedFrame,
-        layerIdx: selectedLayer,
-        color: previousColor
-      })
+
     } else if (selectedTool === constants.TOOLS.ERASER) {
       changeList.push({
         x: coords.x,
@@ -43,13 +47,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: null
       });
-      history.unshift({
-        x: coords.x,
-        y: coords.y,
-        frameIdx: selectedFrame,
-        layerIdx: selectedLayer,
-        color: previousColor
-      })
+
     } else if (selectedTool === constants.TOOLS.EYE_DROPPER) {
       //get the cell color at coords
       let x = coords.x;
@@ -98,13 +96,13 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         layerIdx: selectedLayer,
         color: cloneDeep(selectedColor)
       }));
-      history.unshift(changeList.map(a => ({
-        x: a.x,
-        y: a.y,
-        frameIdx: selectedFrame,
-        layerIdx: selectedLayer,
-        color: previousColor
-      })))
+      // history.unshift(changeList.map(a => ({
+      //   x: a.x,
+      //   y: a.y,
+      //   frameIdx: selectedFrame,
+      //   layerIdx: selectedLayer,
+      //   color: previousColor
+      // })))
     } else if (brushes.includes(selectedTool)){
       console.log(layerToDraw)
       changeList = changeList.concat(brushChanges(selectedTool, coords.x, coords.y, layerToDraw).map(a => 
@@ -115,13 +113,13 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
           layerIdx: selectedLayer, 
           color: cloneDeep(selectedColor)
         })))
-      history.unshift(changeList.map(a => ({
-        x: a.x,
-        y: a.y,
-        frameIdx: selectedFrame,
-        layerIdx: selectedLayer,
-        color: previousColor
-      })))
+      // history.unshift(changeList.map(a => ({
+      //   x: a.x,
+      //   y: a.y,
+      //   frameIdx: selectedFrame,
+      //   layerIdx: selectedLayer,
+      //   color: previousColor
+      // })))
     }
 
 
@@ -150,6 +148,8 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
         }
       }
 
+      
+
       // if different, make a change and set the change flag to true
       if (different) {
         state[spriteHash].frames[c.frameIdx].layers[c.layerIdx].pixels[c.y][
@@ -159,9 +159,24 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       }
     });
 
+    
+    const hist = changeList.map(c => ({
+      x: c.x,
+      y: c.y,
+      frameIdx: selectedFrame,
+      layerIdx: selectedLayer,
+      color: prevGrid[c.y][c.x]
+    }))
+
+    if (madeChange){
+      if (hist.length > 1 || deepUnEquals(hist, history) || !history.length){
+        state[spriteHash].users[socketId].history.unshift(hist)
+      }
+    }
+    
+
     // send change list only if we actually made changes
     if (madeChange) {
-      // namespacedIo.emit(constants.MSG.SEND_HISTORY_LIST, history)
       namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
     }
   });

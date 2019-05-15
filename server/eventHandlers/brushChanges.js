@@ -18,13 +18,13 @@ module.exports = (brushType, x, y, layerToDraw) => {
         field = coordMaker(2, x, y)
     }
     else if (brushType === constants.TOOLS.BRUSH_32){
-        field = coordMaker(4, x, y)
+        field = coordMaker(3, x, y)
     }
     else if (brushType === constants.TOOLS.BRUSH_48){
-        field = coordMaker(6, x, y)
+        field = coordMaker(4, x, y)
     }
     else if (brushType === constants.TOOLS.BRUSH_64){
-        field = coordMaker(7, x, y)
+        field = coordMaker(5, x, y)
     }
     return field.filter(a => a.x >= 0 && a. y >= 0 & a.x < layerToDraw.length && a.y < layerToDraw.length)
 }

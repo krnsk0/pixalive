@@ -43,11 +43,11 @@ const spriteFactory = hash => {
 const initializeEmptySprite = (hash, w, h) => {
   const sprite = spriteFactory(hash);
   const frame = frameFactory(0);
-  const fg = layerFactory(w, h, 1);
   const bg = layerFactory(w, h, 0);
-  bg.name = 'background 1';
-  fg.name = 'foreground 1';
-  frame.layers.push(fg, bg);
+  const fg = layerFactory(w, h, 1);
+  bg.name = 'background';
+  fg.name = 'foreground';
+  frame.layers.push(bg, fg);
   sprite.frames.push(frame);
   return sprite;
 };
