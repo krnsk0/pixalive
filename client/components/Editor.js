@@ -10,7 +10,12 @@ import {
   GifExportButton,
   ImportExportPopup
 } from './';
-import { SocketContext, SpriteContext, PopupContext } from '../contexts';
+import {
+  SocketContext,
+  SpriteContext,
+  PopupContext,
+  AnimationResetContext
+} from '../contexts';
 const constants = require('../../shared/constants');
 const { initializeEmptySprite } = require('../../shared/factories');
 
@@ -20,6 +25,9 @@ const Editor = props => {
 
   // popup state
   const [popup, setPopup] = useState(false);
+
+  // animtion reset state
+  const [animationReset, setAnimationReset] = useState(false);
 
   // handle sprite reducer actions
   const spriteReducer = (state, action) => {
@@ -194,11 +202,15 @@ const Editor = props => {
       <SocketContext.Provider value={socket}>
         <SpriteContext.Provider value={sprite}>
           <PopupContext.Provider value={[popup, setPopup]}>
-            {popup && <ImportExportPopup />}
-            <Navbar />
-            <StyleEditorPage />
-            <FramePicker />
-            <ConnectionInfo />
+            <AnimationResetContext.Provider
+              value={[animationReset, setAnimationReset]}
+            >
+              {popup && <ImportExportPopup />}
+              <Navbar />
+              <StyleEditorPage />
+              <FramePicker />
+              <ConnectionInfo />
+            </AnimationResetContext.Provider>
           </PopupContext.Provider>
         </SpriteContext.Provider>
       </SocketContext.Provider>

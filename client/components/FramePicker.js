@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
-import { SpriteContext, SocketContext } from '../contexts';
+import {
+  SpriteContext,
+  SocketContext,
+  AnimationResetContext
+} from '../contexts';
 const constants = require('../../shared/constants');
 import { SmallCanvas } from './';
 import { GoTrashcan, GoTriangleLeft, GoTriangleRight } from 'react-icons/go';
@@ -10,6 +14,7 @@ const FramePicker = () => {
   const frames = sprite.frames;
   const canvasWidth = 80;
   const canvasHeight = 80;
+  const [animationReset, setAnimationReset] = useContext(AnimationResetContext);
 
   // get the selected frame from the sprite
   let selectedFrame = 0;
@@ -43,6 +48,7 @@ const FramePicker = () => {
   // click handler for shifting frames right
   const onDeleteFrameClick = frameOrder => {
     if (socket) {
+      setAnimationReset(true);
       socket.emit(constants.MSG.DELETE_FRAME, frameOrder);
     }
   };
