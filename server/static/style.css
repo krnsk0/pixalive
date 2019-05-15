@@ -64,6 +64,9 @@ body {
   font-size: 18px;
   font-family: 'Courier New', Courier, monospace;
 }
+.undo-icon {
+  margin-top: -5px;
+}
 .top-button {
   background-color: var(--highlight-color);
   border-radius: 5px;
@@ -159,6 +162,7 @@ body {
   border: 5px solid var(--highlight-color);
   background-color: var(--highlight-color);
 }
+
 .small-canvas {
   background-color: white;
   z-index: 0;

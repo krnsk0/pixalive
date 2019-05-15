@@ -70,6 +70,8 @@ const FramePicker = () => {
                   visibility: 'hidden'
                 }
               : {};
+          const trashCanStyle =
+            frames.length === 1 ? { visibility: 'hidden' } : {};
           return (
             <div
               key={frame.frameOrder}
@@ -102,7 +104,11 @@ const FramePicker = () => {
                   className="frame-button"
                   onClick={() => onDeleteFrameClick(frame.frameOrder)}
                 >
-                  <GoTrashcan className="frame-button-icon " size={16} />
+                  <GoTrashcan
+                    className="frame-button-icon "
+                    size={16}
+                    style={trashCanStyle}
+                  />
                 </div>
                 <div
                   className="frame-button"
