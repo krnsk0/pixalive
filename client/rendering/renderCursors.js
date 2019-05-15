@@ -14,20 +14,27 @@ const renderCursors = (ctx, sprite, socket) => {
     // skip if the user's own mouse
     if (id !== socketId) {
       let currentSpriteName = sprite.users[id].name;
+      let s = sprite.users[id].selectedColor;
 
       if (coords.x !== false) {
-        //Create white border on pointer
-        ctx.fillStyle = `hsl(0, 0%, 100%, 1.0)`;
-        // const half = Math.floor(constants.CURSOR_SIZE / 2);
-        // ctx.fillRect(
-        //   coords.x - half,
-        //   coords.y - half,
-        //   constants.CURSOR_SIZE + 2,
-        //   constants.CURSOR_SIZE + 2
-        // );
+        // draw box around text
+        let textWidth;
+        if (currentSpriteName.length > 0) {
+          textWidth = 4 + currentSpriteName.length * 9.2;
+        } else {
+          textWidth = 0;
+        }
+        if (s.l > 60) {
+          ctx.fillStyle = `hsl(0, 0%, 0%, 1.0)`; //black
+        } else {
+          ctx.fillStyle = `hsl(0, 0%, 100%, 1.0)`; // white
+        }
+        ctx.fillRect(coords.x + 6, coords.y - 12, textWidth, 15);
 
+        // set color to selected color and draw the text
         ctx.font = '15px Courier';
-        ctx.fillText(currentSpriteName, coords.x + 6, coords.y + 2);
+        ctx.fillStyle = `hsl(${s.h}, ${s.s}%, ${s.l}%, 1.0)`;
+        ctx.fillText(currentSpriteName, coords.x + 8, coords.y);
 
         // create an image to use for the cursor
         let offsetX;
@@ -36,10 +43,10 @@ const renderCursors = (ctx, sprite, socket) => {
         const img = document.createElement('img');
         if (selectedTool === constants.TOOLS.PAINT_CAN) {
           img.src = '/fill-color.png';
-          [offsetX, offsetY] = [-10, -10];
+          [offsetX, offsetY] = [-15, -8];
         } else if (selectedTool === constants.TOOLS.PEN) {
           img.src = '/pencil-tip.png';
-          [offsetX, offsetY] = [-13, -8];
+          [offsetX, offsetY] = [-7, -6];
         } else if (selectedTool === constants.TOOLS.ERASER) {
           img.src = '/eraser.png';
           [offsetX, offsetY] = [-6, -5];
@@ -55,14 +62,9 @@ const renderCursors = (ctx, sprite, socket) => {
           ].includes(selectedTool)
         ) {
           img.src = '/paint.png';
-          [offsetX, offsetY] = [-8, -10];
+          [offsetX, offsetY] = [-7, -9];
         }
         ctx.drawImage(img, coords.x + offsetX, coords.y + offsetY);
-
-        // set color to selected color
-        let s = sprite.users[id].selectedColor;
-        ctx.fillStyle = `hsl(${s.h}, ${s.s}%, ${s.l}%, 1.0)`;
-        ctx.fillText(currentSpriteName, coords.x + 5, coords.y);
       }
     }
   }
