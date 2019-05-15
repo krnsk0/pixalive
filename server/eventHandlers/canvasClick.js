@@ -170,11 +170,17 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
 
     if (madeChange){
       if (hist.length > 1 || deepUnEquals(hist, history) || !history.length){
-        state[spriteHash].users[socketId].history.unshift(hist)
+        if (history.length < 25){
+          state[spriteHash].users[socketId].history.unshift(hist)
+        }
+        else {
+          state[spriteHash].users[socketId].history.pop()
+          state[spriteHash].users[socketId].history.unshift(hist)
+        }
       }
     }
     
-
+    console.log(history.length)
     // send change list only if we actually made changes
     if (madeChange) {
       namespacedIo.emit(constants.MSG.SEND_CHANGE_LIST, changeList);
