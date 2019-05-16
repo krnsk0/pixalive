@@ -39,7 +39,7 @@ const saveData = async stateSprite => {
       });
     });
     console.log(
-      chalk.red(`saveData.js -> SAVED TO DB -> spriteHash: ${spriteHash}`)
+      chalk.blue(`saveData.js -> SAVED TO DB -> spriteHash: ${spriteHash}`)
     );
   } catch (err) {
     console.error(err);

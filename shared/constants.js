@@ -50,7 +50,7 @@ module.exports = deepFreeze({
     ROTATE_SELECTED_LAYER: 'rotate_selected_layer',
     COPY_LAYER_TO_ONE_FRAME: 'copy_layer_to_one_frame',
     SEND_HISTORY_LIST: 'send_history_list', //a server-to-client event
-    UNDO: 'undo',
+    UNDO: 'undo'
   },
   TOOLS: {
     SELECT_TOOL: 'select_tool', // a client-to-server event
@@ -76,5 +76,6 @@ module.exports = deepFreeze({
   FPS_CAP: 24,
   SL_PICKER_WIDTH: 100,
   SL_PICKER_HEIGHT: 100,
-  H_PICKER_WIDTH: 100
+  H_PICKER_WIDTH: 100,
+  SAVE_INTERVAL: 5000
 });
