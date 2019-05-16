@@ -49,6 +49,7 @@ const GifExportButton = () => {
           if (!result.error) {
             download(result.image, 'image.gif', 'image/gif');
             setPopup(false);
+            document.removeChild(canvas);
           }
         }
       );
