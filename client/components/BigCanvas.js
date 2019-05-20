@@ -131,6 +131,7 @@ const BigCanvas = () => {
     socket && window.addEventListener('mouseup', onWindowMouseUp);
     socket && window.addEventListener('mousemove', onWindowMouseMove);
     return () => {
+      console.log('removing listeners')
       window.removeEventListener('mousedown', onWindowMouseDown);
       window.removeEventListener('mouseup', onWindowMouseUp);
       window.removeEventListener('mousemove', onWindowMouseMove);
