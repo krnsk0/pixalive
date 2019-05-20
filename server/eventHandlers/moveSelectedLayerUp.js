@@ -24,10 +24,12 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       // decrement selected layer
       state[spriteHash].users[socketId].selectedLayer = selectedLayer - 1;
 
-      // re-index layers
-      state[spriteHash].frames[selectedFrame].layers.forEach((layer, index) => {
-        layer.layerOrder = index;
-        return layer;
+      // re-index layers for all frames
+      state[spriteHash].frames.forEach(frame => {
+        frame.layers.forEach((layer, index) => {
+          layer.layerOrder = index;
+          return layer;
+        });
       });
 
       //send updated sprite
