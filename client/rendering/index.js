@@ -12,3 +12,4 @@ export {
 export { default as useInterval } from './useInterval';
 export { default as renderSmallCanvas } from './renderSmallCanvas';
 export { default as compositeLayers } from './compositeLayers';
+export { default as pixelsChanged } from './pixelsChanged';
