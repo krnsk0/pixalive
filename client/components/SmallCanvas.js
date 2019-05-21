@@ -7,7 +7,14 @@ import {
 } from '../rendering';
 
 const SmallCanvas = props => {
-  const { canvasWidth, canvasHeight, layers, canvasType } = props;
+  const {
+    canvasWidth,
+    canvasHeight,
+    layers,
+    canvasType,
+    identifier = null,
+    alwaysUpdate = false
+  } = props;
   const canvasRef = useRef();
   const pixelsRef = useRef();
 
@@ -28,7 +35,9 @@ const SmallCanvas = props => {
     pixelsRef.current = pixels;
 
     // check for changes and render if changes
-    if (pixelsChanged(prevPixels, pixels)) {
+    if (pixelsChanged(prevPixels, pixels) || alwaysUpdate) {
+      // uncomment to check when frames re-render
+      // !alwaysUpdate && console.log(`rerendering ${identifier}`);
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
