@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable curly */
 import React, { useEffect, useState, useReducer } from 'react';
 import io from 'socket.io-client';
 import {
@@ -115,14 +117,26 @@ const Editor = props => {
         }
       };
       return newState;
+    } else if (action.type === constants.MSG.BROADCAST_SELECTED_FRAME_UPDATE) {
+      let newState = {
+        ...state,
+        users: {
+          ...state.users,
+          [action.socketId]: {
+            ...state.users[action.socketId],
+            selectedFrame: action.selectedFrame
+          }
+        }
+      };
+      return newState;
     } else if (action.type === constants.MSG.SEND_SPRITE_NAME) {
       let newState = {
         ...state,
         name: action.name
       };
       return newState;
-    } 
-  }
+    }
+  };
 
   // initialize sprite state to an empty sprite object
   const hash = props.location.pathname.slice(1);
@@ -191,15 +205,23 @@ const Editor = props => {
       });
     });
 
+    // when we get a selected frame update
+    socket.on(constants.MSG.BROADCAST_SELECTED_FRAME_UPDATE, stuff => {
+      spriteDispatch({
+        type: constants.MSG.BROADCAST_SELECTED_FRAME_UPDATE,
+        ...stuff
+      });
+    });
+
     // when we get a name update, dispatch to sprite state
     socket.on(constants.MSG.SEND_SPRITE_NAME, name => {
       spriteDispatch({ type: constants.MSG.SEND_SPRITE_NAME, ...name });
     });
-    
+
     //when we add to user history in the server, dispatch to sprite state
     socket.on(constants.MSG.SEND_HISTORY_LIST, history => {
-      spriteDispatch({type: constants.MSG.SEND_HISTORY_LIST, history})
-    })
+      spriteDispatch({ type: constants.MSG.SEND_HISTORY_LIST, history });
+    });
   }, []);
 
   return (
@@ -222,6 +244,5 @@ const Editor = props => {
     </div>
   );
 };
-
 
 export default Editor;

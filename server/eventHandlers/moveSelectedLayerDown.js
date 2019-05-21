@@ -17,20 +17,19 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     ) {
       // move layer for each frame
       state[spriteHash].frames.forEach(frame => {
-        // store deleted layer
         const deletedLayer = frame.layers.splice(selectedLayer, 1);
-
-        // insert deleted layer
         frame.layers.splice(selectedLayer + 1, 0, deletedLayer[0]);
       });
 
       // increment selected layer
       state[spriteHash].users[socketId].selectedLayer = selectedLayer + 1;
 
-      // re-index layers
-      state[spriteHash].frames[selectedFrame].layers.forEach((layer, index) => {
-        layer.layerOrder = index;
-        return layer;
+      // re-index layers for all frames
+      state[spriteHash].frames.forEach(frame => {
+        frame.layers.forEach((layer, index) => {
+          layer.layerOrder = index;
+          return layer;
+        });
       });
 
       //send updated sprite

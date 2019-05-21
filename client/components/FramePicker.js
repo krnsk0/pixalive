@@ -94,6 +94,7 @@ const FramePicker = () => {
                   canvasHeight={canvasHeight}
                   layers={frame.layers}
                   canvasType="frame"
+                  identifier={`frame #${frame.frameOrder}`}
                 />
               </div>
               <div className="frame-button-container">

@@ -1,6 +1,4 @@
-const renderSingleLayer = (layer, ctx, canvasWidth, canvasHeight) => {
-  const pixels = layer.pixels;
-
+const renderSmallCanvas = (ctx, pixels, canvasWidth, canvasHeight) => {
   // calculate pixel dims
   const pixelWidth = canvasWidth / pixels[0].length;
   const pixelHeight = canvasHeight / pixels.length;
@@ -18,14 +16,6 @@ const renderSingleLayer = (layer, ctx, canvasWidth, canvasHeight) => {
       // fill it in
       ctx.fillRect(x * pixelWidth, y * pixelHeight, pixelWidth, pixelHeight);
     }
-  }
-};
-
-const renderSmallCanvas = (ctx, layers, canvasWidth, canvasHeight) => {
-  if (layers) {
-    layers.forEach(layer => {
-      renderSingleLayer(layer, ctx, canvasWidth, canvasHeight);
-    });
   }
 };
 
