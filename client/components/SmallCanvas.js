@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-// import { SpriteContext, SocketContext } from '../contexts';
-// const constants = require('../../shared/constants');
-import { renderSmallCanvas, renderBackdrop } from '../rendering';
+import {
+  renderSmallCanvas,
+  renderBackdrop,
+  compositeLayers
+} from '../rendering';
 
 const SmallCanvas = props => {
   const { canvasWidth, canvasHeight, layers, canvasType } = props;
@@ -22,7 +24,8 @@ const SmallCanvas = props => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     renderBackdrop(ctx);
-    renderSmallCanvas(ctx, layers, canvasWidth, canvasHeight);
+    const pixels = compositeLayers(layers);
+    renderSmallCanvas(ctx, pixels, canvasWidth, canvasHeight);
   });
 
   return <canvas ref={canvasRef} className={'small-canvas ' + canvasType} />;
