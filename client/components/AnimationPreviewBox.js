@@ -46,6 +46,7 @@ const AnimationPreviewBox = () => {
           canvasWidth={192}
           canvasHeight={192}
           canvasType="animation"
+          alwaysUpdate={true}
         />
       </div>
       <div className="fps-range-selector-container">
