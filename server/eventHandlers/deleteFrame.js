@@ -21,7 +21,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
       state[spriteHash].frames.splice(frameToDelete, 1);
       //
 
-      // re-index layers
+      // re-index frames
       state[spriteHash].frames.forEach((frame, index) => {
         frame.frameOrder = index;
         return frame;

@@ -17,10 +17,7 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
     ) {
       // move layer for each frame
       state[spriteHash].frames.forEach(frame => {
-        // store deleted layer
         const deletedLayer = frame.layers.splice(selectedLayer, 1);
-
-        // insert deleted layer
         frame.layers.splice(selectedLayer + 1, 0, deletedLayer[0]);
       });
 
