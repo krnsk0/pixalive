@@ -1,7 +1,7 @@
 ## Pixalive
 
 See Pixalive in action here: https://pixalive.herokuapp.com/
-Video: pending
+Video: https://www.youtube.com/watch?v=PVSvkN2WdAw
 
 Pixalive is a free, multi-user, real-time editor for animated sprites and pixel art. To invite friends to collaborate with you, simply send them the URL to your sprite. All changes are automatically saved and sent to all collaborators. 
 
