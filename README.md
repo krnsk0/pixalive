@@ -1,4 +1,8 @@
-## Pixalive
+
+[![Build Status](https://travis-ci.org/pixalive/pixalive.svg?branch=master)](https://travis-ci.org/pixalive/pixalive)
+
+### Initial setup
+
 
 See Pixalive in action here: https://pixalive.herokuapp.com/
 Video: https://www.youtube.com/watch?v=PVSvkN2WdAw
