@@ -5,6 +5,9 @@ module.exports = (socket, namespacedIo, state, spriteHash, socketId) => {
   socket.on(constants.MSG.UPDATE_SELECTED_FRAME, selectedFrame => {
     state[spriteHash].users[socketId].selectedFrame = selectedFrame;
 
-    namespacedIo.emit(constants.MSG.SEND_SPRITE, state[spriteHash]);
+    namespacedIo.emit(constants.MSG.BROADCAST_SELECTED_FRAME_UPDATE, {
+      selectedFrame,
+      socketId
+    });
   });
 };
