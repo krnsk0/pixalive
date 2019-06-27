@@ -54,7 +54,7 @@ const FramePicker = () => {
   };
 
   return (
-    <div className="bottom-section-container-add-frame">
+    <div className="bottom-section-container">
       <div
         className="bottom-section-flex-container"
         style={
