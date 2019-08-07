@@ -18,3 +18,4 @@ export { default as Main } from './Main';
 export { default as Homepage } from './Homepage';
 export { default as CopyTools } from './copyTools';
 export { default as ImportExportPopup } from './ImportExportPopup';
+export { default as PngExport } from './PngExport';

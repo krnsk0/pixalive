@@ -15,6 +15,18 @@ module.exports = (namespacedIo, io) => {
   // a hash of namespaces/sprites
   const state = {};
 
+  // save on a schedule
+  setInterval(async () => {
+    for (let key of Object.keys(state)) {
+      console.log(
+        chalk.blue(
+          `pixalive.js -> AUTOSAVING ${Object.keys(state).length} SPRITES`
+        )
+      );
+      await saveData(state[key]);
+    }
+  }, constants.SAVE_INTERVAL);
+
   namespacedIo.on(constants.MSG.CONNECT, async socket => {
     // store our sprite hash and socket id
     const spriteHash = socket.nsp.name.slice(1);

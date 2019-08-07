@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import { PopupContext } from '../contexts';
-import { ExportStringButton, ImportStringButton, GifExportButton } from './';
+import {
+  ExportStringButton,
+  ImportStringButton,
+  GifExportButton,
+  PngExport
+} from './';
 
 const ImportExportPopup = () => {
   const [popup, setPopup] = useContext(PopupContext);
@@ -10,6 +15,7 @@ const ImportExportPopup = () => {
         <ExportStringButton />
         <ImportStringButton />
         <GifExportButton />
+        <PngExport />
 
         <div className="close-popup" onClick={() => setPopup(false)}>
           close
